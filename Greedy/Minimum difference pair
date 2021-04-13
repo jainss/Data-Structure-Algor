@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+class Solution{
+	public:
+   	int  minimum_difference(vector<int>a){
+   	int min=INT_MAX;
+ 	sort(a.begin(),a.end());
+ 	for(int i=0;i<a.size()-1;i++){
+ 	    if(abs(a[i]-a[i+1])<min){
+ 	        min=abs(a[i]-a[i+1]);
+ 	    }
+ 	}
+ 	return min;
+   	}    
+};
+
+// { Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n;
+		cin >> n;
+		vector<int>nums(n);
+		for(int i = 0; i < nums.size(); i++)cin >> nums[i];
+		Solution ob;
+		int ans = ob.minimum_difference(nums);
+		cout << ans <<"\n";
+	}  
+	return 0;
+}  // } Driver Code Ends
