@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct jew{
+  long long int w,v;  
+};
+
+bool cmp(jew a,jew b){
+    if(a.v!=b.v){
+        return a.v>b.v;
+    }
+    return a.w<b.w;
+}
+
+int main() {
+    long long int n,k;
+    cin>>n>>k;
+    jew a[n];
+    multiset<int>mset;
+    for(int i=0;i<n;i++){
+        cin>>a[i].w>>a[i].v;
+    }
+    sort(a,a+n,cmp);
+    long long int x;
+    for(int i=0;i<k;i++){
+        cin>>x;
+        mset.insert(x); 
+    }
+    long long int i=0,sum=0;
+    while(i<n){
+        if(mset.empty()){
+            break;
+        }
+        if(mset.lower_bound(a[i].w)!=mset.end()){
+            sum+=a[i].v;
+            mset.erase(mset.lower_bound(a[i].w));
+        }
+        i++;
+    }
+    cout<<sum;
+    return 0;
+}
