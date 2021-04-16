@@ -1,0 +1,60 @@
+//Initial Template for C++
+
+
+// CPP program to generate power set
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+//User function Template for C++
+
+//Complete this function
+vector <string> powerSet(string s){
+    int n=s.size();
+    int tot=pow(2,n);
+    vector<string>vec;
+    for(int i=0;i<tot;i++){
+        string st="";
+        for(int j=0;j<n;j++){
+            if(i&(1<<j)){
+                st+=s[j];
+            }
+        }
+        // if(st!=""){
+           vec.push_back(st); 
+        
+    }
+   return vec;
+}
+
+
+// { Driver Code Starts.
+
+
+// Driver code
+int main()
+{
+    int T;
+    cin>>T;//testcases
+    while(T--)
+    {
+        string s;
+        cin>>s;//input string
+        
+        //calling powerSet() function
+        vector<string> ans = powerSet(s);
+        
+        //sorting the result of the powerSet() function
+        sort(ans.begin(),ans.end());
+        
+        //printing the result
+        for(auto x:ans)
+        cout<<x<<" ";
+        cout<<endl;
+        
+        
+    }
+
+return 0;
+}   // } Driver Code Ends
