@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,c=0;
+    cin>>n;
+    while(n!=0){
+        c++;
+       int ans=n&(-n);
+       n-=ans;
+    }
+    cout<<c;
+    return 0;
+}
+
+
+
+//https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/bit-manipulation/kernighans-algo-official/ojquestion
