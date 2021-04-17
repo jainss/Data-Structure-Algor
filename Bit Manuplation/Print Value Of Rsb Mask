@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void fun(int ans){
+    if(ans==0){
+        return ;
+    }
+    fun(ans/2);
+    cout<<ans%2;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int ans=n&(-n);
+    fun(ans);
+    return 0;
+}
+
+
+
+
+//https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/bit-manipulation/print-value-of-rsb-mask-official/ojquestion
