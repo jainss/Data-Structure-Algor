@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> grayCode(int n) {
+    if(n==1)
+        return {0,1};
+    
+    vector<int> tmp = grayCode(n-1);
+    int y = tmp.size();
+    for(int i=y-1; i>=0; i--){
+        int x = tmp[i] | (1<<(n-1));
+        tmp.push_back(x);
+    }
+    return tmp;
+    }
+};
+
+
+//https://leetcode.com/problems/gray-code/
