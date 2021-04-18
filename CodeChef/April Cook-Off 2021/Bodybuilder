@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+ int main(){
+     int t;
+     cin>>t;
+     while(t--){
+         long long int n,r,f=1;
+         cin>>n>>r;
+         long long int a[n],b[n];
+         for(int i=0;i<n;i++){
+             cin>>a[i];
+         }
+         for(int i=0;i<n;i++){
+             cin>>b[i];
+         }
+         long long int max=b[0],pow=b[0];
+         for(int i=1;i<n;i++){
+             int dif=abs(a[i-1]-a[i]);
+             pow=pow-dif*r;
+             if(pow<0){
+                pow=0;
+             }
+             pow+=b[i];
+            if(pow>max){
+                max=pow;
+            }
+         }
+         cout<<max<<endl;
+     }
+     return 0;
+ }
