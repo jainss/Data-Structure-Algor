@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> findNumOfValidWords(vector<string>& words, vector<string>& puzzles) {
+          map<char,vector<int>>mp;
+        vector<int>ans;
+          for(int i=0;i<26;i++){
+              mp[('a'+i)]=vector<int>(0);
+          }
+          for(auto wrd : words){
+              int mask=0;
+              for(auto ch :wrd){
+                  mask=mask|(1<<(ch-'a'));
+              }
+              set<int>st;
+              for(auto ch:wrd){
+                  if(st.find(ch)!=st.end()){
+                      continue;
+                  }
+                  st.insert(ch);
+                  mp[ch].push_back(mask);
+              }
+          }
+          for(auto puz :puzzles){
+              int pmask=0;
+              for(auto ch :puz){
+                  pmask=pmask|(1<<(ch-'a'));
+              }
+              char ch=puz[0];
+              vector<int> wordtocheck=mp[ch];
+              int count=0;
+              for(auto wmask: wordtocheck){
+                  if((wmask&pmask)==wmask){
+                      count++;
+                  }
+              }
+              ans.push_back(count);
+          }
+        return ans;
+    }
+};
