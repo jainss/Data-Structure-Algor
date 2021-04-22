@@ -1,0 +1,30 @@
+class Solution {
+public:
+    
+    void solve(int o,int c,string out,vector<string>&vec){
+        if(o==0&&c==0){
+            vec.push_back(out);
+            return;
+        }
+        if(o!=0){
+            string o1=out;
+            o1.push_back('(');
+            solve(o-1,c,o1,vec);
+        }
+        if(c>o){
+            string o1=out;
+            o1.push_back(')');
+            solve(o,c-1,o1,vec);
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string>vec;
+        int c=n;
+        int o=n;
+        string out="";
+        solve(o,c,out,vec);
+        return vec;
+    }
+};
+
+//https://leetcode.com/problems/generate-parentheses/submissions/
