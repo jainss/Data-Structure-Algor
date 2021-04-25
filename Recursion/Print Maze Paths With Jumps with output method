@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+void solve(int r,int c,int n,int m,string ans){
+   if(r==n&&c==m){
+	   cout<<ans<<endl;
+	   return ;
+   }
+   for(int i=1;i<=m-c;i++){
+	   solve(r,c+i,n,m,ans+'h'+(char)('0'+i));
+   }
+   for(int i=1;i<=n-r;i++){
+	   solve(r+i,c,n,m,ans+'v'+(char)('0'+i));
+   }
+   for(int i=1;i<=m-c&&i<=n-r;i++){
+	   solve(r+i,c+i,n,m,ans+'d'+(char)('0'+i));
+   }
+}
+
+int main(){
+	int n,m;
+	cin>>n>>m;
+	if(n==0||m==0){
+		cout<<"";
+	}
+	solve(1,1,n,m,"");
+}
+
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-on-the-way-up/print-maze-path-with-jumps-official/ojquestion
