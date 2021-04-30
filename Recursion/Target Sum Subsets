@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+ void solve(int n,vector<int>a,string ans,int tar,int sum){
+     if(a.size()==n){
+            if(sum==tar){
+             cout<<ans<<"."<<endl;
+            }
+             return;
+     }
+     string st=ans;
+     string str=to_string(a[n]);
+     st=st+str;
+     st+=", ";
+     int sum2=sum+a[n];
+     solve(n+1,a,st,tar,sum2);
+     solve(n+1,a,ans,tar,sum);
+ }
+int main(){
+    int n,tar;
+    cin>>n;
+    vector<int>a;
+    for(int i=0;i<n;i++){
+        int c;
+        cin>>c;
+        a.push_back(c);
+    }
+    cin>>tar;
+    solve(0,a,"",tar,0);
+}
