@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+void solve(int n,int m,vector<vector<int>>a,vector<vector<bool>>b,string ans){
+     if(n<0||m<0||n==a.size()||m==a[0].size()||a[n][m]==1||b[n][m]==true){
+         return ;
+     }
+     if(n==a.size()-1&&m==a[0].size()-1){
+         cout<<ans<<endl;
+         return ;
+     }
+     b[n][m]=true;
+     solve(n-1,m,a,b,ans+"t");
+     solve(n,m-1,a,b,ans+"l");
+     solve(n+1,m,a,b,ans+"d");
+     solve(n,m+1,a,b,ans+"r");
+     b[n][m]=false;
+}
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>>a;
+    for(int i=0;i<n;i++){
+        vector<int>v1;
+        for(int j=0;j<m;j++){
+            int c;
+            cin>>c;
+            v1.push_back(c);
+        }
+        a.push_back(v1);
+    }
+     vector<vector<bool>>b;
+    for(int i=0;i<n;i++){
+        vector<bool>v2;
+        for(int j=0;j<m;j++){
+            v2.push_back(false);
+        }
+        b.push_back(v2);
+    }
+    solve(0,0,a,b,"");
+    return 0;
+}
+
+
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-backtracking/flood-fill-official/ojquestion
