@@ -1,0 +1,48 @@
+#include <bits/stdc++.h> 
+using namespace std;
+void display(vector<vector<int>>vec){
+	for(int i=0;i<vec.size();i++){
+		for(int j=0;j<vec[i].size();j++){
+			cout<<vec[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+		cout<<endl;
+}
+
+void solve(vector<vector<int>> vec,int r,int c,int move){
+	if(r<0||c<0||r>=vec.size()||c>=vec.size()||vec[r][c]>0){
+		return ;
+	}
+	else if(move==(vec.size()*vec.size())){
+		vec[r][c]=move;
+		display(vec);
+		vec[r][c]=0;
+		return ;
+	}
+	vec[r][c]=move;
+	solve(vec,r-2,c+1,move+1);
+	solve(vec,r-1,c+2,move+1);
+	solve(vec,r+1,c+2,move+1);
+	solve(vec,r+2,c+1,move+1);
+	solve(vec,r+2,c-1,move+1);
+	solve(vec,r+1,c-2,move+1);
+	solve(vec,r-1,c-2,move+1);
+	solve(vec,r-2,c-1,move+1);
+	vec[r][c]=0;
+}
+
+int main(){
+	int n,r,c;
+	cin>>n>>r>>c;
+	vector<vector<int>> vec;
+	for(int i=0;i<n;i++){
+		vector<int>ve;
+		for(int j=0;j<n;j++){
+			ve.push_back(0);
+		}
+		vec.push_back(ve);
+	}
+    solve(vec,r,c,1);
+	return 0;
+}
