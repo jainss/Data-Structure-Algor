@@ -1,0 +1,103 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    int size=0;
+    vector<Node *>child;
+};
+
+Node *newnode(int data){
+    Node *temp=new Node;
+    temp->data=data;
+    return temp;
+}
+
+void printtree(Node *root){
+    if(root==NULL){
+        return ;
+    }
+    cout<<root->data<<":";
+    for(int i=0;i<root->child.size();i++){
+        cout<<root->child[i]->data<<",";
+    }
+    cout<<endl;
+    for(int i=0;i<root->child.size();i++){
+        printtree(root->child[i]);
+    }
+}
+
+Node* inputtree(){
+  int rootdata;
+  cout<<"Enter data";
+  cin>>rootdata;
+  Node *root=newnode(rootdata);
+  int n;
+  cout<<"Enter the number of children of "<<rootdata<<endl;
+  cin>>n;
+  for(int i=0;i<n;i++){
+      Node *child=inputtree();
+      root->child.push_back(child);
+  }
+  return root;
+}
+
+int sizeoft(Node*root){
+ int s=0;
+ for(auto i :root->child){
+     int si=sizeoft(i);
+     s+=si;
+ }
+ root->size=s;
+ s++;
+ return s;
+}
+
+int maxnode(Node *root){
+   int ma=INT_MIN;
+   for(auto child:root->child){
+       int cm=maxnode(child->data);
+       ma=max(cm,ma);
+   }
+   ma=max(ma,root->data);
+   return ma;
+}
+
+int main(){
+
+    // method -1
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    stack<Node*>st;
+    struct Node *root=NULL;
+    for(int i=0;i<n;i++){
+      if(arr[i]==-1){
+          st.pop();
+      }
+      else{
+          Node *node=newnode(arr[i]);
+          if(st.size()>0){
+              st.top()->child.push_back(node);
+          }
+          else{
+             root=node;
+          }
+          st.push(node);
+      }
+    }
+
+    // method -2
+
+    // Node *root=inputtree();
+    // printtree(root);
+
+    // int siz=sizeoft(root);
+    
+    int max=maxnode(root);
+    cout<<max<<endl;
+    return 0;
+}
