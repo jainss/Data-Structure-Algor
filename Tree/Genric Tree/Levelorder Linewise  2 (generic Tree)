@@ -152,25 +152,69 @@ void levelorderzigzag(Node *root){
 }
 
 void levelorderline2(Node *root){
+    if(!root){
+        return {};
+    }
     queue<Node *>q1;
     q1.push(root);
-    q1.push(Node(-1));
+    q1.push(NULL);
+    vector<vector<int>>res;
+    vector<int>vec;
     while(!q1.empty()){
          Node* node=q1.front();
-         if(node.date !=-1){
-             cout<<node->data;
+         if(node!=NULL){
+             vec.push_back(node->data);
              for(auto child:node->child){
                  q1.push(child);
              }
          } 
          else{
+              res.push_back(vec);
              if(!q1.empty()){
-                 q1.push(Node(-1));
-                 cout<<endl;
+                 q1.push(NULL);
+                 vec.clear();
              }
          } 
     }
 } 
+
+
+void levelorderline3(Node *root){
+    queue<Node*>q;
+    q.push(root);
+    while (!q.empty()){
+      int si=q.size();
+      for(int i=0;i<si;i++){
+          Node *node=q.front();
+          q.pop();
+          cout<<node->data<<" ";
+          for(auto child:node->child){
+              q.push(child);
+          }
+      }
+      cout<<endl;
+    }
+}
+
+
+void levelorderline4(Node* root){
+    queue<pair<Node *,int >>q;
+    q.push({root,1});
+    int level =1;
+    while (!q.empty()){
+        pair<Node*,int> p;
+        p=q.front();
+        q.pop();
+        if(p.second>level){
+            level=p.second;
+            cout<<endl;
+        }
+        cout<<p.first->data<<" ";
+        for(auto child:p.first->child){
+            q.push({child,level+1});
+        }
+    }
+}
 
 int main(){
 
@@ -218,8 +262,10 @@ int main(){
 
     // levelorderzigzag(root);
 
-    levelorderline2(root);
+    // levelorderline2(root);
 
     // levelorderline3(root);
+
+    levelorderline4(root);
     return 0;
 }
