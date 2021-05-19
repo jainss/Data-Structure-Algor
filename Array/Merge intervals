@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>>vec;
+        if(intervals.size()==0){
+            return vec;
+        }
+        sort(intervals.begin(),intervals.end());
+        vector<int>v1=intervals[0];
+        for(auto it:intervals){
+            if(it[0]<=v1[1]){
+                v1[1]=max(it[1],v1[1]);
+            }
+            else{
+                vec.push_back(v1);
+                v1=it;
+            }
+        }
+        vec.push_back(v1);
+        return vec;
+    }
+};
