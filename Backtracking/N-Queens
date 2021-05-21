@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void solve(vector<vector<string>>&ans,vector<string>vec,int row,vector<bool>col,vector<bool>nd,vector<bool>rd){
+        if (row == vec.size()){
+         ans.push_back(vec);
+         return;
+        }
+       for (int i = 0; i < vec.size(); i++)
+       {
+       if (col[i] == false && nd[i + row] == false && rd[row - i + vec.size() - 1] == false)
+       {
+      vec[row][i] = 'Q';
+      col[i] = true;
+      nd[row + i] = true;
+      rd[row - i + vec.size() - 1] = true;
+      solve(ans,vec, row + 1, col, nd, rd);
+      vec[row][i] = '.';
+      col[i] = false;
+      nd[row + i] = false;
+      rd[row - i + vec.size() - 1] = false;
+      } 
+     }
+   }
+    
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>ans;
+        vector<string>vec(n);
+        string s(n,'.');
+        for(int i=0;i<n;i++){
+            vec[i]=s;
+        }
+         vector<bool> col(n, false);
+         vector<bool> nd(2 * n - 1, false);
+         vector<bool> rd(2 * n - 1, false);
+        solve(ans,vec,0,col,nd,rd);
+        return ans;
+    }
+};
