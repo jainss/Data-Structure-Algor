@@ -1,3 +1,6 @@
+//Method 1;
+
+
 class Solution {
 public:
     void solve(vector<int>vec,vector<vector<int>>&ans,vector<int>nums,int vis[]){
@@ -22,6 +25,32 @@ public:
         int vis[nums.size()];
         for(int i=0;i<nums.size();i++) vis[i]=0;
         solve(vec,ans,nums,vis);
+        return ans;
+    }
+};
+
+
+
+//Method 2;
+
+
+class Solution {
+public:
+    void solve(vector<vector<int>>&ans,vector<int>nums,int ind){
+        if(ind==nums.size()){
+            ans.push_back(nums);
+            return ;
+        }
+        for(int i=ind;i<nums.size();i++){
+            swap(nums[i],nums[ind]);
+            solve(ans,nums,ind+1);
+            swap(nums[i],nums[ind]);
+        }
+    }
+    
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>ans;
+        solve(ans,nums,0);
         return ans;
     }
 };
