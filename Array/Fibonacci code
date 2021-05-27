@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main(int argc, char **argv)
+{
+    int n,c,a,b;
+    cin >> n;
+    cout<<"0"<<endl<<"1"<<endl;
+    n-=2;
+    a=0;
+    b=1;
+    while(n--){
+        c=a+b;
+        cout<<c<<endl;
+        a=b;
+        b=c;
+    }
+    return 0;
+}
