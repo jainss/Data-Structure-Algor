@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+// TC 4(alpha)  ~ 4*m   (m= total number of call)
+int parent[100000];
+int ranks[100000];
+
+void makeset()
+{
+    for (int i = 0; i < 2; i++)
+    {
+        parent[i] = i;
+        ranks[i] = 0;
+    }
+}
+
+int findpar(int node)
+{
+    if (node == parent[node])
+    {
+        return node;
+    }
+    return parent[node] = findpar(node); // Part compresion
+}
+
+void makeunion(int node, int node2)
+{
+    int i = findpar(node);
+    int j = findpar(node2);
+    if (ranks[i] > ranks[j])
+    {
+        parent[j] = i;
+    }
+    else if (ranks[j] > ranks[i])
+    {
+        parent[i] = j;
+    }
+    else
+    {
+        parent[i] = j;
+        ranks[j]++;
+    }
+}
+int main()
+{
+    makeset();
+    int t, a, b;
+    cin >> t;
+    while (t--)
+    {
+        cin >> a >> b;
+        makeunion(a, b);
+    }
+    if (findpar(2) != findpar(3))
+    {
+        cout << "Diferent parent" << endl;
+    }
+    else
+    {
+        cout << "Same parents" << endl;
+    }
+    return 0;
+}
