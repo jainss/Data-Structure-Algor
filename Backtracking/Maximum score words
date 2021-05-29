@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    int solve(vector<string>words,int aa[], vector<int>score,int ind){
+        if(ind==words.size()){
+            return 0;
+        }
+        int sum1=solve(words,aa,score,ind+1);
+        string s=words[ind];
+        int sum=0,f=1,sum2=0;
+        for(int i=0;i<s.size();i++){
+            char it=s[i];
+           if(aa[it-'a']==0){
+               f=0;
+           } 
+             sum+=score[it-'a'];    
+               aa[it-'a']--;
+             
+        }
+        if(f){
+            sum2=sum+solve(words,aa,score,ind+1);
+        }
+        for(int i=0;i<s.size();i++){
+            char it=s[i];
+            aa[it-'a']++;
+        }
+        return max(sum1,sum2);      
+    }
+    
+    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score){
+        int aa[26]={0};
+        for(int i=0;i<letters.size();i++){
+            aa[letters[i]-'a']++;
+        }
+        int su= solve(words,aa,score,0);
+        return su;
+    }
+};
