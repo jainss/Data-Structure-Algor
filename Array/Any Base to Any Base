@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int anybasetodec(int n,int a){
+    int re=0;
+    int p=1;
+    while(n!=0){
+        int div=n%10;
+        n=n/10;
+        re+=p*div;
+        p=p*a;
+    }
+    return re;
+}
+
+int dectobase(int n,int b){
+    int sum=0;
+    int p=1;
+    while(n!=0){
+        int div=n%b;
+        n/=b;
+        sum+=p*div;
+        p=p*10;
+    }
+    return sum;
+}
+
+int main(){
+    int n,a,b;
+    cin>>n>>a>>b;
+    int dec=anybasetodec(n,a);
+    int any=dectobase(n,b);
+    cout<<any<<endl;
+    return 0;
+}
