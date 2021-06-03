@@ -1,0 +1,49 @@
+## Method -1 
+## TC O( M*N )
+## SC O( 1 )
+
+
+class Solution {
+public:
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        horizontalCuts.push_back(h);
+        verticalCuts.push_back(w);
+        sort(horizontalCuts.begin(),horizontalCuts.end());
+        sort(verticalCuts.begin(),verticalCuts.end());
+        int maxi=0;
+        int preh=0;
+        for(auto it:horizontalCuts){
+            int prew=0;
+            for(auto its:verticalCuts){
+                maxi=max(maxi,(it-preh)*(its-prew));
+                prew=its;
+            }
+            preh=it;
+        }
+        return maxi%1000000007;
+    }
+};
+
+## Method -2 
+## TC max( O(M),O(N) )
+## SC O(1)
+
+
+class Solution {
+public:
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        sort(horizontalCuts.begin(),horizontalCuts.end());
+        sort(verticalCuts.begin(),verticalCuts.end());
+        int maxih=horizontalCuts[0];
+        int maxiv=verticalCuts[0];
+        for(int i=1;i<horizontalCuts.size();i++){
+           maxih=max(maxih,(horizontalCuts[i]-horizontalCuts[i-1]));
+        }
+        maxih=max(maxih,h-horizontalCuts.back());
+        for(int i=1;i<verticalCuts.size();i++){
+           maxiv=max(maxiv,(verticalCuts[i]-verticalCuts[i-1]));
+        }
+         maxiv=max(maxiv,w-verticalCuts.back());
+        return (long)maxih*maxiv%1000000007;
+    }
+};
