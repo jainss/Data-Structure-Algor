@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n1,n2;
+    cin>>n1;
+    int a[n1];
+    for(int i=0;i<n1;i++){
+        cin>>a[i];
+    }
+    cin>>n2;
+    int b[n2];
+    for(int i=0;i<n2;i++){
+        cin>>b[i];
+    }
+    int ma=n2;
+    n2--;
+    n1--;
+    int mos=ma;
+    int dif[ma];
+    ma--;
+    int c=0;
+    while(ma>=0){
+        int d=0;
+        int aval=(n1>=0)?a[n1]:0;
+        if(b[n2]+c>=aval){
+            d=b[n2]+c-aval;
+            c=0;
+        }
+        else{
+            d=b[n2]+c+10-aval;
+            c=-1;
+        }
+        dif[ma]=d;
+        n1--;
+        n2--;
+        ma--;
+    }
+    int ind=0;
+    while(ind<mos){
+        if(dif[ind]==0){
+            ind++;
+        }
+        else{
+            break;
+        }
+    }
+    for(int j=ind;j<mos;j++){
+        cout<<dif[j]<<endl;
+    }
+    return 0;
+}
