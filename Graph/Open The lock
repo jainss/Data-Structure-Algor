@@ -1,0 +1,60 @@
+class Solution {
+public:
+    set<string>vis;
+    
+    set<string> getstring(string curst){
+        set<string>st;
+       for(int i=0;i<4;i++){
+           char strr=curst[i];
+           string st1=curst.substr(0,i)+to_string(strr == '9' ? 0: strr - '0' + 1)+curst.substr(i+1);
+           string st2=curst.substr(0,i)+to_string((strr=='0')?9:strr-'0'-1)+curst.substr(i+1);
+           if(!vis.count(st1)){
+               st.insert(st1);
+           }
+           if(!vis.count(st2)){
+               st.insert(st2);
+           }
+       }
+        return st;
+    }
+    
+    int openLock(vector<string>& deadends, string target) {
+        if(target.size()==0){
+            return -1;
+        }
+        for(auto it:deadends){
+            vis.insert(it);
+        }
+        queue<string>qu;
+        qu.push("0000");
+        int level=0;
+        while(!qu.empty()){
+            int len=qu.size();
+            while(len--){
+                string curst=qu.front();
+                qu.pop();
+                if(vis.count(curst)){
+                    continue;
+                    
+                }
+                if(curst==target){
+                    return level;
+                }
+                for(auto it:getstring(curst)){
+                    if(!vis.count(it)){
+                        qu.push(it);
+                    }
+                }
+                vis.insert(curst);
+            }
+            level++;
+        }
+        return -1;
+    }
+};
+
+
+
+
+
+YOUTUBE  :    https://youtu.be/vtxETRvR9JY
