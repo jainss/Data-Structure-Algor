@@ -1,0 +1,43 @@
+Method -1
+// BY DP Top Down Approach
+
+class Solution {
+public:
+    int solve(vector<int>cost,int ind,int dp[]){
+        if(ind>=cost.size()){
+            return 0;
+        }
+        // This is DP Top down approach Method -1 after recursion 
+        if(dp[ind]!=-1){
+            return dp[ind];
+        }
+        int a=solve(cost,ind+1,dp);
+        int b=solve(cost,ind+2,dp);
+        return dp[ind]=min(a,b)+cost[ind];
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int dp[1000];
+        memset(dp,-1,sizeof(dp));
+        return min(solve(cost,0,dp),solve(cost,1,dp));
+    }
+};
+
+Method -2
+// By DP Bottom up method
+
+
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+       int dp1=0;
+        int dp2=0;
+        //This second method by DP bottom up method 
+        
+        for(int i=cost.size()-1;i>=0;i--){
+            int dp=cost[i]+min(dp1,dp2);
+            dp1=dp2;
+            dp2=dp;
+        }
+        return min(dp1,dp2);
+    }
+};
