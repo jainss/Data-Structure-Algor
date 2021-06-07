@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,m;
+    cin>>n>>m;
+    int **arr=new int *[n];
+    for(int i=0;i<n;i++){
+       arr[i]=new int[m];
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>arr[i][j];
+        }
+    }
+    int minr=0,minc=0,maxc=m-1,maxr=n-1;
+    int tne=m*n;
+    int c=0;
+    while(c<tne){
+        //left wall
+        for(int i=minr,j=minc;i<=maxr&&c<tne;i++){
+            cout<<arr[i][j]<<endl;
+            c++;
+        }
+        minc++;
+        //bottom wall
+        for(int i=maxr,j=minc;j<=maxc&&c<tne;j++){
+            cout<<arr[i][j]<<endl;
+            c++;
+        }
+        maxr--;
+        //upper wall
+        for(int i=maxr,j=maxc;i>=minr&&c<tne;i--){
+            cout<<arr[i][j]<<endl;
+            c++;
+        }
+        maxc--;
+        //right wall
+        for(int i=minr,j=maxc;j>=minc&&c<tne;j--){
+            cout<<arr[i][j]<<endl;
+            c++;
+        }
+        minr++;
+    }
+    return 0;
+}
