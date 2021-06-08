@@ -44,3 +44,41 @@ int main(){
     }
     return 0;
 }
+
+
+
+##Letcode
+
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int minc=0,minr=0,maxc=matrix[0].size()-1,maxr=matrix.size()-1;
+        int tne=matrix.size()*matrix[0].size();
+        int c=0;
+        vector<int>vec;
+        while(c<tne){
+            for(int i=minr,j=minc;j<=maxc&&c<tne;j++){
+                vec.push_back(matrix[i][j]);
+                c++;
+            }
+            minr++;
+            for(int i=minr,j=maxc;i<=maxr&&c<tne;i++){
+                vec.push_back(matrix[i][j]);
+                c++;
+            }
+            maxc--;
+            for(int i=maxr,j=maxc;j>=minc&&c<tne;j--){
+                 vec.push_back(matrix[i][j]);
+                c++;
+            }
+            maxr--;
+            for(int i=maxr,j=minc;i>=minr&&c<tne;i--){
+                 vec.push_back(matrix[i][j]);
+                c++;
+            }
+            minc++;
+        }
+        return vec;
+    }
+};
