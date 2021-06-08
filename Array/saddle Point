@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    vector<vector<int>>vec;
+    for(int i=0;i<n;i++){
+        vector<int>v1;
+        for(int j=0;j<n;j++){
+            int c;
+            cin>>c;
+            v1.push_back(c);
+        }
+        vec.push_back(v1);
+    }
+    for(int i=0;i<n;i++){
+        int lci=0;
+        for(int j=1;j<n;j++){
+            if(vec[i][j]<vec[i][lci]){
+                lci=j;
+            }
+        }
+        bool flag =true;
+        for(int k=0;k<n;k++){
+            if(vec[k][lci]>vec[i][lci]){
+                flag=false;
+                break;
+            }
+        }
+        if(flag){
+                cout<<vec[i][lci]<<endl;
+                return 0;
+        }
+    }
+    cout<<"Invalid input";
+}
