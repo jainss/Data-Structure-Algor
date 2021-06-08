@@ -1,0 +1,132 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void fillshell(vector<int> arr, vector<vector<int>> &vec, int s)
+{
+    int minr = s - 1;
+    int minc = s - 1;
+    int maxc = vec[0].size() - s;
+    int maxr = vec.size() - s;
+    // int tne = (maxc - minc) * 2 + (maxr - minr) * 2;
+    int ind = 0;
+    //left wall
+    for (int i = minr, j = minc; i <= maxr; i++)
+    {
+        vec[i][j] = arr[ind];
+        ind++;
+    }
+    // bottom wall
+    for (int i = maxr, j = minc + 1; j <= maxc; j++)
+    {
+        vec[i][j] = arr[ind];
+        ind++;
+    }
+    //right coloumn
+    for (int i = maxr - 1, j = maxc; i >= minr; i--)
+    {
+        vec[i][j] = arr[ind];
+        ind++;
+    }
+    //top wall
+    for (int i = minr, j = maxc - 1; j >= minc + 1; j--)
+    {
+        vec[i][j] = arr[ind];
+        ind++;
+    }
+}
+
+void rever(vector<int> &arr, int l, int h)
+{
+    while (l < h)
+    {
+        swap(arr[l], arr[h]);
+        l++;
+        h--;
+    }
+}
+
+void rotate(vector<int> &arr, int r)
+{
+    r = r % arr.size();
+    if (r < 0)
+    {
+        r = arr.size() + r;
+    }
+    rever(arr, 0, arr.size() - r - 1);
+    rever(arr, arr.size() - r, arr.size() - 1);
+    rever(arr, 0, arr.size() - 1);
+}
+
+vector<int> fillarr(vector<vector<int>> vec, int s)
+{
+    int minr = s - 1;
+    int minc = s - 1;
+    int maxc = vec[0].size() - s;
+    int maxr = vec.size() - s;
+    int tne = (maxc - minc) * 2 + (maxr - minr) * 2;
+    vector<int>v1(tne);
+    int ind = 0;
+    //left wall
+    for (int i = minr, j = minc; i <= maxr; i++)
+    {
+        v1[ind]=vec[i][j];
+        ind++;
+    }
+    // bottom wall
+    for (int i = maxr, j = minc + 1; j <= maxc; j++)
+    {
+        v1[ind]=vec[i][j];
+        ind++;
+    }
+    //right coloumn
+    for (int i = maxr - 1, j = maxc; i >= minr; i--)
+    {
+       v1[ind]=vec[i][j];
+        ind++;
+    }
+    //top wall
+    for (int i = minr, j = maxc - 1; j >= minc + 1; j--)
+    {
+        v1[ind]=vec[i][j];
+        ind++;
+    }
+    return v1;
+}
+
+void rotateshell(vector<vector<int>> &vec, int s, int r)
+{ 
+    vector<int>arr;
+    arr = fillarr(vec, s);
+    rotate(arr, r);
+    fillshell(arr, vec, s);
+}
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> vec;
+    for (int i = 0; i < n; i++)
+    {
+        vector<int> v1;
+        for (int j = 0; j < m; j++)
+        {
+            int c;
+            cin >> c;
+            v1.push_back(c);
+        }
+        vec.push_back(v1);
+    }
+    int s, r;
+    cin >> s >> r;
+    rotateshell(vec, s, r);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cout << vec[i][j] << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
