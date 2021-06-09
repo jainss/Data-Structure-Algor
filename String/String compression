@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int ini=1;
+        char ch=chars[0];
+        int c=1;
+        for(int i=1;i<chars.size();i++){
+            if(ch==chars[i]){
+                c++;
+            }
+            else{
+                if(c>1){
+                    string st=to_string(c);
+                    for(auto it:st){
+                        chars[ini++]=it;
+                    }
+                }
+                c=1;
+                chars[ini++]=chars[i];
+                ch=chars[i];
+            }
+        }
+        if(c>1){
+            string nw=to_string(c);
+            for(auto it:nw){
+                chars[ini++]=it;
+            }
+        }
+        return ini;
+    }
+};
