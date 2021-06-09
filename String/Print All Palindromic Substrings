@@ -1,0 +1,29 @@
+ #include<bits/stdc++.h>
+ using namespace std;
+ 
+ bool ispali(string s){
+     int i=0;
+     int j=s.size()-1;
+     while(i<j){
+         if(s[i]!=s[j]){
+             return false;
+         }
+         i++;
+         j--;
+     }
+     return true;
+ }
+ 
+ int main(){
+     string st;
+     cin>>st;
+     for(int i=0;i<st.size();i++){
+         for(int j=i+1;j<=st.size();j++){
+             string s=st.substr(i,j-i);
+             if(ispali(s)){
+                 cout<<s<<endl;
+             }
+         }
+     }
+     return 0;
+ }
