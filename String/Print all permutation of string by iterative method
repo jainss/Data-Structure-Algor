@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int fact(int num){
+    // cout<<num;
+    int sum=1;
+    while(num!=0){
+        sum*=num;
+        num--;
+    }
+    // cout<<num;
+    return sum;
+}
+
+int main(){
+    string s;
+    cin>>s;
+    int per=fact(s.size());
+    for(int i=0;i<per;i++){
+        string st=s;
+        int temp=i;
+        for(int j=s.size();j>0;j--){
+            cout<<st[temp%j];
+            int di=temp/j;
+            st.erase(st.begin()+(temp%j));
+            temp=di;
+        }
+        cout<<endl;
+    }
+    return 0;
+}
