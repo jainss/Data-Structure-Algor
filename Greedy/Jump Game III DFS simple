@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool dfs(vector<int>& nums, int start,vector<int>& vis)
+    {
+        if(start<0||start>=nums.size()||vis[start]==1)
+            return false;
+        if(nums[start]==0)
+            return true;
+        vis[start]=1;
+        int l=start-nums[start];
+        int r=start+nums[start];
+        return dfs(nums,l,vis)||dfs(nums,r,vis);
+    }
+    
+    bool canReach(vector<int>& nums, int start) {
+        vector<int> vis(nums.size(),0);
+        return dfs(nums,start,vis);
+    }
+};
+
+
+Youtube :  https://www.youtube.com/watch?v=A-Mc_0WsoaM&t=922s
+
