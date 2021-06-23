@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int numMatchingSubseq(string s, vector<string>& words) {
+        vector<int>vec[26];
+        for(int i=0;i<s.size();i++){
+            vec[s[i]-'a'].push_back(i);
+        }
+        int ans=0;
+        for(auto word:words){
+            int prev=-1,f=0;
+            for(auto it:word){
+                auto itr=upper_bound(vec[it-'a'].begin(),vec[it-'a'].end(),prev);
+                if(itr==vec[it-'a'].end()){
+                    f=1;
+                    break;
+                }
+                prev=*itr;
+            }
+            if(f==0){
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
