@@ -1,0 +1,57 @@
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node *prev;
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+                this->prev = NULL;
+            }
+        };
+
+// *****************************************************************/
+struct compare {
+    bool operator()(struct Node* p1, struct Node* p2)
+    {
+        return p1->data > p2->data;
+    }
+};
+Node *sortedDll(Node *head, int k)
+{
+    if(head==NULL){
+        return head;
+    }
+    priority_queue<Node*, vector<Node*>, compare> pq;
+    struct Node* newhead=NULL;
+    Node *cur;
+    for(int i=0;i<=k;i++){
+        pq.push(head);
+        head=head->next;
+    }
+    while(!pq.empty()){
+        if(newhead==NULL){
+            newhead=pq.top();
+            newhead->prev=NULL;
+            cur=newhead;
+            
+        }else{
+            cur->next=pq.top();
+            pq.top()->prev=cur;
+            cur=pq.top();
+        }
+        pq.pop();
+        if(head!=NULL){
+            pq.push(head);
+            head=head->next;
+        }
+    }
+    cur->next=NULL;
+    return newhead;
+}
