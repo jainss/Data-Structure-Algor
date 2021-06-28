@@ -1,51 +1,50 @@
-Node *SortedMerge(Node *a, Node *b)
-{
-    if(a == NULL)
-    {
-        return b;
-    }
-    
-    if(b == NULL)
-    {
-        return a;
-    }
-    
-    Node *head = NULL, *tail = NULL;
-    if(a->data < b->data)
-    {
-        head = tail = a;
-        a = a->next;
-    }
-    else
-    {
-        head = tail = b;
-        b = b->next;
-    }
-    
-    while(a != NULL && b != NULL)
-    {
-        if(a->data < b->data)
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        
+        while (fast != NULL && fast->next != NULL)
         {
-            tail->next = a;
-            tail = a;
-            a = a->next;
+            slow = slow->next;
+            fast = fast->next->next;
         }
+        //divide the list into two parts 
+        fast = slow->next;
+        slow->next = NULL;
+        
+        return merge(sortList(head), sortList(fast));
+    }
+    
+    ListNode* merge(ListNode* l1, ListNode* l2)
+    {
+        ListNode dump(0);
+        ListNode* cur = &dump;
+        
+        while (l1 != NULL && l2 != NULL)
+        {
+            if (l1->val < l2->val)
+            {
+                cur->next = l1;
+                l1 = l1->next;
+            }
+            else
+            {
+                cur->next = l2;
+                l2 = l2->next;
+            }
+                
+            cur = cur->next;
+        }
+        
+        if (l1 != NULL)
+            cur->next = l1;
         else
-        {
-            tail->next = b;
-            tail = b;
-            b = b->next;
-        }
+            cur->next = l2;
+            
+        return dump.next;
     }
-    
-    if(a == NULL)
-    {
-        tail->next = b;
-    }
-    else
-    {
-        tail->next = a;
-    }
-    
-    return head;
-}
+};
