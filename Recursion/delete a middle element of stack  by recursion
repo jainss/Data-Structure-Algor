@@ -1,6 +1,6 @@
  void dele(stack<int> st,int k){
     if(k==1){
-        st.top(0);
+        st.pop();
         return ;
     }
     int val=st.top();
