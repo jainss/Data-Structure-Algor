@@ -1,0 +1,101 @@
+Method -1 
+
+Tc 0(n)
+SC 0(n)
+
+
+
+
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    
+    stack<int>s;
+    stack<int>ss;
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        s.push(val);
+        if(ss.size()==0||ss.top()>=val){
+            ss.push(val);
+            return ;
+        }
+    }
+    
+    void pop() {
+        if(ss.size()==0){
+            return;
+        }
+        // int ans=s.top();
+        // s.pop();
+        if(ss.top()==top()){
+            ss.pop();
+        }
+         s.pop();
+    }
+    
+    int top() {
+        return s.top();
+    }
+    
+    int getMin() {
+        if(s.size()==0){
+            return -1;
+        }
+        return ss.top();
+    }
+};
+
+
+
+Method 2;
+
+Tc :0(N)
+Sc : 0(1)
+
+
+class MinStack {
+public:
+    stack<long> s;
+    long mn;
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        if(s.empty()){
+            s.push(x);
+            mn = x;
+        }
+        else if(x <= mn){
+            s.push(2ll*x - mn);
+            mn = x;
+        }
+        else{
+            s.push(x);
+        }
+    }
+    
+    void pop() {
+        if(s.empty()) return;
+        if(s.top() < mn){
+            // mn = 2*mn - s.top()
+            mn = 2ll*mn - s.top();
+        }
+        s.pop();
+    }
+    int top() {
+        if(s.empty()) return -1;
+        if(s.top() < mn){
+            return mn;
+        }
+        return s.top();
+    }
+    
+    int getMin() {
+        if(s.empty()) return -1;
+        return mn;
+    }
+};
