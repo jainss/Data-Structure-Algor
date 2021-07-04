@@ -1,0 +1,30 @@
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+typedef long long ll;
+const ll size=1000001;
+
+bool prime[size];
+
+int main()
+{
+    //O(nloglogn) time complexity with optimisation
+    prime[2]=true;
+    for(ll i=3;i<size;i+=2)
+        prime[i]=true;
+
+    for(ll i=3;i*i<size;i+=2)
+    {
+        if(prime[i])
+        {
+            for(ll j=i*i;j<size;j+=2*i)
+                prime[j]=false;
+        }
+    }
+
+    for(ll i=1;i<size;i++)
+        if(prime[i])
+            cout<<i<<" ";
+    return 0;
+}
