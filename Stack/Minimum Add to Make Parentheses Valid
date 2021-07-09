@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        stack<char>st;
+        int c=0;
+        for(int i=0;i<s.size();i++){
+            char ch=s[i];
+            if(ch==')'){
+                if(st.size()==0){
+                    c++;
+                }else{
+                    st.pop();
+                }
+            }else{
+                st.push('(');
+            }
+        }
+        while(st.size()!=0){
+            st.pop();
+            c++;
+        }
+        return c;
+    }
+};
