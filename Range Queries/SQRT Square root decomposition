@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<long long int> preprocess(vector<long long int>vec,long long int len){
+    vector<long long int>arr;
+    for(int i=0;i<len;i++){
+        arr.push_back(INT_MAX);
+    }
+    for(int i=0;i<vec.size();i++){
+        arr[i/len]=min(arr[i/len],vec[i]);
+        
+    }
+    return arr;
+}
+
+int main(){
+   long long  int n,q,len;
+    cin>>n;
+    vector<long long int>vec;
+    for(int i=0;i<n;i++){
+        long long int c;
+        cin>>c;
+        vec.push_back(c);
+    }
+    len=ceil(sqrt(n));
+    vector<long long int> arr=preprocess(vec,len);
+    cin>>q;
+    for(int i=0;i<q;i++){
+        long long int ans=INT_MAX,a,b;
+        cin>>a>>b;
+        
+        while(a<=b){
+            if(a%len== 0&& a+len-1<=b){
+                ans=min(ans,arr[a/len]);
+                a+=len;
+            }else{
+                ans=min(ans,vec[a]);
+               
+                a++;
+            }
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}
+
+
+Link : https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-interview-prep/range-queries/square-root-decomposition-official/ojquestion
