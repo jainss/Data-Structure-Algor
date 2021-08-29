@@ -1,46 +1,61 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// sr - source row
-// sc - source column
-// dr - destination row
-// dc - destination column
-vector <string> getMazePaths(int sr, int sc, int dr, int dc) {
+vector<string> solve(int sr,int sc,int dr,int dc){
     if(sr==dr&&sc==dc){
         vector<string>vec;
         vec.push_back("");
         return vec;
-    }else if(sr>dr||sc>dc){
-        vector<string>vec;
-        return vec;
     }
-    vector<string>v2=getMazePaths(sr,sc+1,dr,dc);
-    vector<string>v1=getMazePaths(sr+1,sc,dr,dc);
-    vector<string>path;
-    for(auto it:v1){
-        path.push_back('h'+it);
+    vector<string>paths;
+    for(int i=1;i<=dr-sr;i++){
+        vector<string>v1=solve(sr+i,sc,dr,dc);
+        for(auto it:v1){
+            
+             string st;
+            st+="h";
+            char ch='0'+i;
+            st=st+ch;
+            st+=it;
+            paths.push_back(st);
+        }
     }
-    for(auto it:v2){
-        path.push_back('v'+it);
+    for(int i=1;i<=dc-sc;i++){
+        vector<string>v2=solve(sr,sc+i,dr,dc);
+        for(auto it:v2){
+            string st;
+            st+="v";
+            char ch='0'+i;
+            st=st+ch;
+            st+=it;
+            paths.push_back(st);
+        }
     }
-    return path;
+    for(int i=1;i<=dr-sr&&i<=dc-sc;i++){
+        vector<string>v3=solve(sr+i,sc+i,dr,dc);
+        for(auto it:v3){
+            string st;
+            st+="d";
+            char ch='0'+i;
+            st=st+ch;
+            st+=it;
+            paths.push_back(st);
+        }
+    }
+    return paths;
 }
 
-void display(vector<string>& arr){
-    cout << "[";
-    for(int i = 0;i < arr.size();i++){
-        cout << arr[i];
-        if(i < arr.size() -1) cout << ", ";
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<string>vec=solve(0,0,n-1,m-1);
+    cout<<"[";
+    for(int i=0;i<vec.size();i++){
+        cout<<vec[i];
+        if(i<vec.size()-1){
+            cout<<", ";
+        }
     }
-    cout << "]"<<endl;
-}
-
-
-int main() {
-    int n,m; cin >> n >> m;
-    vector<string> ans = getMazePaths(0,0,n-1,m-1);
-    display(ans);
+    cout<<"]";
     return 0;
 }
-
-URL: https://www.pepcoding.com/resources/online-java-foundation/recursion-with-arraylists/get-maze-paths-official/ojquestion
