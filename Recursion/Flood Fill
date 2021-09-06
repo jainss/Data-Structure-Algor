@@ -1,44 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
-void solve(int n,int m,vector<vector<int>>a,vector<vector<bool>>b,string ans){
-     if(n<0||m<0||n==a.size()||m==a[0].size()||a[n][m]==1||b[n][m]==true){
-         return ;
-     }
-     if(n==a.size()-1&&m==a[0].size()-1){
-         cout<<ans<<endl;
-         return ;
-     }
-     b[n][m]=true;
-     solve(n-1,m,a,b,ans+"t");
-     solve(n,m-1,a,b,ans+"l");
-     solve(n+1,m,a,b,ans+"d");
-     solve(n,m+1,a,b,ans+"r");
-     b[n][m]=false;
+
+void floodfill(vector<vector<int>>arr,int n,int m,string str,vector<vector<int>>dum) {
+   if(n<0||m<0||n==arr.size()||m==arr[0].size()||dum[n][m]==1||arr[n][m]==1){
+       return ;
+   }  
+   if(n==arr.size()-1&&m==arr[0].size()-1){
+       cout<<str<<endl;
+       return;
+   }
+   dum[n][m]=1;
+   floodfill(arr,n-1,m,str+"t",dum);
+   floodfill(arr,n,m-1,str+"l",dum);
+   floodfill(arr,n+1,m,str+"d",dum);
+   floodfill(arr,n,m+1,str+"r",dum);
+   dum[n][m]=0;
 }
-int main(){
-    int n,m;
-    cin>>n>>m;
-    vector<vector<int>>a;
-    for(int i=0;i<n;i++){
-        vector<int>v1;
-        for(int j=0;j<m;j++){
-            int c;
-            cin>>c;
-            v1.push_back(c);
-        }
-        a.push_back(v1);
-    }
-     vector<vector<bool>>b;
-    for(int i=0;i<n;i++){
-        vector<bool>v2;
-        for(int j=0;j<m;j++){
-            v2.push_back(false);
-        }
-        b.push_back(v2);
-    }
-    solve(0,0,a,b,"");
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector < vector < int >> arr(n, vector < int > (m));
+    vector<vector<int>>dum(n,vector<int>(m,0));
+    // for(int i=0;i<dum.size();i++){
+    //     for(int j=0;j<dum[0].size();j++){
+    //         cout<<dum[i][j]<<" ";
+    //     }
+    // }
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            cin >> arr[i][j];
+            
+    floodfill(arr,0,0,"",dum);
     return 0;
 }
-
-
-//https://www.pepcoding.com/resources/online-java-foundation/recursion-backtracking/flood-fill-official/ojquestion
