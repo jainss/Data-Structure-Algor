@@ -1,38 +1,50 @@
-class Solution {
-public:
-    void solve(vector<vector<string>>&ans,vector<string>vec,int row,vector<bool>col,vector<bool>nd,vector<bool>rd){
-        if (row == vec.size()){
-         ans.push_back(vec);
-         return;
-        }
-       for (int i = 0; i < vec.size(); i++)
-       {
-       if (col[i] == false && nd[i + row] == false && rd[row - i + vec.size() - 1] == false)
-       {
-      vec[row][i] = 'Q';
-      col[i] = true;
-      nd[row + i] = true;
-      rd[row - i + vec.size() - 1] = true;
-      solve(ans,vec, row + 1, col, nd, rd);
-      vec[row][i] = '.';
-      col[i] = false;
-      nd[row + i] = false;
-      rd[row - i + vec.size() - 1] = false;
-      } 
-     }
-   }
-    
-    vector<vector<string>> solveNQueens(int n) {
-        vector<vector<string>>ans;
-        vector<string>vec(n);
-        string s(n,'.');
-        for(int i=0;i<n;i++){
-            vec[i]=s;
-        }
-         vector<bool> col(n, false);
-         vector<bool> nd(2 * n - 1, false);
-         vector<bool> rd(2 * n - 1, false);
-        solve(ans,vec,0,col,nd,rd);
-        return ans;
-    }
-};
+#include <bits/stdc++.h> 
+using namespace std;
+
+bool isright(vector<vector<int>>vec,int n,int c){
+	for(int i=n-1;i>=0;i--){
+		if(vec[i][c]==1){
+			return false;
+		}
+	}
+	for(int i=n-1,j=c-1;i>=0&&j>=0;i--,j--){
+		if(vec[i][j]==1){
+			return false;
+		}
+	}
+	for(int i=n-1,j=c+1;i>=0&&j<=vec[0].size();i--,j++){
+		if(vec[i][j]==1){
+			return false;
+		}
+	}
+	return true;
+}
+
+void solve(vector<vector<int>>vec,int n,string ans){
+      if(n==vec.size()){
+           cout<<ans<<"."<<endl;
+		   return ;
+	  }
+	  for(int i=0;i<vec.size();i++){
+		  if(isright(vec,n,i)){
+              vec[n][i]=1;
+		      solve(vec,n+1,ans+to_string(n)+"-"+to_string(i)+","+" ");
+		      vec[n][i]=0;
+		  } 
+	  }
+}
+
+int main(){
+	int n;
+	cin>>n;
+	vector<vector<int>> vec;
+	for(int i=0;i<n;i++){
+		vector<int>ve;
+		for(int j=0;j<n;j++){
+			ve.push_back(0);
+		}
+		vec.push_back(ve);
+	}
+    solve(vec,0,"");
+	return 0;
+}
