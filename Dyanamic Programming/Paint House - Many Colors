@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,k;
+    cin>>n>>k;
+    int a[n][k];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<k;j++){
+            cin>>a[i][j];
+        }
+    }
+    int dp[n][k];
+    memset(dp,0,sizeof(dp));
+    int fimin=INT_MAX;
+    int semin=INT_MAX;
+    for(int i=0;i<k;i++){
+        dp[0][i]=a[0][i];
+        if(fimin>=dp[0][i]){
+            semin=fimin;
+            fimin=dp[0][i];
+        }else if(semin>=dp[0][i]){
+            semin=dp[0][i];
+        }
+    }
+    for(int i=1;i<n;i++){
+        int newfmin=INT_MAX;
+        int newsmin=INT_MAX;
+        for(int j=0;j<k;j++){
+           if(dp[i-1][j]==fimin){
+               dp[i][j]=a[i][j]+semin;
+           }else{
+               dp[i][j]=a[i][j]+fimin;
+           }
+           if(dp[i][j]<=newfmin){
+               newsmin=newfmin;
+               newfmin=dp[i][j];
+           }else if(dp[i][j]<=newsmin){
+               newsmin=dp[i][j];
+           }
+        }
+        fimin=newfmin;
+        semin=newsmin;
+    }
+    cout<<fimin;
+    return 0;
+}
+
+URL: https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/paint-house-many-colors-official/ojquestion
