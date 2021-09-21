@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& a) {
+        int n=a.size();
+        int leasf=a[0];
+         int dp[n];
+         dp[0]=0;
+        for(int i=1;i<n;i++){
+           leasf=min(leasf,a[i]);
+           dp[i]=max(dp[i-1],a[i]-leasf);
+        }
+    int mpat=a[n-1];
+    int dpr[n];
+    dpr[n-1]=0;
+    for(int i=n-2;i>=0;i--){
+        mpat=max(a[i],mpat);
+        dpr[i]=max(dpr[i+1],mpat-a[i]);
+    }
+    int sum=0;
+    for(int i=0;i<n;i++){
+        int ad=dp[i]+dpr[i];
+        sum=max(sum,ad);
+    }
+    return sum;
+    }
+};
+
+URL : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
