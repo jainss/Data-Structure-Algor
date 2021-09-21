@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& a) {
+        int bp=-a[0],cp=0,sp=0;
+       for(int i=1;i<a.size();i++){
+        int newbp=max(bp,cp-a[i]);
+        int newsp=max(sp,a[i]+bp);
+        int newcp=max(cp,sp);
+        bp=newbp;
+        cp=newcp;
+        sp=newsp;
+       }
+       return sp;
+    }
+};
+
+URL : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
