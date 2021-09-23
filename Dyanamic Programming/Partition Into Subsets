@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,k;
+    cin>>n>>k;
+    if(n==0||k==0||n<k){
+        cout<<0<<endl;
+        return 0;
+    }
+    long long int dp[n+1][k+1];
+    memset(dp,0,sizeof(dp));
+    for(int p=1;p<n+1;p++){
+        for(int t=1;t<k+1;t++){
+            if(p<t){
+                dp[p][t]=0;
+            }else if(p==t){
+                dp[p][t]=1;
+            }else{
+                dp[p][t]=dp[p-1][t-1]+(t)*dp[p-1][t];
+            }
+        }
+    }
+    cout<<dp[n][k];
+    return 0;
+}
+
+URL : https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/partition-into-subsets-official/ojquestion
