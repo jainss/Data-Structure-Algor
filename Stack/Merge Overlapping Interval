@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    vector<pair<int,int>>vec;
+    for(int i=0;i<n;i++){
+        int a,b;
+        cin>>a>>b;
+        vec.push_back({a,b});
+    }
+    sort(vec.begin(),vec.end());
+    stack<pair<int,int>>st;
+    for(auto it:vec){
+        if(st.size()==0){
+            st.push(it);
+            continue;
+        }
+        int fi=st.top().first;
+        if(fi<=it.first&&it.first<=st.top().second){
+            st.top().second=max(st.top().second,it.second);
+        }else{
+            st.push(it);
+        }
+    }
+    vector<pair<int,int>>ans;
+    while(st.size()!=0){
+        pair<int,int> v=st.top();
+        ans.push_back(v);
+        st.pop();
+    }
+    reverse(ans.begin(),ans.end());
+    for(auto it: ans){
+        cout<<it.first<<" "<<it.second<<endl;
+    }
+    return 0;
+}
+
+URL : https://www.pepcoding.com/resources/online-java-foundation/stacks-and-queues/merge-overlapping-interval-official/ojquestion
