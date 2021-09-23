@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+   string str;
+   cin>>str;
+   stack<int>st;
+   int num=1;
+   for(auto it:str){
+       if(it=='d'){
+           st.push(num);
+           num++;
+       }else{
+           st.push(num);
+           num++;
+           while(st.size()!=0){
+               cout<<st.top();
+               st.pop();
+           }
+       }
+   }
+   st.push(num);
+   while(st.size()!=0){
+        cout<<st.top();
+        st.pop();
+   }
+   return 0;
+}
+
+URL  : https://www.pepcoding.com/resources/online-java-foundation/stacks-and-queues/smallest-number-following-pattern-official/ojquestion
