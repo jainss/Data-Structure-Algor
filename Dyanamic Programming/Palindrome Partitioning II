@@ -1,0 +1,57 @@
+Method-1
+
+   int dp[2001][2001];
+    bool ispali(string s,int i,int j){
+        if(i==j||i>j){
+             return 1;
+        }
+        while(i<j){
+            if(s[i]!=s[j]){
+                return 0;
+            }
+            i++;
+            j--;
+        }
+        return 1;
+    }
+     int solve(string s,int i,int j){
+        if(i>=j){
+            return dp[i][j]=0;
+        }if(ispali(s,i,j)==1){
+            return dp[i][j]=0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int ans=INT_MAX;
+        for(int k=i;k<=j-1;k++){
+            int left,right;
+            if(dp[i][k]!=-1){
+                left=dp[i][k];
+            }else{
+                dp[i][k]=solve(s,i,k);
+                left=dp[i][k];
+            }if(dp[k+1][j]!=-1){
+                right=dp[k+1][j];
+            }else{
+                dp[k+1][j]=solve(s,k+1,j);
+                right=dp[k+1][j];
+            }
+            int temp=1+left+right;
+            ans=min(ans,temp);
+        }
+        return dp[i][j]=ans;
+    }
+int Solution::minCut(string s) {
+     memset(dp,-1,sizeof(dp));
+        int n=s.size();
+        return solve(s,0,n-1);
+}
+
+URL : https://www.interviewbit.com/problems/palindrome-partitioning-ii/
+
+Method-2;
+
+https://leetcode.com/problems/palindrome-partitioning-ii/ 
+ same but it give TLE :: 
+
