@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+        string s,st="";
+        cin>>s;
+        for(auto it:s){
+            if(it=='A'||it=='E'||it=='I'||it=='O'||it=='U'||it=='a'||it=='e'||it=='i'||it=='o'||it=='u'||it=='y'||it=='Y'){
+                continue;
+            }
+            else{
+                if(it>=65&&it<=90){
+                    st+='.';
+                    st+='a'+(it-65);
+                }else{
+                    st+='.';
+                    st+=it;
+                }
+            }
+        }
+        cout<<st<<endl;
+    return 0;
+}
+
+URL: https://codeforces.com/problemset/problem/118/A
