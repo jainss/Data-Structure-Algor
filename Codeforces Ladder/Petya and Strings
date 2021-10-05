@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+        string s,st;
+        cin>>s>>st;
+       transform(s.begin(), s.end(), s.begin(), ::tolower);
+      transform(st.begin(), st.end(), st.begin(), ::tolower);
+      int i;
+        for(i=0;i<s.size();i++){
+            if(s[i]==st[i]){
+                continue;
+            }else{
+                if(s[i]-'a'>st[i]-'a'){
+                 cout<<1<<endl;
+                }else if(s[i]-'a'<st[i]-'a'){
+                  cout<<-1<<endl;
+                }
+                return 0;
+            }
+        }
+        cout<<0<<endl;
+    return 0;
+}
+
+URL ::https://codeforces.com/problemset/problem/112/A
