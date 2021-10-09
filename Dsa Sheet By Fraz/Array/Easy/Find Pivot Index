@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int tot=0;
+        for(auto it:nums){
+            tot+=it;
+        }
+        int sum=0,j=0;
+        for(int i=0;i<nums.size();i++){
+            if(sum==tot-sum-nums[j]){
+                return j;
+            }
+            sum+=nums[i];
+            j++;
+        }
+        return -1;
+    }
+};
+https://leetcode.com/problems/find-pivot-index/
