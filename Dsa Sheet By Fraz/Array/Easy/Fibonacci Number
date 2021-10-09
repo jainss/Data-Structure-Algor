@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int solve(int n,vector<int>&vec){
+        if(n==0||n==1){
+            return n;
+        }
+        if(vec[n]!=0){
+            return vec[n];
+        }
+        int feb1=solve(n-1,vec);
+        int feb2=solve(n-2,vec);
+        int fib=feb1+feb2;
+        vec[n]=fib;
+        return fib;
+    }
+    int fib(int n) {
+        vector<int>vec(31,0);
+        return solve(n,vec);
+    }
+};
+
+https://leetcode.com/problems/fibonacci-number/ 
