@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int sp=0,bp=0,profit=0;
+        for(int i=1;i<prices.size();i++){
+            if(prices[i]>prices[i-1]){
+                sp++;
+            }else{
+                profit+=prices[sp]-prices[bp];
+                sp=bp=i;
+            }
+        }
+        profit+=prices[sp]-prices[bp];
+        return profit;
+    }
+};
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
