@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        int mi=INT_MAX,pro=0,op=0;
+        for(int i=0;i<n;i++){
+            mi=min(mi,prices[i]);
+            pro=prices[i]-mi;
+            op=max(op,pro);
+        }
+        return op;
+    }
+};
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
