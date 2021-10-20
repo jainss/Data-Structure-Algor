@@ -1,0 +1,69 @@
+class Solution {
+public:
+
+    bool isleaf(Node* root){
+        if(root->left==NULL&&root->right==NULL){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    void leftbound(Node* root,vector<int>& vec){
+        Node* cur=root->left;
+        while(cur){
+            if(!isleaf(cur)){
+                vec.push_back(cur->data);
+            }
+            if(cur->left){
+                cur=cur->left;
+            }else{
+                cur=cur->right;
+            }
+        }
+    }
+    void rightbound(Node* root,vector<int>& vec){
+        Node* cur=root->right;
+        vector<int>res;
+        while(cur){
+            if(!isleaf(cur)){
+                res.push_back(cur->data);
+            }
+            if(cur->right){
+                cur=cur->right;
+            }else{
+                cur=cur->left;
+            }
+        }
+        for(int i=res.size()-1;i>=0;i--){
+            vec.push_back(res[i]);
+        }
+    }
+    void addleaf(Node* root,vector<int>& vec){
+        if(root==NULL){
+            return ;
+        }
+        if(isleaf(root)){
+            vec.push_back(root->data);
+            return ;
+        }
+        addleaf(root->left,vec);
+        addleaf(root->right,vec);
+    }
+    
+    vector <int> printBoundary(Node *root)
+    {
+        vector<int>vec;
+        if(root==NULL){
+            return vec;
+        }
+        if(!isleaf(root)){
+            vec.push_back(root->data);
+        }
+        leftbound(root,vec);
+        addleaf(root,vec);
+        rightbound(root,vec);
+        return vec;
+    }
+};
+
+https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1# 
