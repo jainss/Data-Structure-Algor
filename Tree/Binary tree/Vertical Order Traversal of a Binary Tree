@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        map<int,map<int,multiset<int>>>ms;
+        queue<pair<TreeNode*,pair<int,int>>>qu;
+        qu.push({root,{0,0}});
+        while(!qu.empty()){
+            auto n=qu.front();
+            qu.pop();
+            TreeNode* node=n.first;
+            int hor=n.second.first;
+            int ver=n.second.second;
+            ms[hor][ver].insert(node->val);
+            if(node->left){
+                qu.push({node->left,{hor-1,ver+1}});
+            }
+            if(node->right){
+                qu.push({node->right,{hor+1,ver+1}});
+            }
+        }
+        vector<vector<int>>vec;
+        for(auto it:ms){
+            vector<int>ans;
+            for(auto its:it.second){
+                ans.insert(ans.end(),its.second.begin(),its.second.end());
+            }
+            vec.push_back(ans);
+        }
+       return vec;
+    }
+};
+
+https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ 
