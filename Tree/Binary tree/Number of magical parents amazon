@@ -1,0 +1,76 @@
+Question :-
+
+Given a binary tree, count the total number of magic parents, where a node which is not NULL and has both left and right children and the sum of the number of nodes in the left subtree is odd and that of right subtree is even (or sum of nodes in the left subtree as even and right subtree as odd) should be considered as a magic parent. Node 1 is always the Root node
+
+Input format:
+The node_number string(representing the relative position of the node wrt root node,i.e node 1).
+
+E.g:
+This is representing a tree having a root node as 1 and 2 is the left child of node 1 and 3 is the right child of node 1 and 5 is the left child of node 3.
+
+2 L
+3 R
+5 RL
+
+
+
+Solution :-
+
+#include <iostream>
+using namespace std;
+
+class Node{
+public:
+    int data;
+    int num_of_nodes;
+    Node* left, *right;
+    Node(int data){
+        this->data = data;
+        left = NULL;
+        right = NULL;
+        num_of_nodes = 0;
+    }
+};
+
+int helper(Node* root, int& ans){
+    if(!root) return 0;
+    int left_nodes = helper(root->left, ans);
+    int right_nodes = helper(root->right, ans);
+    if(left_nodes > 0 && right_nodes > 0){
+        if(left_nodes % 2 == 0 && right_nodes % 2 == 1) ans++;
+        if(left_nodes % 2 == 1 && right_nodes % 2 == 0) ans++;
+    }
+    return 1 + left_nodes + right_nodes;
+}
+
+int count_magic_nodes(Node* root){
+    int ans = 0;
+    helper(root, ans);
+    return ans;
+}
+
+int main() 
+{ 
+    // binary tree formation 
+    struct Node *root = new Node(2);     /*           2            */
+    root->left        = new Node(1);     /*        /     \         */
+    root->right       = new Node(3);     /*       1       3        */
+    root->left->left  = new Node(4);     /*      / \     /  \      */
+    root->left->right = new Node(10);    /*     4   10  8    5     */
+    root->right->left  = new Node(8);    /*        /               */
+    root->right->right = new Node(5);    /*       6                */
+    root->left->right->left = new Node(6); 
+    
+    int magic_nodes = count_magic_nodes(root);
+    
+    return magic_nodes; 
+}
+
+
+
+Concludion :-
+I'm assuming that the solution to the tree you created is 2(nodes 2 and 1). 
+
+
+
+https://leetcode.com/discuss/general-discussion/843235/a-tough-binary-tree-problem-asked-in-amazon-need-help-from-leetcode-community 
