@@ -1,0 +1,18 @@
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL||root==p||root==q){
+            return root;
+        }
+        TreeNode* one=lowestCommonAncestor(root->left,p,q);
+        TreeNode* two =lowestCommonAncestor(root->right,p,q);
+        if(one&&two){
+            return root;
+        }else{
+            return one?one:two;
+        }
+    }
+};
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/ 
