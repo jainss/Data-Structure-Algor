@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int>vec;
+    
+    void solve(TreeNode* root){
+        if(root==NULL){
+           return ;
+        }
+        vec.push_back(root->val);
+        solve(root->left);
+        solve(root->right);
+    }
+    
+    int getMinimumDifference(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }
+        solve(root);
+        sort(vec.begin(),vec.end());
+        int ans=INT_MAX;
+        for(int i=1;i<vec.size();i++){
+            ans=min(ans,abs(vec[i]-vec[i-1]));
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/minimum-absolute-difference-in-bst/
