@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int solve1(TreeNode* root){
+        int c=0;
+        while(root){
+            c++;
+            root=root->left;
+        }
+        return c;
+    }
+    int solve2(TreeNode* root){
+        int c=0;
+        while(root){
+            c++;
+            root=root->right;
+        }
+        return c;
+    }
+    int countNodes(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }
+        int lt=solve1(root);
+        int rt=solve2(root);
+        if(lt==rt){
+            return (1<<lt)-1;
+        }
+        return 1+countNodes(root->left)+countNodes(root->right);
+    }
+};
+
+https://leetcode.com/problems/count-complete-tree-nodes/ 
