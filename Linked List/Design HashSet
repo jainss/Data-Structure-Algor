@@ -1,0 +1,68 @@
+Method-1 
+This is moethod only apply for the limited space or limit array size so we use the next method are chaining method :-
+
+
+class MyHashSet {
+public:
+    vector<int>vec;
+    int siz;
+    MyHashSet() {
+     siz=1e6+1;
+     vec.resize(siz);
+    }
+    
+    void add(int key) {
+        vec[key]=1;
+    }
+    
+    void remove(int key) {
+        vec[key]=0;
+    }
+    
+    bool contains(int key) {
+        return vec[key];
+    }
+};
+
+Method -2
+
+Chaining method :-
+
+class MyHashSet {
+public:
+    vector<list<int>>vec;
+    int siz;
+    MyHashSet() {
+        siz=100;
+        vec.resize(siz);
+    }
+    
+    int hash(int key){
+        return key%siz;
+    }
+    
+    list<int> :: iterator search(int key){
+        int i=hash(key);
+        return find(vec[i].begin(),vec[i].end(),key);
+    }
+    void add(int key) {
+        if(contains(key)){
+            return ;
+        }
+        int i=hash(key);
+        vec[i].push_back(key);
+    }
+    
+    void remove(int key) {
+        if(!contains(key)){return ;}
+        int i=hash(key);
+        vec[i].erase(search(key));
+    }
+    
+    bool contains(int key) {
+        int i=hash(key);
+        if(search(key)!=vec[i].end()){
+            return true;
+        }return false;
+    }
+};
