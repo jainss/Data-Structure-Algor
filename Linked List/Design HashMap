@@ -1,0 +1,80 @@
+Method -1 
+By doing vector hasing if containt is big this is not apply ;
+
+
+class MyHashMap {
+public:
+    vector<int>vec;
+    int siz;
+    MyHashMap() {
+        siz=1e6+1;
+        vec.resize(siz);
+        fill(vec.begin(),vec.end(),-1);
+    }
+    
+    void put(int key, int value) {
+        vec[key]=value;
+    }
+    
+    int get(int key) {
+        return vec[key];
+    }
+    
+    void remove(int key) {
+        vec[key]=-1;
+    }
+};
+
+Method -2
+
+
+class MyHashMap {
+public:
+    vector<list<pair<int,int>>>vec;
+    int siz;
+    MyHashMap() {
+        siz=1000;
+        vec.resize(siz);
+    }
+    
+    int hash(int key){
+        return key%siz;
+    }
+    
+    list<pair<int,int>> :: iterator search(int key){
+        int i=hash(key);
+        list<pair<int,int>> :: iterator it = vec[i].begin();  
+        while(it!=vec[i].end()){
+            if(it->first==key){
+               
+                return it;
+            }
+             it++;
+        }
+        return it;
+    }
+    
+    void put(int key, int value) {
+        int i=hash(key);
+        remove(key);
+        vec[i].push_back({key,value});
+    }
+    
+    int get(int key) {
+        int i=hash(key);
+        list<pair<int,int>> :: iterator it=search(key);
+        if(it==vec[i].end()){
+            return -1;
+        }else{
+            return it->second;
+        }
+    }
+    
+    void remove(int key) {
+          int i=hash(key);
+        list<pair<int,int>> :: iterator it=search(key);
+        if(it!=vec[i].end()){
+           vec[i].erase(it);
+        }
+    }
+}; 
