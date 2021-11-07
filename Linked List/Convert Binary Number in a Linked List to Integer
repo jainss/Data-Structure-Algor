@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        ListNode *pre1=head,*pre2=head;
+        int c=0;
+        while(pre1->next!=NULL){
+            c++;
+            pre1=pre1->next;
+        }
+        int ans=0;
+        while(pre2!=NULL){
+            ans=ans+(pre2->val*pow(2,c));
+            c--;
+            pre2=pre2->next;
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/ 
