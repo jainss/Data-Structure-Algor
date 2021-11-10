@@ -1,0 +1,27 @@
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        ListNode* l1=new ListNode(-1);
+        ListNode* list1=l1;
+        ListNode* l2=new ListNode(-1);
+        ListNode* list2=l2;
+        int c=0;
+        while(head!=NULL){
+            if(!c){
+                list1->next=head;
+                list1=list1->next;
+                c=!(c);
+            }else{
+                list2->next=head;
+                list2=list2->next;
+                c=!(c);
+            }
+            head=head->next;
+        }
+        list2->next=NULL;
+        list1->next=l2->next;
+        return l1->next;
+    }
+};
+
+https://leetcode.com/problems/odd-even-linked-list/ 
