@@ -1,0 +1,61 @@
+Method -1
+By Iteration :-
+
+class Solution {
+public:
+    ListNode* swapPairs(ListNode *head) {
+        ListNode* dummy =new ListNode(0);
+        dummy->next=head;
+        ListNode* root=dummy;
+        while(root!=NULL){
+        ListNode* first=root->next,*second=NULL;
+        if(first!=NULL){
+            second=first->next;
+        }
+        if(second!=NULL){
+            ListNode* third=second->next;
+            second->next=first;
+            root->next=second;
+            first->next=third;
+            root=first;
+        }else{
+            break;
+        }
+        }
+        return dummy->next;
+    }
+};
+
+Method -2 
+By recursion :-
+
+
+class Solution {
+public:
+    ListNode* swapPairs(ListNode *head) {
+        ListNode* dummy =new ListNode(0);
+        dummy->next=head;
+        swap(dummy);
+        return dummy->next;
+    }
+    void swap(ListNode* root){
+        if(root==NULL){
+            return ;
+        }
+        ListNode* first=root->next,*second=NULL;
+        if(first!=NULL){
+            second=first->next;
+        }
+        if(second!=NULL){
+            ListNode* third=second->next;
+            second->next=first;
+            root->next=second;
+            first->next=third;
+           swap(first);
+        }
+    }
+};
+
+
+
+https://leetcode.com/problems/swap-nodes-in-pairs/ 
