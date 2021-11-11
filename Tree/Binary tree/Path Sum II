@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void solve(TreeNode* root,vector<vector<int>>&ans,vector<int>vec,int target){
+        if(root==NULL){
+          return ;
+        }
+        vec.push_back(root->val);
+        if(root->val==target&&root->left==NULL&&root->right==NULL){
+            ans.push_back(vec);
+            vec.pop_back();
+            return ;
+        }
+        solve(root->left,ans,vec,target-root->val);
+        solve(root->right,ans,vec,target-root->val);
+        vec.pop_back();
+        return ;
+    }
+    
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+         vector<vector<int>>ans;
+         vector<int>vec;
+        if(root==NULL){
+            return ans;
+        }
+        solve(root,ans,vec,targetSum);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/path-sum-ii/ 
