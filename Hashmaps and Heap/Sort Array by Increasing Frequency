@@ -1,0 +1,29 @@
+class Solution {
+public:
+    struct cmp{
+        bool operator()(pair<int,int> &a,pair<int,int> &b){
+        return a.first==b.first?a.second<b.second:a.first>b.first;
+        }
+    };
+    
+    vector<int> frequencySort(vector<int>& nums) {
+        unordered_map<int,int>mp;
+        for(auto it:nums){
+            mp[it]++;
+        }
+        priority_queue<pair<int,int>,vector<pair<int,int>>,cmp>pq;
+        for(auto it:mp){
+            pq.push({it.second,it.first});
+        }
+        vector<int>vec;
+        while(!pq.empty()){
+            for(int i=0;i<pq.top().first;i++){
+                vec.push_back(pq.top().second);
+            }
+            pq.pop();
+        }
+        return vec;
+    }
+};
+
+https://leetcode.com/problems/sort-array-by-increasing-frequency/ 
