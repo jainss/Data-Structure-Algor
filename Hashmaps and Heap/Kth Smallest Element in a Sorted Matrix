@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        priority_queue<int>pq;
+        for(auto it:matrix){
+            for(auto its:it){
+                pq.push(its);
+                if(pq.size()>k){
+                    pq.pop();
+                }
+            }
+        }
+        return pq.top();
+    }
+};
+
+https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/ 
