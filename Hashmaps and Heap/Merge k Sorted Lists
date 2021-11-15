@@ -1,0 +1,28 @@
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        int n=lists.size();
+        if(n==0){
+            return NULL;
+        }
+        priority_queue<int,vector<int>,greater<int>>pq;
+        for(int i=0;i<lists.size();i++){
+            auto head=lists[i];
+            while(head){
+                pq.push(head->val);
+                head=head->next;
+            }
+        }
+        auto node=new ListNode(0);
+        auto tail=node;
+        while(!pq.empty()){
+            auto n=new ListNode(pq.top());
+            tail->next=n;
+            pq.pop();
+            tail=tail->next;
+        }
+        return node->next;
+    }
+};
+
+https://leetcode.com/problems/merge-k-sorted-lists/ 
