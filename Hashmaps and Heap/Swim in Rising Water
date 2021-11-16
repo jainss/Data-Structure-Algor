@@ -1,0 +1,40 @@
+class Solution {
+public:
+    #define pii pair<int, pair<int,int>>
+   int dir[4][2] = {{1,0},{0,1},{-1,0},{0,-1}}; 
+    int swimInWater(vector<vector<int>>& v) {
+        int n = v.size();
+          vector<vector<bool>> vis(n,vector<bool>(n,false));
+         priority_queue <pii, vector<pii>, greater<pii>> pq;
+       pq.push({v[0][0],{0,0}});
+        while(!pq.empty()){
+            pii curr = pq.top();
+            pq.pop();
+            int x = curr.second.first;
+            int y = curr.second.second;
+            int t = curr.first;
+            if(vis[x][y]==true){
+                continue;
+            }
+             vis[x][y] = true;
+            if(x==n-1 && y==n-1){
+                return t;
+            }
+            for(int k =0;k<4;k++){
+                int newi = x+dir[k][0];
+                int newj = y+dir[k][1];
+
+                if(newi>=n||newj>=n||newi<0||newj<0||vis[newi][newj]){
+                    continue;
+                }
+                else{
+                    pq.push({max(t,v[newi][newj]),{newi,newj}});
+                }
+            }
+        }
+       return 0;
+    }
+};
+
+
+ https://leetcode.com/problems/swim-in-rising-water/ 
