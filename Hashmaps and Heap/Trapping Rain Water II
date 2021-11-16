@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int trapRainWater(vector<vector<int>>& heightMap) {
+        int m=heightMap.size(),n=heightMap[0].size();
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+        vector<vector<int>>vis(m,vector<int>(n,0));
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 || j==0 || i==(m-1) || j==n-1){
+                  pq.push({heightMap[i][j],{i,j}});
+                  vis[i][j]=1;
+                }
+            }
+        }
+        int minbdh=0;
+        int ans=0;
+        int dr[4]={0,0,-1,1};
+        int dc[4]={1,-1,0,0};
+        while(!pq.empty()){
+            int high=pq.top().first;
+            int r=pq.top().second.first;
+            int c=pq.top().second.second;
+            pq.pop();
+            minbdh=max(minbdh,high);
+            for(int i=0;i<4;i++){
+                int rr=r+dr[i];
+                int cc=c+dc[i];
+                if(rr>=0&&rr<m&&cc>=0&&cc<n&&vis[rr][cc]==0){
+                    pq.push({heightMap[rr][cc],{rr,cc}});
+                    vis[rr][cc]=1;
+                    if(heightMap[rr][cc]<minbdh){
+                        ans+=minbdh-heightMap[rr][cc];
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+https://leetcode.com/problems/trapping-rain-water-ii/ 
