@@ -1,0 +1,22 @@
+  class Solution {
+public:
+    int lastRemaining(int n) {
+        return solve(n,true);
+    }
+    int solve(int n,bool leftor){
+        if(n==1){
+            return 1;
+        }
+        if(leftor){
+            return 2*solve(n/2,false);
+        }else{
+            if(n%2==0){
+                return 2*solve(n/2,true)-1;
+            }else{
+                return 2*solve(n/2,true);
+            }
+        }
+    }
+};
+
+LINK: https://leetcode.com/problems/elimination-game/ 
