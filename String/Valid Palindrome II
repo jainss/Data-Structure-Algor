@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool solve(string s){
+        int i=0,j=s.size()-1;
+       bool istwo=false;
+        while(i<=j){
+            if(s[i]==s[j]){
+                i++;
+                j--;
+            }else{
+                if(istwo){
+                    return false;
+                }else{
+                    i++;
+                    istwo=true;
+                }
+            }
+        }
+        return true;
+    }
+    bool validPalindrome(string s) {
+        if(solve(s)==false){
+            reverse(s.begin(),s.end());
+            return solve(s);
+        }else{
+            return true;
+        }
+    }
+};
+
+https://leetcode.com/problems/valid-palindrome-ii/
