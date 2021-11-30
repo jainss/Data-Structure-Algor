@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int index=haystack.find(needle);
+        if(haystack==""&&needle==""){
+            index=0;
+        }
+        return index;
+    }
+};
+
+
+https://leetcode.com/problems/implement-strstr
