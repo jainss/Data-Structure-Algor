@@ -1,0 +1,25 @@
+class Solution {
+public:
+    set<vector<int>>st;
+    void solve(int index, vector<vector<int>>&ans,vector<int>&nums){
+        if(index==nums.size()){
+            st.insert(nums);
+            return ;
+        }
+        for(int i=index;i<nums.size();i++){
+            swap(nums[i],nums[index]);
+            solve(index+1,ans,nums);
+            swap(nums[i],nums[index]);
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>>ans;
+        solve(0,ans,nums);
+        for(auto it:st){
+            ans.push_back(it);
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/permutations-ii/
