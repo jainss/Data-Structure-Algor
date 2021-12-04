@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool checkis(vector<int>nums){
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]%(i+1)==0||(i+1)%nums[i]==0){
+                continue;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+    void solve(int index,int &ans,vector<int>&nums){
+        if(index==nums.size()){
+           ans++;
+        }
+        for(int i=index;i<nums.size();i++){
+            swap(nums[i],nums[index]);
+           if(nums[index]%(index+1)==0||(index+1)%nums[index]==0){
+                solve(index+1,ans,nums);
+            }
+            swap(nums[i],nums[index]);
+        }
+    }
+    int countArrangement(int n) {
+        int ans=0;
+        vector<int>nums;
+        for(int i=0;i<n;i++){
+            nums.push_back(i+1);
+        }
+        solve(0,ans,nums);
+        return ans;
+    }
+};
+https://leetcode.com/problems/beautiful-arrangement/ 
