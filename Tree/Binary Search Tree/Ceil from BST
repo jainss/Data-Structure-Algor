@@ -1,0 +1,18 @@
+int findCeil(BinaryTreeNode<int> *root, int x){
+   int ceil=-1;
+    while(root){
+        if(root->data==x){
+            ceil=x;
+            return ceil;
+        }
+        if(x>root->data){
+            root=root->right;
+        }else{
+            ceil=root->data;
+            root=root->left;
+        }
+    }
+    return ceil;
+}
+
+https://www.codingninjas.com/codestudio/problems/ceil-from-bst_920464?source=youtube&campaign=Striver_Tree_Videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=Striver_Tree_Videos&leftPanelTab=0 
