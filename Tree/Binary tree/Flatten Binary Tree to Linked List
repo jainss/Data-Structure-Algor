@@ -1,0 +1,75 @@
+Method-1
+
+By recursion :-
+
+class Solution {
+public:
+    TreeNode *prev=NULL;
+    void flatten(TreeNode* root) {
+        if(root==NULL){
+          return;
+        }
+        flatten(root->right);
+        flatten(root->left);
+        root->right=prev;
+        root->left=NULL;
+        prev=root;
+    }
+}; 
+
+Method-2
+
+By Stack :-
+
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if(root==NULL){
+            return ;
+        }
+        stack<TreeNode*>st;
+        st.push(root);
+        while(!st.empty()){
+            TreeNode *node=st.top();
+            st.pop();
+            if(node->right!=NULL){
+                st.push(node->right);
+            }
+            if(node->left!=NULL){
+                st.push(node->left);
+            }
+            if(!st.empty()){
+                node->right=st.top();
+            }
+            node->left=NULL;
+        }
+    }
+};
+
+Method -3
+
+By Morris Theoram
+
+
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode *cur=root;
+        while(cur!=NULL){
+          if(cur->left!=NULL){
+              TreeNode *prev=cur->left;
+              while(prev->right){
+                  prev=prev->right;
+              }
+              prev->right=cur->right;
+              cur->right=cur->left;
+              cur->left=NULL;
+          }
+          cur=cur->right;
+        }
+        
+    }
+};
+
+
+https://leetcode.com/problems/flatten-binary-tree-to-linked-list/submissions/ 
