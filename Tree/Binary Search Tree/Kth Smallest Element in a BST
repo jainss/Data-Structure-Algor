@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int c=0;
+        stack<TreeNode*>st;
+        TreeNode *node = root;
+        while(true){
+            if(node!=NULL){
+                st.push(node);
+                node=node->left;
+            }else{
+                if(st.empty()==true){
+                    break;
+                }
+                node=st.top();
+                st.pop();
+                c++;
+                if(c==k){
+                    return node->val;
+                }
+                node=node->right;
+            }
+        }
+        return -1;
+    }
+};
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/ 
