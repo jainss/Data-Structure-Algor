@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int cover=0,wantcam=1,hascam=2,count=0;
+    int solve(TreeNode* root){
+        if(root==NULL){
+            return cover;
+        }
+        if(root->left==NULL&&root->right==NULL){
+            return wantcam;
+        }
+        int leftt=solve(root->left);
+        int rightt=solve(root->right);
+        if(leftt==wantcam||rightt==wantcam){
+            count++;
+            return hascam;
+        }
+        if(leftt==hascam||rightt==hascam){
+            return cover;
+        }
+        return wantcam;
+    }
+    int minCameraCover(TreeNode* root) {
+        solve(root)==wantcam?count++:cover;
+        return count;
+    }
+};
+https://leetcode.com/problems/binary-tree-cameras/
