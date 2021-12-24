@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        string c;
+        cin >> c;
+        int s1=0,s2=0;
+        for(int i=0;c[i]!='\0';i++){ 
+            if(c[i]=='S'){
+                if(c.substr(i,7).compare("SUVOJIT")==0){ 
+                    s2++; 
+                }
+                else if(c.substr(i,4).compare("SUVO")==0){ 
+                    s1++;
+                }
+            }
+        }
+        cout << "SUVO = " << s1 <<", SUVOJIT = " << s2 << "\n";
+    }
+    return 0;
+}
+
+http://greenticksolutions.blogspot.com/2017/12/mannas-first-name-manna-is-extremely.html
