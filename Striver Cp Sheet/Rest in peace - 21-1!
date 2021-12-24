@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	long long int num,t;
+	cin >> t;										
+	while(t--){
+		cin>>num;
+		string st=to_string(num);
+		if(num%21==0){
+			cout<<"The streak is broken!"<<endl;
+		}
+		else if(st.find("21") != std::string::npos){
+			cout<<"The streak is broken!"<<endl;
+		}else{
+			cout<<"The streak lives still in our heart!"<<endl;
+		}
+	}
+	return 0;
+}
+https://www.hackerearth.com/practice/algorithms/searching/linear-search/practice-problems/algorithm/rest-in-peace-21-1/
