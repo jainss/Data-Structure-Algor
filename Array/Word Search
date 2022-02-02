@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool vis[10][10];
+    bool isPath(int row, int col, int m, int n, string v, vector<vector<char>>& board, string word) {
+        if(v==word) {
+            return true;
+        }
+        if(row<0 || col<0 || row>=m || col>=n || board[row][col] != word[v.size()] || vis[row][col]==true)
+            return false;
+        v+=board[row][col];
+        vis[row][col] = true;
+        int yd = isPath(row+1, col, m, n, v, board, word);       
+        int yu = isPath(row-1, col, m, n, v, board, word);     
+        int xf = isPath(row, col+1, m, n, v, board, word);    
+        int xb = isPath(row, col-1, m, n, v, board, word);      
+        vis[row][col] = false;
+        v.pop_back();
+        return yd || yu || xf || xb;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        string v="";
+        int m = board.size();
+        int n = board[0].size();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(board[i][j]==word[0])
+                    if(isPath(i, j, m, n, v, board, word))
+                        return true;
+            }
+        }
+        return false;
+    }
+};
+
+
+https://leetcode.com/problems/word-search/
