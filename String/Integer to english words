@@ -1,0 +1,31 @@
+class Solution {
+public:
+    
+    string digits[20] = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    
+    string tens[10] = {"Zero", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+
+    string solve(int n){
+        if (n >= 1000000000) {
+            return solve(n / 1000000000) + " Billion" + solve(n % 1000000000);
+        } else if (n >= 1000000) {
+            return solve(n / 1000000) + " Million" + solve(n % 1000000);
+        } else if (n >= 1000) {
+            return solve(n / 1000) + " Thousand" + solve(n % 1000);
+        } else if (n >= 100) {
+            return solve(n / 100) + " Hundred" + solve(n % 100);
+        } else if(n>=20){
+             return " "+tens[n/10]+solve(n%10);
+        }else if(n>=1){
+            return " "+digits[n];
+        }else{
+            return "";
+        }
+    }
+    string numberToWords(int num) {
+        return num==0?"Zero":solve(num).substr(1);
+    }
+};
+
+
+https://leetcode.com/problems/integer-to-english-words/ 
