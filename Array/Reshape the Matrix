@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        int n=mat.size(),m=mat[0].size();
+        vector<vector<int>>vec(r,vector<int>(c,0));
+        if((r*c)!=(n*m)){
+            return mat;
+        }
+        for(int i=0;i<n*m;i++){
+            vec[i/c][i%c]=mat[i/m][i%m];
+        }
+        return vec;
+    }
+};
+
+https://leetcode.com/problems/reshape-the-matrix/
