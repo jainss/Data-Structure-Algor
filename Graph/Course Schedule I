@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool canFinish(int nc, vector<vector<int>>& pre) {
+        vector<int>adj[nc];
+        for(auto it: pre){
+            adj[it[1]].push_back(it[0]);
+        }
+        queue<int>qu;
+        vector<int>indeg(nc,0);
+        for(auto it: pre){
+            indeg[it[0]]++;
+        }
+        for(int i=0;i<indeg.size();i++){
+            if(indeg[i]==0){
+                qu.push(i);
+            }
+        }
+        vector<int>vec;
+        while(!qu.empty()){
+            int val=qu.front();
+            qu.pop();
+            vec.push_back(val);
+            for(auto it:adj[val]){
+                indeg[it]--;
+                if(indeg[it]==0){
+                    qu.push(it);
+                }
+            }
+        }
+        return (vec.size()==nc)?true:false;
+    }
+};
+
+https://leetcode.com/problems/course-schedule/
