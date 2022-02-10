@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int>adj[numCourses];
+        vector<int>coun(numCourses,0);
+        for(auto it : prerequisites){
+            adj[it[1]].push_back(it[0]);
+            coun[it[0]]++;
+        }
+        queue<int>qu;
+        vector<int>ans;
+        for(int i=0;i<coun.size();i++){
+            if(coun[i]==0){
+                qu.push(i);
+            }
+        }
+        while(!qu.empty()){
+            int val=qu.front();
+            ans.push_back(val);
+            qu.pop();
+            for(auto it:adj[val]){
+                coun[it]--;
+                if(coun[it]==0){
+                    qu.push(it);
+                }
+            }
+        }
+        return ans.size()==numCourses?ans:vector<int>();
+    }
+};
+
+
+https://leetcode.com/problems/course-schedule-ii/
