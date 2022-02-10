@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool solve(vector<int>adj[],vector<int>&color,int i){
+        if(color[i]==-1){
+            color[i]=1;
+        }
+        for(auto child: adj[i]){
+            if(color[child]==-1){
+                color[child]=1-color[i];
+               if(!solve(adj,color,child)){
+                   return false;
+               }
+            }
+            else{
+                if(color[child]==color[i]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    bool possibleBipartition(int N, vector<vector<int>>& dislikes) {
+        vector<int> adj[N+1];
+        for(auto it: dislikes) {
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        vector<int> color(N+1, -1);
+         for(int i=1;i<=N;i++){
+	       if(color[i]==-1){
+	           if(!solve(adj,color,i)){
+	               return false;
+	           }
+	       }
+	   }
+	   return true;
+    }
+};
+
+https://leetcode.com/problems/possible-bipartition/
