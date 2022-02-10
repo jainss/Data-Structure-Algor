@@ -1,0 +1,28 @@
+
+class Solution 
+{
+    public:
+    
+    void finddfs(int i,vector<int>adj[],vector<int>&vec,vector<int>&dfs){
+        dfs.push_back(i); 
+        vec[i]=1;
+        for(auto it:adj[i]){
+            if(!vec[it]){
+                finddfs(it,adj,vec,dfs);
+            }
+        }
+    }
+    
+	vector<int>dfsOfGraph(int V, vector<int> adj[]){
+	   vector<int>dfs;
+	   vector<int>vec(V+1,0);
+	   for(int i=0;i<V;i++){
+	       if(!vec[i]){
+	            finddfs(i,adj,vec,dfs);
+	       }
+	   }
+	   return dfs;
+	}
+};
+
+https://practice.geeksforgeeks.org/problems/depth-first-traversal-for
