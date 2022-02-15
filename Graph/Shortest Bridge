@@ -1,0 +1,53 @@
+class Solution {
+public:
+    queue<pair<int,int>>qu;
+    vector<pair<int,int>>dir={{1,0},{0,1},{-1,0},{0,-1}};
+    void dfs(vector<vector<int>>& grid,vector<vector<bool>>&vis,int i,int j){
+        vis[i][j]=true;
+        qu.push({i,j});
+        for(auto it:dir){
+            int r=i+it.first;
+            int c=j+it.second;
+            if(r<0 || c<0 || r>=grid.size() || c>=grid[0].size() || vis[r][c] || grid[r][c]==0){
+                continue;
+            }
+            dfs(grid,vis,r,c);
+        }
+    }
+    int shortestBridge(vector<vector<int>>& grid) {
+        vector<vector<bool>>vis(grid.size(),vector<bool>(grid.size(),false));
+        int f=1;
+        for(int i=0;i<grid.size() and f==1;i++){
+            for(int j=0;j<grid[0].size() and f==1;j++){
+                if(vis[i][j]==false and grid[i][j]==1){
+                     f=0;
+                    dfs(grid,vis,i,j);
+                }
+            }
+        }
+        int lvl=0;
+        while(!qu.empty()){
+            int n=qu.size();
+            while(n--){
+                auto val=qu.front();
+                qu.pop();
+                for(auto it:dir){
+                    int r=val.first+it.first;
+                    int c=val.second+it.second;
+                    if(r<0 || c<0 || r>=grid.size() || c>=grid[0].size() || vis[r][c]){
+                      continue;
+                    }
+                    if(grid[r][c]==1){
+                        return lvl;
+                    }
+                    qu.push({r,c});
+                    vis[r][c]=true;
+                }
+            }
+            lvl++;
+        }
+        return -1;
+    }
+};
+
+https://leetcode.com/problems/shortest-bridge/
