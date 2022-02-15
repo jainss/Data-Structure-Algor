@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void dfs(vector<vector<int>>& graph,vector<int> &vec,int i){
+        vec.push_back(i);
+        if(i==graph.size()-1){
+            ans.push_back(vec);
+        }
+        for(auto it:graph[i]){
+            dfs(graph,vec,it);
+        }
+        vec.pop_back();
+    }
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<int>vec;
+        dfs(graph,vec,0);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/all-paths-from-source-to-target/
