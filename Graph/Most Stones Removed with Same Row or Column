@@ -1,0 +1,91 @@
+Method -1:
+
+TC: O(n^2 log(n));
+SC: O(n);
+
+class Solution {
+public:
+    vector<int>rank;
+    vector<int>par;
+    int find(int node){
+        if(node==par[node]){
+            return node;
+        }
+        return par[node]=find(par[node]);
+    }
+    void unionrank(int u,int v){
+        u=find(u);
+        v=find(v);
+        if(rank[u]>rank[v]){
+            par[v]=u;
+        }else if(rank[v]>rank[u]){
+            par[u]=v;
+        }else{
+            par[u]=v;
+            rank[v]++;
+        }
+    }
+    int removeStones(vector<vector<int>>& stones) {
+        int n=stones.size();
+        rank.resize(n,1);
+        for(int i=0;i<n;i++){
+            par.push_back(i);
+        }
+        for(int i = 1; i< n; i++){
+            for(int j = 0; j< i; j++){
+                if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]){
+                    unionrank(i, j);
+                }
+            }
+        }
+        int abs_p=0;
+        for(int i = 0; i< n; i++){
+            if(par[i] == i) 
+                abs_p++;
+        }
+        return n - abs_p;
+    }
+};
+
+
+
+Method : 2
+TC : O(N+E)
+SC: O(N);
+
+class Solution {
+public:
+    void dfs(map<int,vector<int>>& mx,map<int,vector<int>>& my,int x,int y,map<pair<int,int>,bool>& visited,int& c){
+        c++;
+        visited[{x,y}]=true;
+        for(auto i:mx[x]){
+            if(!visited[{x,i}]){
+                dfs(mx,my,x,i,visited,c);
+            }
+        }
+        for(auto i:my[y]){
+            if(!visited[{i,y}]){
+                dfs(mx,my,i,y,visited,c);
+            }
+        }
+    }
+    int removeStones(vector<vector<int>>& stones) {
+        map<int,vector<int>> mx,my;
+        map<pair<int,int>,bool> visited;
+        for(auto i:stones){
+            mx[i[0]].push_back(i[1]);
+            my[i[1]].push_back(i[0]);
+            visited[{i[0],i[1]}]=false;
+        }
+        int c=0;
+        for(auto i:stones){
+            if(!visited[{i[0],i[1]}]){
+                dfs(mx,my,i[0],i[1],visited,c);
+                c--;
+            }      
+        }
+        return c;
+    }
+};
+
+https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/
