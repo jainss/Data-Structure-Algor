@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int>rank;
+    vector<int>par;
+    int find(int node){
+        if(node==par[node]){
+            return node;
+        }
+        return par[node]=find(par[node]);
+    }
+    void unionrank(int u,int v){
+        u=find(u);
+        v=find(v);
+        if(rank[u]>rank[v]){
+            par[v]=u;
+        }else if(rank[v]>rank[u]){
+            par[u]=v;
+        }else{
+            par[u]=v;
+            rank[v]++;
+        }
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n=isConnected.size();
+        rank.resize(n,1);
+        for(int i=0;i<n;i++){
+            par.push_back(i);
+        }
+        for(int i=0;i<isConnected.size();i++){
+            for(int j=i+1;j<isConnected[0].size();j++){
+               if(isConnected[i][j]==1){
+                   unionrank(i,j);
+               }
+            }
+        }
+        set<int>st;
+        for(auto it:par){
+           st.insert(find(it));
+        }
+        return st.size();
+    }
+};
+
+
+https://leetcode.com/problems/number-of-provinces/ 
