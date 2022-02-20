@@ -1,0 +1,41 @@
+TC : O(N)
+By BFS;
+
+class Solution {
+public:
+    vector<vector<int>>dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+    int maxDistance(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+        vector<vector<int>>res(m,vector<int>(n,-1)); 
+        queue<vector<int>>q;
+        int maxDist = -1; 
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j] == 1){
+                    res[i][j]=0;
+                    q.push({i,j,0});
+                }
+            }
+        }
+        while(!q.empty()){
+            vector<int>curr = q.front();
+            q.pop();
+            for(auto &nbrs: dirs){
+                int x=curr[0] + nbrs[0];
+                int y=curr[1] + nbrs[1];
+                if(x<0 || y<0 || x>=m || y>=n)
+                    continue;
+                if(res[x][y] == -1){
+                    res[x][y] = curr[2] + 1;
+                    maxDist = max(maxDist ,res[x][y] );
+                    q.push({x,y,curr[2] + 1});
+                }
+                
+            }
+        }
+        return maxDist;
+    }
+};
+
+https://leetcode.com/problems/as-far-from-land-as-possible/
