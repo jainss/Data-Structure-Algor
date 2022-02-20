@@ -1,0 +1,26 @@
+TC: O(N);
+SC: O(N);
+
+
+class Solution {
+public:
+    void dfs(vector<vector<int>>& rooms, int& cnt, vector<bool>&vis, int ind)
+    {
+        vis[ind]=true;
+        cnt++; 
+        for(auto x: rooms[ind])
+        {
+            if(!vis[x])
+                dfs(rooms, cnt, vis, x);
+        }
+    }
+    bool canVisitAllRooms(vector<vector<int>>& rooms) 
+    {
+        vector<bool>vis(rooms.size(), false);
+        int cnt=0;
+        dfs(rooms, cnt, vis, 0);
+        return cnt==rooms.size();
+    }
+};
+
+https://leetcode.com/problems/keys-and-rooms/
