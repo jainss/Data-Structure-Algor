@@ -1,0 +1,46 @@
+class Solution {
+  public:
+    int solve(int N,string S, int C[]) {
+       vector<string>vec={"","","",""};
+       int f=1;
+       for(int i=0;i<N;i+=2){
+           if(f){
+                vec[1]+="11";
+                vec[0]+="00";
+           }else{
+                vec[1]+="00";
+                 vec[0]+="11";
+           }
+          f=!f;
+       }
+       f=1;
+       for(int i=0;i<N;i++){
+           if(f){
+               vec[2]+='1';
+                vec[3]+='0';
+           }else{
+                vec[2]+='0';
+                 vec[3]+='1';
+           }
+          f=!f;
+       }
+       int ans=INT_MAX;
+    //   for(auto it:vec){
+    //       cout<<it<<endl;
+    //   }
+       for(auto it:vec){
+           string str=it;
+           int sum=0;
+           for(int i=0;i<N;i++){
+               if(S[i]!=str[i]){
+                   sum+=C[i];
+               }
+           }
+           ans=min(ans,sum);
+       }
+       return ans;
+    }
+};
+
+
+https://practice.geeksforgeeks.org/contest/job-a-thon-5-hiring-challenge/problems/#
