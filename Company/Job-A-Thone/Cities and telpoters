@@ -1,0 +1,23 @@
+class Solution{
+    public:
+    int solve (int N,vector<int> &A,int x,int k){
+       priority_queue<int>pq;
+       int i;
+       for(i=1;i<N;i++){
+          int dif=A[i]-A[i-1];
+          x-=dif;
+          pq.push(dif);
+          while(pq.size()>0 and k>0 and x<0){
+              x+=pq.top();
+              pq.pop();
+              k--;
+          }
+          if(k<0){
+              break;
+          }
+       }
+       return i;
+    }
+};
+
+https://practice.geeksforgeeks.org/contest/job-a-thon-5-hiring-challenge#
