@@ -1,0 +1,83 @@
+By BFS:
+TC : O(N+E)
+SC : O(N)
+
+
+
+/*
+// Definition for Employee.
+class Employee {
+public:
+    int id;
+    int importance;
+    vector<int> subordinates;
+};
+*/
+
+class Solution {
+public:
+    int getImportance(vector<Employee*> employees, int id) {
+        map<int,pair<int,vector<int>>>mp;
+        for(auto it:employees){
+            mp[it->id]={it->importance,it->subordinates};
+        }
+        if(mp.find(id)==mp.end()){
+            return 0;
+        }
+        queue<int>qu;
+        qu.push(id);
+        int ans=0;
+        while(!qu.empty()){
+            int n=qu.size();
+            while(n--){
+                int it=qu.front();
+                qu.pop();
+                ans+=mp[it].first;
+                for(auto its:mp[it].second){
+                    qu.push(its);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+
+By DFS: 
+TC : O(N+E)
+SC: O(1)
+
+
+/*
+// Definition for Employee.
+class Employee {
+public:
+    int id;
+    int importance;
+    vector<int> subordinates;
+};
+*/
+
+class Solution {
+public:
+    void dfs(unordered_map<int,pair<int,vector<int>>>mp,int id,int &ans){
+        ans+=mp[id].first;
+        for(auto it:mp[id].second){
+            dfs(mp,it,ans);
+        }
+    }
+    int getImportance(vector<Employee*> employees, int id) {
+        unordered_map<int,pair<int,vector<int>>> mp; 
+        for(auto &it:employees){
+			  mp[it->id]={it->importance,it->subordinates};
+		}
+        if(mp.find(id)==mp.end()){
+          return 0;
+        }
+        int ans=0;
+        dfs(mp,id,ans);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/employee-importance/
