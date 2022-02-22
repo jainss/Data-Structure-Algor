@@ -1,9 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 // TC 4(alpha)  ~ 4*m   (m= total number of call)
-int parent[100000];
-int ranks[100000];
+vector<int>parent;
+vector<int>ransk;
 
+DSU(int n){
+        for(int i=0; i<n; i++){
+            parent.push_back(i);
+            ranks.push_back(1);
+        }
+    }
 void makeset()
 {
     for (int i = 0; i < 2; i++)
