@@ -1,0 +1,28 @@
+class Solution {
+private:
+    string formatString(int start, int end) {
+        if(start == end) {
+            return to_string(start);
+        }
+        return to_string(start) + "->" + to_string(end);
+    }
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 0) return {};
+        vector<string> result;
+        int start = nums[0]; int end = nums[0];
+        for(int i=1; i<n; i++) {
+            if(end + 1 != nums[i]) {
+               result.push_back(formatString(start, end));
+                start = nums[i]; end = nums[i];
+            } else {
+                end++;
+            }
+        }
+        result.push_back(formatString(start, end));
+        return result;
+    }
+};
+
+https://leetcode.com/problems/summary-ranges/
