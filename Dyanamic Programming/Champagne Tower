@@ -1,0 +1,24 @@
+class Solution {
+public:
+    double champagneTower(int poured, int query_row, int query_glass) {
+        if(poured==0){
+            return 0;
+        }
+        vector<double>prev;
+        prev.push_back(double(poured));
+        while(query_row--){
+            vector<double>temp;
+            double val =(prev[0]-1)/2>0?(prev[0]-1)/2:0;
+            temp.push_back(val);
+            for(int i=1;i<prev.size();i++){
+                val=(prev[i-1]-1)/2>0?(prev[i-1]-1)/2:0;
+                val+= (prev[i]-1)/2>0?(prev[i]-1)/2:0;
+                temp.push_back(val);
+            }
+            temp.push_back(temp[0]);
+            prev=temp;
+        }
+        return prev[query_glass]<1?prev[query_glass]:1;
+    }
+};
+https://leetcode.com/problems/champagne-tower/
