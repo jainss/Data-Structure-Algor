@@ -1,0 +1,35 @@
+class Solution {
+public:
+    static bool cmp(const pair<int,int>&p1,const pair<int,int>&p2){
+        return p1.first<p2.first;
+    }
+    vector<int> sortJumbled(vector<int>& mp, vector<int>& nums) {
+        vector<pair<int,int>>vec;
+        for(int i=0;i<nums.size();i++){
+            int it=nums[i];
+            string s=to_string(it);
+            string st="";
+            for(auto its:s){
+
+                st+=mp[its-'0'];
+            }
+            int nunu=0;
+            while(st.size()!=0){
+                nunu*=10;
+                nunu+=st[0];
+                st=st.substr(1);
+            }
+            vec.push_back({nunu,it});
+        }
+
+        sort(vec.begin(),vec.end(),cmp);
+
+        vector<int>ans;
+        for(auto it:vec){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/sort-the-jumbled-numbers/
