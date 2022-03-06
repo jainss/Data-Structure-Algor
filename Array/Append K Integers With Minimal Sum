@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long int ap(long long int n){
+        return (n*(n-1))/2;
+    }
+    long long minimalKSum(vector<int>& nums, int k) {
+        map<int,int>mp;
+        for(auto it:nums){
+            mp[it]++;
+        }
+        long long int st=1,ans=0;
+        for(auto it:mp){
+            long long int l=st;
+            long long int r=it.first;
+            if(r-l<k){
+                k-=(r-l);
+            }else{
+                break;
+            }
+            ans+=ap(r)-ap(l);
+            st=r+1;
+        }
+        long long int l=st;
+        long long int r=st+k;
+        ans+=ap(r)-ap(l);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/append-k-integers-with-minimal-sum/
