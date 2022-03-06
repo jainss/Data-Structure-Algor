@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<string> cellsInRange(string s) {
+        int i=s[1]-'0';
+        int j=s[4]-'0';
+        vector<string>vec;
+        for(char ii=s[0];ii<=s[3];ii++){
+            for(int z=s[1]-'0';z<=s[4]-'0';z++){
+               string st="";
+                st+=ii;
+                st+='0'+z;
+                vec.push_back(st);
+            }
+        }
+        return vec;
+    }
+};
+
+https://leetcode.com/problems/cells-in-a-range-on-an-excel-sheet/
