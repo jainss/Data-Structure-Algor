@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void dfs(vector<int>adj[],int st,int papa,vector<vector<int>>&vec,vector<int>&vis){
+        vis[st]=1;
+        for(auto it:adj[st]){
+            if(!vis[it]){
+                vec[it].push_back(papa);
+                dfs(adj,it,papa,vec,vis);
+            }
+        }
+    }
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<int>adj[n];
+        vector<vector<int>>vec(n);
+        
+        for(auto it:edges){
+            adj[it[0]].push_back(it[1]);
+        }
+        for(int i=0;i<n;i++){
+                vector<int>vis(n,0);
+                dfs(adj,i,i,vec,vis);
+        }
+        return vec;
+    }
+};
+
+
+https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/
