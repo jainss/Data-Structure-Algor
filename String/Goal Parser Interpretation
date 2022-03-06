@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string interpret(string cm) {
+        string ans="";
+        for(int i=0;i<cm.size();){
+            if(cm[i]=='G'){
+               ans+='G';
+                i++;
+            }else if(cm[i]=='(' and cm[i+1]=='a'){
+                ans+="al";
+                i+=4;
+            }else{
+                ans+='o';
+                i+=2;
+            }
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/goal-parser-interpretation/
