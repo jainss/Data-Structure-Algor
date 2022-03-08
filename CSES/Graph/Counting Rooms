@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int     long long
+
+void dfs(int i, int j, int n, int m, vector<string>&arr){
+    if(i<0 or i>=n or j<0 or j>=m or arr[i][j]!='.') return;
+    arr[i][j]='#';
+    dfs(i+1,j,n,m,arr);
+    dfs(i,j+1,n,m,arr);
+    dfs(i-1,j,n,m,arr);
+    dfs(i,j-1,n,m,arr);
+}
+
+signed main(){
+    int n,m; cin>>n>>m;
+    vector<string> arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    int res=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(arr[i][j]=='.'){
+                res++;
+                dfs(i,j,n,m,arr);
+            }
+        }
+    }
+    cout<<res;
+}
+
+
+https://cses.fi/problemset/task/1192/
