@@ -1,0 +1,18 @@
+class Solution {
+public:
+   static bool cmp(int a,int b){
+        int cA=__builtin_popcount(a);
+        int cB=__builtin_popcount(b);
+        if(cA==cB){
+            return a<b;
+        }else{
+            return cA<cB;
+        }
+    }
+    vector<int> sortByBits(vector<int>& arr) {
+        sort(arr.begin(),arr.end(),cmp);
+        return arr;
+    }
+};
+
+https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/
