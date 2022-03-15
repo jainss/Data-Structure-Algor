@@ -1,0 +1,96 @@
+Method -1:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int>adj[n];
+    for(int i=0;i<n;i++){
+        int a,b,wt;
+        cin>>a>>b>>wt;
+        adj[a].push_back(b,wt);
+        adj[b].push_back(a,wt);
+    }
+    bool mst[n];
+    int key[n];
+    int parent[n];
+    for(int i=0;i<n;i++){
+        mst[i]=false;
+        key[i]=INT_MAX;
+        parent[i]=-1;
+    }
+    mst[0]=true;
+    key[0]=0;
+    for(int i=0;i<n-1;i++){
+        int mini=INT_MAX,u;
+        for(int i=0;i<n;i++){
+            if(mini>key[i] and mst[i]==false){
+                mini=key[i];
+                u=i;
+            }
+        }
+        mst[u]=true;
+        for(auto it:adj[u]){
+            int v=it.first;
+            int weight=it.second;
+            if(mst[v]==false and weight<key[v]){
+                key[v]=weight;
+                parent[v]=u;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        parent[i]<<"->"<<i<<endl;
+    }
+    return 0;
+}
+
+
+Method -2:
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int>adj[n];
+    for(int i=0;i<n;i++){
+        int a,b,wt;
+        cin>>a>>b>>wt;
+        adj[a].push_back(b,wt);
+        adj[b].push_back(a,wt);
+    }
+    bool mst[n];
+    int key[n];
+    int parent[n];
+    for(int i=0;i<n;i++){
+        mst[i]=false;
+        key[i]=INT_MAX;
+    }
+    
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>pq;
+    key[0]=0;
+    parent[0]=-1;
+    pq.push({0,0});
+    for(int i=0;i<n-1;i++){
+        int u=pq.top().second;
+        pq.pop();
+        for(auto it:adj[u]){
+            int v=it.first;
+            int weight=it.second;
+            if(mst[v]==false and weight<key[v]){
+                key[v]=weight;
+                parent[v]=u;
+                pq.push({key[v],v});
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        cout<<parent[i]<<"->"i<<endl;
+    }
+    return 0;
+}
