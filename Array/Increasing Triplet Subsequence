@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int x1=INT_MAX,x2=INT_MAX;
+        for(auto it:nums){
+            if(it<=x1){
+                x1=it;
+            }else if(it<=x2){
+                x2=it;
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+
+https://leetcode.com/problems/increasing-triplet-subsequence/
