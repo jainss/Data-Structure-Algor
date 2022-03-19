@@ -1,0 +1,23 @@
+class FreqStack {
+public:
+    unordered_map<int,int>mp;
+    priority_queue<vector<int>>pq;
+    int id=0;
+    FreqStack() {
+        
+    }
+    
+    void push(int val) {
+        mp[val]++;
+        pq.push({mp[val],id++,val});
+    }
+    
+    int pop() {
+        auto node=pq.top();
+        pq.pop();
+        mp[node[2]]--;
+        return node[2];
+    }
+};
+
+https://leetcode.com/problems/maximum-frequency-stack/
