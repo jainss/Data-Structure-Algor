@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int rotations(vector<int>& tops, vector<int>& bottoms,int num,int i,int &count1){
+        if(count1!=INT_MAX){
+            if(num==tops[i]){
+                ///nothing to do
+            }
+            else if(num==bottoms[i]){
+                count1++;
+            }
+            else{
+               return INT_MAX;
+            }
+        }
+        return count1;
+    }
+    int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {
+        int count1=0,count2=0,count3=0,count4=0;
+        int n=tops.size();
+        int num1=tops[0];
+        int num2=bottoms[0];
+        for(int i=0;i<n;i++){
+            count1=rotations(tops,bottoms,num1,i,count1);
+            count2=rotations(bottoms,tops,num1,i,count2);
+            count3=rotations(tops,bottoms,num2,i,count3);
+            count4=rotations(bottoms,tops,num2,i,count4);
+        }
+        int res=min(min(count1,count2),min(count3,count4));
+        return res==INT_MAX?-1:res;
+    }
+};
+
+https://leetcode.com/problems/minimum-domino-rotations-for-equal-row/
