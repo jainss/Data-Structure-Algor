@@ -1,0 +1,14 @@
+class ParkingSystem {
+public:
+    vector<int>vec;
+    ParkingSystem(int big, int medium, int small) {
+        vec={big,medium,small};
+    }
+    
+    bool addCar(int carType) {
+        return vec[carType-1]-- >0;
+    }
+};
+
+
+https://leetcode.com/problems/design-parking-system/
