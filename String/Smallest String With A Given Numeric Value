@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string getSmallestString(int n, int k) {
+        string st="";
+        for(int i=0;i<n;i++){
+            st+='a';
+        }
+        k-=n;
+        int j=n-1;
+        while(k!=0){
+            if(k==0){
+                break;
+            }
+            if(k>=25){
+                st[j]='a'+25;
+                k-=25;
+            }else{
+                st[j]='a'+k;
+                k-=k;
+            }
+            j--;
+        }
+        return st;
+    }
+};
+
+https://leetcode.com/problems/smallest-string-with-a-given-numeric-value/
