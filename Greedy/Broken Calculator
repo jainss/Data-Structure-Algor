@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int brokenCalc(int sv, int target) {
+        if(target==sv){
+            return 0;
+        }
+        int c=0;
+        while(target>sv){
+            c++;
+            if(target%2==0){
+                target/=2;
+            }else{
+                target+=1;
+            }
+        }
+        return c+(sv-target);   
+    }
+};
+
+https://leetcode.com/problems/broken-calculator/
