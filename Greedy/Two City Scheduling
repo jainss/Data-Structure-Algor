@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int twoCitySchedCost(vector<vector<int>>& costs) {
+        vector<pair<int,pair<int,int>>> vec;
+        for(auto it:costs){
+            vec.push_back({it[0]-it[1],{it[0],it[1]}});
+        }
+        sort(vec.begin(),vec.end());
+        int sum=0;
+        for(int i=0;i<costs.size();i++){
+            sum+= i>=(costs.size()/2)?vec[i].second.second:vec[i].second.first;
+        }
+        return sum;
+    }
+};
+
+https://leetcode.com/problems/two-city-scheduling/
