@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int>vec;
+    void soe(int limit){
+        vector<bool>v1(limit+1,true);
+        for(int i=2;i<limit;i++){
+            if(v1[i]==true){
+                for(int j=2*i;j<limit;j+=i){
+                    v1[j]=false;
+                }
+            }
+        }
+        for(int i=2;i<limit;i++){
+            if(v1[i]){
+                vec.push_back(i);
+            }
+        }
+    }
+    int countPrimes(int n) {
+        soe(n);
+        // for(auto it:vec){
+        //     cout<<it<<" ";
+        // }
+        return vec.size();
+    }
+};
+
+https://leetcode.com/problems/count-primes/
