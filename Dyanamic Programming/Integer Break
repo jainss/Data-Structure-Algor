@@ -1,0 +1,54 @@
+Method-1:
+By DP 
+
+class Solution {
+public:
+    vector<int>vec;
+    int solve(int n){
+        if(n==1 || n==2){
+            return 1;
+        }
+        if(n<1){
+            return 0;
+        }
+        if(vec[n]!=-1){
+            return vec[n];
+        }
+        int ans=INT_MIN;
+        for(int i=1;i<n;i++){
+            ans=max(ans,max(i*(n-i),i*solve(n-i)));
+        }
+        return vec[n]=ans;
+    }
+    int integerBreak(int n) {
+        vec.resize(60,-1);
+        return  solve(n);
+    }
+};
+
+
+https://leetcode.com/problems/integer-break/
+
+
+Method -2
+
+Observation 
+
+
+
+class Solution {
+public:
+    int integerBreak(int n) {
+        if(n<=3){
+            return 1*(n-1);
+        }
+        int res=1;
+        while(n>=5){
+            res*=3;
+            n-=3;
+        }
+        return res*n;
+    }
+};
+
+https://leetcode.com/problems/integer-break/
