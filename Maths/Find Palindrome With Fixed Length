@@ -1,0 +1,33 @@
+class Solution {
+public:
+    long long pow(int x,int p){
+        long long ans=1;
+        for(int i=0;i<p;i++){
+            ans*=x;
+        }
+        return ans;
+    }
+    vector<long long> kthPalindrome(vector<int>& queries, int intLength) {
+        long long limit=9*pow(10,(intLength-1)/2);
+        vector<long long>ans;
+        for(int i=0;i<queries.size();i++){
+            if(queries[i]>limit){
+                ans.push_back(-1);
+            }else{
+                long long chk=pow(10,(intLength-1)/2);
+                chk+=queries[i]-1;
+                string st=to_string(chk);
+                string t=st;
+                reverse(t.begin(),t.end());
+                if(intLength%2==1){
+                    st.pop_back();
+                }
+                st+=t;
+                ans.push_back(stoll(st));
+            }
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/find-palindrome-with-fixed-length/
