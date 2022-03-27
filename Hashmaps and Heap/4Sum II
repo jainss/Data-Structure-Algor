@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+        map<int,int>mp;
+        for(auto it:nums1){
+            for(auto its:nums2){
+                mp[its+it]++;
+            }
+        }
+        int c=0;
+        for(auto it:nums3){
+            for(auto its:nums4){
+                if(mp.find(-it-its)!=mp.end()){
+                    c+=mp[-it-its];
+                }
+            }
+        }
+        return c;
+    }
+};
+
+https://leetcode.com/problems/4sum-ii/
