@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        map<int,int>mp1,mp2;
+        for(auto it:nums1){
+            mp1[it]++;
+        }
+        for(auto it:nums2){
+            if(mp1.find(it)!=mp1.end()){
+                mp1[it]=0;
+            }
+            mp2[it]++;
+        }
+        for(auto it:nums1){
+            if(mp2.find(it)!=mp2.end()){
+                mp2[it]=0;
+            }
+        }
+        vector<vector<int>>vec;
+        vector<int>ans1;
+        for(auto it:mp1){
+            if(it.second>0){
+                ans1.push_back(it.first);
+            }
+        }
+        vec.push_back(ans1);
+         vector<int>ans2;
+        for(auto it:mp2){
+            if(it.second>0){
+                ans2.push_back(it.first);
+            }
+        }
+        vec.push_back(ans2);
+        return vec;
+    }
+};
+
+https://leetcode.com/problems/find-the-difference-of-two-arrays/
