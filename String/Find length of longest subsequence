@@ -1,0 +1,18 @@
+
+int maxSubsequenceSubstring(string X, string Y, int N, int M){
+  int ans=INT_MIN;
+  for(int i=0;i<M;i++){
+      int k=i;
+      int c=0;
+      for(int j=0;j<N;j++){
+          if(X[j]==Y[k]){
+              c++;
+              k++;
+          }
+      }
+      ans=max(ans,c);
+  }
+  return ans;
+}
+
+https://practice.geeksforgeeks.org/problems/find-length-of-longest-subsequence4905/1/#
