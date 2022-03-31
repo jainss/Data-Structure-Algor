@@ -1,3 +1,40 @@
+Method-1:
+BackTraking :-
+TC:- O((n-1)(k-1)c)
+where c is the combination c=(n-1)!/((n-k)!*(k-1)!);
+
+class Solution {
+public:
+    void solve(vector<int>& w,int n,int k,int idx,int sum,int mxsum,int &ans){
+        if(k==1){
+            mxsum=max(sum,mxsum);
+            sum=0;
+            for(int i=idx;i<n;i++){
+                sum+=w[i];
+            }
+            mxsum=max(sum,mxsum);
+            ans=min(ans,mxsum);
+            return ;
+        }
+        sum=0;
+        for(int i=idx;i<n;i++){
+            sum+=w[i];
+            mxsum=max(sum,mxsum);
+            solve(w,n,k-1,i+1,sum,mxsum,ans);
+        }
+    }
+    int shipWithinDays(vector<int>& w, int m) {
+        int ans=INT_MAX;
+        solve(w,w.size(),m,0,0,0,ans);
+        return ans;
+    }
+};
+
+
+Method:-2
+Binary String :-
+TC:- O(nlog(SUM))
+
 class Solution {
 public:
     bool isvalid(int mid,vector<int>& nums,int m){
