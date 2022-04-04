@@ -1,0 +1,10 @@
+class Solution {
+public:
+  int minBitFlips(int start, int goal) {
+        int res;
+        res=start^goal;
+        return __builtin_popcount(res);
+    }
+};
+
+https://leetcode.com/problems/minimum-bit-flips-to-convert-number/
