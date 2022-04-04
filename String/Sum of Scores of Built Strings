@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<long long> z_function(string s){
+    long long n = (long long)s.length();
+    vector<long long> z(n);
+    long long l = 0, r = 0;
+    z[0] = n;
+    for (int i = 1; i < n; ++i) {
+        if (i <= r)
+            z[i] = min(r - i + 1, z[i - l]);
+        while (i + z[i] < n && s[z[i]] == s[i + z[i]])
+            ++z[i];
+        if (i + z[i] - 1 > r)
+            l = i, r = i + z[i] - 1;
+    }
+    return z;
+    }
+    long long sumScores(string s) {
+    vector<long long> z = z_function(s);
+    long long count = 0;
+    for (auto x : z)
+        count += x;
+    return count;
+    }
+};
+
+https://leetcode.com/problems/sum-of-scores-of-built-strings/
