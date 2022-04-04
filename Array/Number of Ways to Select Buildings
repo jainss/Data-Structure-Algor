@@ -1,0 +1,43 @@
+class Solution {
+public:
+      long long numberOfWays(string s) {
+        long long n=s.size();
+        vector<long long> left(n),right(n);
+        if(s[0]=='0') left[0]=1;
+        for(long long i=1; i<n; i++){
+            if(s[i]=='0') left[i]=left[i-1]+1;
+            else left[i]=left[i-1];
+        }
+        if(s[n-1]=='0') right[n-1]=1;
+        for(long long i=n-2; i>=0; i--){
+            if(s[i]=='0') right[i]=right[i+1]+1;
+            else right[i]=right[i+1];
+        }
+        long long res=0;
+        for(long long i=0; i<n; i++){
+            if(s[i]=='1'){
+                res+=left[i]*right[i];
+            }
+        }
+        if(s[0]=='1') left[0]=1;
+        else left[0]=0;
+        for(long long i=1; i<n; i++){
+            if(s[i]=='1') left[i]=left[i-1]+1;
+            else left[i]=left[i-1];
+        }
+        if(s[n-1]=='1') right[n-1]=1;
+         else right[n-1]=0;
+        for(long long i=n-2; i>=0; i--){
+            if(s[i]=='1') right[i]=right[i+1]+1;
+            else right[i]=right[i+1];
+        }
+        for(long long i=0; i<n; i++){
+            if(s[i]=='0'){
+                res+=left[i]*right[i];
+            }
+        }
+        return res;
+    }
+};
+
+https://leetcode.com/problems/number-of-ways-to-select-buildings/
