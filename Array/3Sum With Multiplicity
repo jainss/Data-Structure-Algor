@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int threeSumMulti(vector<int>& arr, int target) {
+        sort(arr.begin(),arr.end());
+        int ans=0;
+        int mod=1e9+7;
+        for(int i=0;i<arr.size()-2;i++){
+           int val=target-arr[i];
+           int j=i+1,k=arr.size()-1;
+           while(j<k){
+               if(arr[j]+arr[k]>val){
+                   k--;
+               }else if(arr[j]+arr[k]<val){
+                   j++;
+               }else{
+                   int leftrep=1,rightrep=1;
+                   while(j<k and arr[j]==arr[j+1]){
+                       j++;
+                       leftrep++;
+                   }
+                   while(j<k and arr[k]==arr[k-1]){
+                       k--;
+                       rightrep++;
+                   }
+                   if(j==k){
+                       ans+=(leftrep*(leftrep-1))/2;
+                       ans%=mod;
+                   }else{
+                       ans+=leftrep*rightrep;
+                       ans%=mod;
+                   }
+                   j++;
+                   k--;
+               }
+           }
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/3sum-with-multiplicity/
