@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int calPoints(vector<string>& ops) {
+        stack<int>st;
+        for(auto it:ops){
+            if(it=="+"){
+                int val=st.top();
+                st.pop();
+                int val2=val+st.top();
+                st.push(val);
+                st.push(val2);
+            }else if(it=="D"){
+                st.push(2*st.top());
+            }else if(it=="C"){
+                st.pop();
+            }else{
+                int val=stoi(it);
+                st.push(val);
+            }
+        }
+        int ans=0;
+        while(st.size()>0){
+            ans+=st.top();
+            st.pop();
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/baseball-game/
