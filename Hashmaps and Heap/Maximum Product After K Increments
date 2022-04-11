@@ -1,0 +1,24 @@
+class Solution {
+public:
+    long long int  mod=1e9+7;
+    int maximumProduct(vector<int >& nums,int  k) {
+        priority_queue <long long int , vector<long long int >, greater<long long int > > pq;
+        for(auto it:nums){
+            pq.push(it);
+        }
+        while(k--){
+            long long int val=pq.top()+1;
+            pq.pop();
+            pq.push(val);
+        }
+        long long int  ans=1;
+        while(pq.size()!=0){
+            ans*=pq.top();
+            ans%=mod;
+            pq.pop();
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/maximum-product-after-k-increments/
