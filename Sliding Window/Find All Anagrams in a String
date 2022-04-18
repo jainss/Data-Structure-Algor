@@ -1,29 +1,48 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        int s_len = s.length();
-        int p_len = p.length();
-        if(s.size() < p.size()) return {};
-        vector<int>pat(26,0);
-        vector<int>sub(26,0);
-        for(int i=0;i<p.size();i++){
-            pat[p[i]-'a']++;
-            sub[s[i]-'a']++;
-        }
-        vector<int>ans;
-        if(pat==sub){
-            ans.push_back(0);
-        }
-        for(int i=p.size();i<s.size();i++){
-            sub[s[i-p.size()]-'a']--;
-            sub[s[i]-'a']++;
-            if(pat==sub){
-                ans.push_back(i-p_len+1);
+         unordered_map<char, int> mp;
+    vector<int>ans;
+    for (auto &x : p){
+        mp[x]++;
+    }
+
+    int count = mp.size();
+    int k = p.size();
+    int i=0, j=0;
+
+    while (j < s.size()){
+        //calculation part
+        if (mp.find(s[j]) != mp.end()){
+            mp[s[j]]--;
+            if (mp[s[j]] == 0){
+                count--;
             }
         }
-        return ans;
+
+        //window length not achived yet
+        if (j-i+1 < k){
+            j++;
+        }
+
+        //window length achived, find ans and slide the window
+        else if (j-i+1 == k){
+            //finding the ans
+            if (count == 0){
+               ans.push_back(j-k+1);
+            }
+            if (mp.find(s[i]) != mp.end()){
+                mp[s[i]]++;
+                if (mp[s[i]] == 1){
+                    count++;
+                }
+            }
+
+            //slide the window
+            i++;
+            j++;
+        }
+    }
+    return ans;
     }
 };
-
-
-https://leetcode.com/problems/find-all-anagrams-in-a-string/
