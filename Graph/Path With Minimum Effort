@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) {
+        int M = heights.size(), N = heights[0].size();
+        vector<vector<int>> path(M, vector<int>(N, INT_MAX));
+        queue<pair<int, int>> Q;
+        Q.push({0, 0});
+        path[0][0] = 0;
+        int dir[4][2] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+        
+        while (!Q.empty()) {
+            pair<int, int> curr = Q.front();
+            Q.pop();
+            int i = curr.first, j = curr.second;
+            for (auto d: dir) { 
+                int ri = i + d[0], rj = j + d[1];
+                if (ri >= 0 && ri < M && rj >= 0 && rj < N) {
+                    int diff = abs(heights[i][j] - heights[ri][rj]);
+                    int maxval = max(path[i][j], diff);
+                    if (maxval < path[ri][rj]) {
+                        path[ri][rj] = maxval;
+                        Q.push({ri, rj});
+                    }
+                }
+            }
+        }
+        return path[M-1][N-1];
+    }
+};
+
+https://leetcode.com/problems/path-with-minimum-effort/
