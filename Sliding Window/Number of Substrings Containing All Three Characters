@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int cnt=0;
+        int i=0,j=0;
+        map<char,int>mp;
+        while(j<s.size()){
+            mp[s[j]]++;
+            while(mp['a'] and mp['b'] and mp['c']){
+                cnt+=s.size()-j;
+                mp[s[i]]--;
+                i++;
+            }
+            j++;
+        }
+        return cnt;
+    }
+};
+
+https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/
