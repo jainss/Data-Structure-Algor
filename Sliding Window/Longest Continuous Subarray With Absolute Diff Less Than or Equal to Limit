@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int limit) {
+        int i=0,j=0;
+        deque<int>dqMx;
+        deque<int>dqMi;
+        int ans=0;
+        while(j<nums.size()){
+            while(dqMx.size()>0 and dqMx.back()<nums[j]){
+                dqMx.pop_back();
+            }
+            dqMx.push_back(nums[j]);
+            while(dqMi.size()>0 and dqMi.back()>nums[j]){
+                dqMi.pop_back();
+            }
+            dqMi.push_back(nums[j]);
+            if(dqMx.front()-dqMi.front()<=limit){
+                j++;
+            }else{
+                if(dqMx.front()==nums[i]){
+                    dqMx.pop_front();
+                }
+                if(dqMi.front()==nums[i]){
+                    dqMi.pop_front();
+                }
+                i++;
+                j++;
+            }
+             ans=max(ans,j-i);
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
