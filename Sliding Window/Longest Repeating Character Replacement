@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int i=0,j=0,ans=0,mx=0;
+        map<int,int>mp;
+        while(j<s.size()){
+            mp[s[j]]++;
+            mx=max(mx,mp[s[j]]);
+            while(j-i+1-mx>k){
+                mp[s[i]]--;
+                i++;
+            }
+            ans=max(ans,j-i+1);
+            j++;
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/longest-repeating-character-replacement/
