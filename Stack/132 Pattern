@@ -1,0 +1,94 @@
+Method-1
+Brute
+Time Complexity :- BigO(N^3)
+Space Complexity :- BigO(1)
+
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i + 1; j < nums.length; j++){
+                for(int k = j + 1; k < nums.length; k++){
+                    if(nums[k] > nums[i] && nums[j] > nums[k]) return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+
+
+Method-2
+
+Time Complexity :- BigO(N^2)
+Space Complexity :- BigO(1)
+
+
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        int min = nums[0];
+        
+        for(int j = 0; j < nums.length - 1; j++){
+            for(int k = j + 1; k < nums.length; k++){
+                if(nums[k] > min && nums[j] > nums[k]) return true;
+                min = Math.min(min, nums[j]);
+            }
+        }
+        return false;
+    }
+}
+
+
+Method-3
+
+Tc: O(N)
+SC: O(N)
+
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) {
+        stack<int>st;
+        int k=INT_MIN;
+        for(int i=nums.size()-1;i>=0;i--){
+            if(k>nums[i]){
+                return true;
+            }
+            while(!st.empty() and st.top()<nums[i]){
+                k=st.top();
+                st.pop();
+            }
+            st.push(nums[i]);
+        }
+        return false;
+    }
+};
+
+
+
+Method-4
+
+TC: O(N)
+SC: O(1)
+But this is not right way to treat array as a stack.
+
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) {
+        int stidx=nums.size();
+        int k=INT_MIN;
+        for(int i=nums.size()-1;i>=0;i--){
+            if(nums[i]<k){
+                return true;
+            }
+            while(stidx<nums.size() and nums[stidx]<nums[i]){
+                k=nums[stidx];
+                stidx++;
+            }
+            stidx--;
+            nums[stidx]=nums[i];
+        }
+        return false;
+    }
+};
+
+https://leetcode.com/problems/132-pattern/
