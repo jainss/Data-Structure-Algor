@@ -1,0 +1,49 @@
+Method -1 
+TC : O(N)
+SC : O(1)
+
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        int i=0;
+        while(i<nums.size()){
+            if(nums[i]!=nums[nums[i]-1]){
+                swap(nums[i],nums[nums[i]-1]);
+            }else{
+                i++;
+            }
+        }
+        vector<int>ans;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]!=i+1){
+                ans.push_back(nums[i]);
+            }
+        }
+        return ans;
+    }
+};
+
+
+Method -2
+TC: O(N)
+SC: O(1)
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& a) {
+      int n = a.size();
+    vector<int> test(a.size() + 1);
+    for(int i = 0 ; i < n ; i++) test[i+1] = a[i];
+ vector<int> ans ;
+    for(int i = 1 ; i <= n ; i++)
+    {
+        int idx = abs(test[i]);
+        if(test[idx] < 0)  ans.push_back(idx);
+        else test[idx] *= -1;
+    }
+    return ans; 
+    }
+};
+
+https://leetcode.com/problems/find-all-duplicates-in-an-array/
