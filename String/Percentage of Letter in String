@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int percentageLetter(string s, char letter) {
+        map<char,int>mp;
+        for(auto it:s){
+            mp[it]++;
+        }
+        if(mp.find(letter)!=mp.end()){
+            int ans;
+        ans=(mp[letter]*100)/s.size();
+        return ans;
+        }
+        return 0;
+        
+    }
+};
+
+https://leetcode.com/problems/percentage-of-letter-in-string/
