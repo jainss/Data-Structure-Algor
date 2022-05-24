@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<string> removeAnagrams(vector<string>& words) {
+        vector<vector<string>>vec;
+        for(auto it:words){
+            string st=it;
+            sort(st.begin(),st.end());
+            vec.push_back({st,it});
+        }
+        vector<string>ans;
+        string str=vec[0][0];
+        string ansst=vec[0][1];
+        for(int i=1;i<words.size();i++){
+            if(str==vec[i][0]){
+                continue;
+            }else{
+                ans.push_back(ansst);
+                str=vec[i][0];
+                ansst=vec[i][1];
+            }
+        }
+        ans.push_back(ansst);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/find-resultant-array-after-removing-anagrams/
