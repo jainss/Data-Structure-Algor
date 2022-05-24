@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int largestCombination(vector<int>& can) {
+        vector<int>bit(32,0);
+        for(auto it:can){
+            int i=0;
+            while(it){
+                if((it&1)==1){
+                    bit[i]++;
+                }
+                i++;
+                it>>=1;
+            }
+        }
+        int ans=0;
+        for(int i=0;i<32;i++){
+            ans=max(ans,bit[i]);
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/largest-combination-with-bitwise-and-greater-than-zero/
