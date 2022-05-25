@@ -1,0 +1,84 @@
+// TC: 0(N*log2(M*10^d))
+// SC: 0(1)
+
+
+
+Method-1;
+
+double findNthRootOfM(int n, long long x) {
+    double t=1.000000/n;
+    double ans=pow(x,t);
+    return ans;
+}
+
+
+
+
+
+Method-2: By Maths
+
+#include <iostream>
+#include<float.h>
+#include <iomanip>
+#include<math.h>
+using namespace std;
+
+
+double root(double k, unsigned int n) 
+{
+  return pow(n,(1.0 / n)*(log(k)/log(n)));
+}
+
+int main() {
+  int x,n;
+  cin>>x>>n;
+  cout<< root(x,n)<<endl;
+  return 0;
+}
+
+https://www.geeksforgeeks.org/nth-root-of-a-number-using-log/
+
+
+
+
+Method 3: Binary Search 
+
+
+#include <iostream>
+#include<float.h>
+#include <iomanip>
+#include<math.h>
+using namespace std;
+
+double multiply(double mid,int n){
+  double ans=1.0;
+  for(int i=0;i<n;i++){
+    ans*=mid;
+  }
+  return ans;
+}
+
+double root(double x, unsigned int n) 
+{
+  double low=1.0,high=x,eps=1e-6;
+  while((high-low)>eps){
+    double mid=(low+high)/2.0;
+    if(multiply(mid,n)<x){
+      low=mid;
+    }else{
+      high=mid;
+    }
+  }
+ return low;
+}
+
+int main() {
+  int x,n;
+  cin>>x>>n;
+  cout<< fixed << setprecision(3) <<root(x,n)<<endl;
+  return 0;
+}
+
+
+
+https://www.codingninjas.com/codestudio/problems/nth-root-of-m_1062679?leftPanelTab=0
