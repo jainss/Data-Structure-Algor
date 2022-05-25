@@ -1,0 +1,20 @@
+class Solution {
+  public:
+    void reArrange(int arr[], int n) {
+        int i=0,j=1;
+        while(i<n and j<n){
+            while(i<n and (!(arr[i]&1))){
+            i+=2;
+            }
+            while(j<n and (arr[j]&1)){
+              j+=2;
+            }
+            if(i<n){
+              swap(arr[i],arr[j]);
+            }
+        }
+        
+    }
+};
+
+https://practice.geeksforgeeks.org/problems/even-and-odd/1#
