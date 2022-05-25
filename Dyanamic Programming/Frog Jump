@@ -1,0 +1,89 @@
+Method -1 
+top down memorization 
+TC: 0(n)
+SC: 0(n) + 0(n)
+
+
+#include<bits/stdc++.h>
+
+int solve(int n, vector<int> &h, vector<int> &dp){
+    if(n==0){
+        return 0;
+    }
+    if(dp[n]!=-1){
+        return dp[n];
+    }
+    int left=solve(n-1,h,dp)+abs(h[n]-h[n-1]);
+    int right=INT_MAX;
+    if(n>1){
+        right=solve(n-2,h,dp)+abs(h[n]-h[n-2]);
+    }
+    return dp[n]=min(left,right);
+}
+
+int frogJump(int n, vector<int> &h){
+    vector<int>dp(n+1,-1);
+   return solve(n-1,h,dp);
+}
+
+Method -2;
+
+Bottom up 
+Tabular Dp
+TC : 0(N)
+SC : 0(N)
+
+
+
+#include<bits/stdc++.h>
+
+int frogJump(int n, vector<int> &h){
+    vector<int>dp(n+1,-1);
+    dp[0]=0;
+    for(int i=1;i<n;i++){
+        int left=dp[i-1]+abs(h[i]-h[i-1]);
+        int right=INT_MAX;
+        if(i>1){
+            right=dp[i-2]+abs(h[i]-h[i-2]);
+        }
+        dp[i]=min(left,right);
+    }
+    return dp[n-1];
+}
+
+
+
+
+Method 3 
+Space optimization 
+
+TC: 0(N)
+SC: 0(1)
+
+
+#include<bits/stdc++.h>
+
+int frogJump(int n, vector<int> &h){
+    int prev=0,prev2=0,cur;
+    for(int i=1;i<n;i++){
+        int left=prev+abs(h[i]-h[i-1]);
+        int right=INT_MAX;
+        if(i>1){
+            right=prev2+abs(h[i]-h[i-2]);
+        }
+        cur=min(left,right);
+        prev2=prev;
+        prev=cur;
+    }
+    return cur;
+}
+
+
+
+https://www.codingninjas.com/codestudio/problems/frog-jump_3621012?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
+
+
+
+
+
