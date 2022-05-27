@@ -1,0 +1,42 @@
+Method -1 
+TC: O(N)
+Sc: O(1)
+
+class Solution {
+public:
+    int numberOfSteps(int num) {
+        int ans=0;
+        while(num!=0){
+            while(num%2==0){
+                num/=2;
+                ans++;
+            }
+            if(num>0 and num%2!=0){
+                num-=1;
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+Method -2 Bit count 
+TC: O(No of bits)
+Sc: O(1)
+
+
+class Solution {
+public:
+    int numberOfSteps(int num) {   
+        int count = 0; 
+        while(num){ 
+            num = num & 1 ? num - 1 : num >> 1; 
+            count++;
+        }
+        return count; 
+    }
+};
+
+https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/
