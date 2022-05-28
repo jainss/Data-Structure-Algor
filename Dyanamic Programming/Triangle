@@ -18,3 +18,55 @@ public:
 
 
 https://leetcode.com/problems/triangle/
+
+
+
+
+Method -1
+TC: O(N*M)
+SC: O(N)+O(M*N)
+Memorization
+
+
+
+int solve(vector<vector<int>>& t, int n,int i,int j, vector<vector<int>>&dp){
+    if(j==n-1){
+        return t[j][i];
+    }
+    if(dp[j][i]!=-1){
+        return dp[j][i];
+    }
+        int lt=solve(t,n,i+1,j+1,dp)+t[j][i];
+        int rt=solve(t,n,i,j+1,dp)+t[j][i];
+       return dp[j][i]=min(lt,rt); 
+}
+int minimumPathSum(vector<vector<int>>& t, int n){
+    vector<vector<int>>dp(n,vector<int>(n,-1));
+	return solve(t,n,0,0,dp);
+}
+
+
+Method-2
+TC: O(N*M)
+SC: O(N*M)
+
+
+
+int minimumPathSum(vector<vector<int>>& t, int n){
+    vector<vector<int>>dp(n,vector<int>(n));
+    for(int i=0;i<n;i++){
+        dp[n-1][i]=t[n-1][i];
+    }
+	for(int i=n-2;i>=0;i--){
+        for(int j=i;j>=0;j--){
+           int lt=t[i][j]+dp[i+1][j];
+           int rt=t[i][j]+dp[i+1][j+1];
+           dp[i][j]=min(lt,rt);
+        }
+    }
+    return dp[0][0];
+}
+
+
+https://www.codingninjas.com/codestudio/problems/triangle_1229398?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
