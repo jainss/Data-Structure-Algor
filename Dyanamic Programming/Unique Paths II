@@ -1,0 +1,70 @@
+Method -1
+
+TC: O(N*M)
+SC: O((N-1)+(M-1))+O(N*M)
+
+
+int mod=(int)1e9+7;
+int solve(int i,int j,int n, int m, vector< vector< int> > &mat,vector<vector<int>>&dp){
+    if(i>=0 and j>=0 and mat[i][j]==-1){
+        return 0;
+    }
+    if(i==n-1 and j==m-1){
+        return 1;
+    }
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    int lt=0,rt=0;
+    if(i+1<n){
+        lt=solve(i+1,j,n,m,mat,dp);
+    }
+    if(j+1<m){
+         rt=solve(i,j+1,n,m,mat,dp);
+    }
+    int sum=(lt+rt);
+    return dp[i][j]=sum%mod;
+}
+int mazeObstacles(int n, int m, vector< vector< int> > &mat) {
+    vector<vector<int>>dp(n,vector<int>(m,-1));
+    return solve(0,0,n,m,mat,dp);
+}
+
+
+
+Method-2;
+
+TC: O(N*M)
+SC: O(N*M)
+
+
+int mod=(int)1e9+7;
+
+int mazeObstacles(int n, int m, vector< vector< int> > &mat) {
+    vector<vector<int>>dp(n,vector<int>(m));
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(mat[i][j]==-1){
+                dp[i][j]=0;
+            }
+            else if(i==0 and j==0){
+                dp[i][j]=1;
+            }else{
+                int lt=0,rt=0;
+                if(i>0){
+                    lt=dp[i-1][j];
+                }
+                if(j>0){
+                    rt=dp[i][j-1];
+                }
+                dp[i][j]=(lt+rt)%mod;
+            }
+        }
+    }
+    return dp[n-1][m-1];
+}
+
+
+
+https://www.codingninjas.com/codestudio/problems/maze-obstacles_977241?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
