@@ -1,0 +1,67 @@
+Method-1 
+
+TC: O(N*M)
+SC: O((N-1)+(M-1))+(M*N)
+
+
+#include <bits/stdc++.h> 
+int solve(int i,int j,int m,int n,vector<vector<int>>&dp){
+    if(m-1==i and j==n-1){
+        return 1;
+    }
+    if(i==m or j==n){
+        return 0;
+    }
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    int lt=0,rt=0;
+    if(i+1<m){
+        lt=solve(i+1,j,m,n,dp);
+    }
+    if(j+1<n){
+        rt=solve(i,j+1,m,n,dp);
+    }
+    return dp[i][j]=lt+rt;
+}
+int uniquePaths(int m, int n) {
+    vector<vector<int>>dp(m,vector<int>(n,-1));
+	return solve(0,0,m,n,dp);
+}
+
+
+
+Method -2
+
+TC: O(N*M)
+SC: O(M*N)
+
+
+
+#include <bits/stdc++.h> 
+
+int uniquePaths(int m, int n) {
+    vector<vector<int>>dp(m,vector<int>(n,0));
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(i==0 and j==0){
+                dp[i][j]=1;
+            }else{
+                int lt=0,rt=0;
+                if(i>0){
+                    lt=dp[i-1][j];
+                }
+                if(j>0){
+                    rt=dp[i][j-1];
+                }
+                dp[i][j]=lt+rt;
+            }
+        }
+    }
+	return dp[m-1][n-1];
+}
+
+
+
+
+https://www.codingninjas.com/codestudio/problems/total-unique-paths_1081470?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
