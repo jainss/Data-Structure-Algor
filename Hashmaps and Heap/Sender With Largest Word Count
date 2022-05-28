@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int total_words(string str){
+    stringstream s(str);
+   
+    string word;
+ 
+    int count = 0;
+    while (s >> word)
+        count++;
+    return count;
+    }
+    string largestWordCount(vector<string>& m, vector<string>& s) {
+        map<string,int>mp;
+        for(int i=0;i<s.size();i++){
+            int len=total_words(m[i]);
+            mp[s[i]]+=len;
+        }
+         int mx=0;
+        for(auto it: mp){
+            if(it.second>mx){
+                mx=it.second;
+            }
+        }
+        vector<string> vec;
+        for(auto it: mp){
+            if(it.second==mx){
+                vec.push_back(it.first);
+            }
+        }
+        
+        sort(vec.begin(),vec.end());
+        return vec[vec.size()-1];
+    }
+       
+};
+
+
+https://leetcode.com/contest/biweekly-contest-79/problems/sender-with-largest-word-count/
