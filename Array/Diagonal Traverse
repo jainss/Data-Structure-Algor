@@ -1,0 +1,60 @@
+class Solution {
+public:
+    vector<int> solve2(int idx,int row,int col,vector<vector<int>>& mat){
+        vector<int>ans;
+        int j=row-1;
+        while(j>=0 and idx<col){
+            ans.push_back(mat[j][idx]);
+            j--;
+            idx++;
+        }
+        return ans;
+    }
+   vector<int> solve(int idx,int col,vector<vector<int>>& mat){
+        vector<int>ans;
+        int j=0;
+        while(idx>=0 and j<col){
+            ans.push_back(mat[idx][j]);
+            idx--;
+            j++;
+        }
+        return ans;
+    }
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        vector<int>ans;
+        int n=mat.size(),m=mat[0].size();
+        int part=0;
+        for(int i=0;i<n;i++){
+            vector<int>vec=solve(i,m,mat);
+           if(part==0){
+               for(int i=0;i<vec.size();i++){
+                   ans.push_back(vec[i]);
+               }
+               part=1;
+           }else{
+               for(int i=vec.size()-1;i>=0;i--){
+                   ans.push_back(vec[i]);
+               }
+               part=0;
+           }
+        }
+        for(int i=1;i<m;i++){
+             vector<int>vec=solve2(i,n,m,mat);
+           if(part==0){
+               for(int i=0;i<vec.size();i++){
+                   ans.push_back(vec[i]);
+               }
+               part=1;
+           }else{
+               for(int i=vec.size()-1;i>=0;i--){
+                   ans.push_back(vec[i]);
+               }
+               part=0;
+           }
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/diagonal-traverse/
