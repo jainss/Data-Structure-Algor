@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int minMaxGame(vector<int>& nums) {
+        if(nums.size()==1){
+            return nums[0];
+        }
+        vector<int>ans=nums;
+        while(ans.size()!=1){
+            vector<int>v1;
+            int i=1,f=1;
+            while(i<ans.size()){
+                if(f==1){
+                    v1.push_back(min(ans[i-1],ans[i]));
+                    f=0;
+                }else{
+                    v1.push_back(max(ans[i-1],ans[i]));
+                    f=1;
+                }
+                i+=2;
+            }
+            ans=v1;
+        }
+         return ans[0];
+    }
+};
+
+https://leetcode.com/problems/min-max-game/
