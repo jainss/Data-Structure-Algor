@@ -1,0 +1,43 @@
+class TextEditor {
+public:
+    string st,end;
+    TextEditor() {
+        st="";
+        end="";
+    }
+    void addText(string text) {
+        st+=text;
+    }
+    
+    int deleteText(int k) {
+        int mn=min(k,(int)st.size());
+        for(int i=0;i<mn;i++){
+            st.pop_back();
+        }
+        return mn;
+    }
+    
+    string cursorLeft(int k) {
+        int mn=min(k,(int)st.size());
+        for(int i=0;i<mn;i++){
+            end.push_back(st.back());
+            st.pop_back();
+        }
+        int minans=min(10,(int)st.size());
+        return st.substr(st.size()-minans);
+    }
+    
+    string cursorRight(int k) {
+        int mn=min(k,(int)end.size());
+        for(int i=0;i<mn;i++){
+            st.push_back(end.back());
+            end.pop_back();
+        }
+        int minans=min(10,(int)st.size());
+        return st.substr(st.size()-minans);
+    }
+};
+
+
+
+https://leetcode.com/problems/design-a-text-editor/
