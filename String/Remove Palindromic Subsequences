@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int removePalindromeSub(string s) {
+        int i=0,j=s.size()-1;
+        if(s.size()==0){
+            return 0;
+        }
+        while(i<j){
+            if(s[i]!=s[j])
+                return 2;
+            i++;
+            j--;
+        }
+        return 1;
+    }
+};
+
+
+https://leetcode.com/problems/remove-palindromic-subsequences/
