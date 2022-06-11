@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        int sum2=accumulate(nums.begin(),nums.end(),0);
+        k=sum2-k;
+        map<int,int>mp;
+        int N=nums.size();
+      int i=0,ans=-1,sum=0;
+      while(i<N){
+          sum+=nums[i];
+          if(sum==k){
+              ans=i+1;
+          }
+          if(mp.find(sum)==mp.end()){
+              mp[sum]=i;
+          }
+          if(mp.find(sum-k)!=mp.end()){
+              ans=max(ans,i-mp[sum-k]);
+          }
+          i++;
+      }
+      return ans>=0?N-ans:-1;
+    }
+};
+
+https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
