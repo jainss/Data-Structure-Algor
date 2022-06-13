@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+        map<int,int>mp;
+        int j=0,i=0,ans=0,sum=0;
+        while(i<nums.size()){
+            mp[nums[i]]++;
+            sum+=nums[i];
+            if(mp[nums[i]]==1){
+                ans=max(ans,sum);
+            }
+            while(mp.size()<i-j+1){
+                 mp[nums[j]]--;
+                sum-=nums[j];
+                if(mp[nums[j]]==0){
+                    mp.erase(nums[j]);
+                }
+                j++;
+            }
+            i++;
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/maximum-erasure-value/
