@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string solve2(string st){
+       string ans="";
+    if(st.size()==1){
+        ans+='1';
+        ans+=st[0];
+        return ans;
+    }
+        int i=1,c=1;
+        char ch=st[0];
+        while(i<st.size()){
+            if(ch==st[i]){
+                c++;
+            }else{
+                ans+=to_string(c)+ch;
+                ch=st[i];
+                c=1;
+            }
+            i++;
+        }
+        ans+=to_string(c)+ch;
+        return ans;
+    }
+    string countAndSay(int n) {
+        vector<string>vec;
+        vec.push_back("1");
+        for(int i=1;i<n;i++){
+            string ans=solve2(vec[i-1]);
+            vec.push_back(ans);
+        }
+        return vec[n-1];
+    }
+};
+
+https://leetcode.com/problems/count-and-say/
