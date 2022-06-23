@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minimumNumbers(int num, int k) {
+        if(num==0 and k>=0)
+            return 0;
+        if(k==0 and num%10!=0)
+            return -1;
+        if(num%2!=0 and k%2==0) 
+            return -1;
+        if(num%10==k)
+            return 1;
+        int c=0;
+        while(num%10!=k){
+            num-=k;
+            c++;
+            if(num<k)
+                return -1;
+        }
+        return c+1;
+    }
+};
+
+https://leetcode.com/problems/sum-of-numbers-with-units-digit-k/
