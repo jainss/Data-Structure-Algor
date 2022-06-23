@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string greatestLetter(string s) {
+        vector<int>v1(26,0),v2(26,0);
+         string st="";
+        for(int i=0;i<s.size();i++){
+            if(isupper(s[i])){
+                v2[s[i]-'A']++;
+            }
+            if(islower(s[i])){
+                v1[s[i]-'a']++;
+            }
+        }
+       
+        for(int i=25;i>=0;i--){
+            if(v1[i]>0 and v2[i]>0){
+                st+='A'+i;
+                break;
+            }
+        }
+        return st;
+    }
+};
+
+
+https://leetcode.com/problems/greatest-english-letter-in-upper-and-lower-case/
