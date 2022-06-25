@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maximumXOR(vector<int>& nums) {
+      vector<bool>vec(32,false);
+      for(auto num:nums){
+          int idx=0;
+          while(num>0){
+              if((num&1)==1){
+                  vec[idx]=true;
+              }
+              idx++;
+              num/=2;
+          }
+      }
+       long long int ans=0;
+        long long int va=1;
+        for(int i=0;i<32;i++){
+            if(vec[i]==true){
+                ans+=va;
+            }
+            va<<=1;
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/maximum-xor-after-operations/
