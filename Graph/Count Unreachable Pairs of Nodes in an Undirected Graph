@@ -1,0 +1,42 @@
+class Solution {
+public:
+    long long int no_of_nodes=0;
+    
+    void DFS(int start, vector<long long int> v[],vector<long long int> &visited) {
+    visited[start] = 1;
+    no_of_nodes++;
+      for(int i= 0; i<v[start].size(); ++i) {        
+         if(visited[v[start][i]] == 0)
+            DFS(v[start][i], v, visited);        
+      }    
+    }
+    long long countPairs(int n, vector<vector<int>>& edges) {
+        vector<long long int> v[n+1], visited(n+1,0);
+        for(int i=0; i<edges.size(); ++i) {
+          v[edges[i][0]].push_back(edges[i][1]);
+          v[edges[i][1]].push_back(edges[i][0]);
+        } 
+    vector<long long int>nodes;
+    for(int i=0;i<n;++i) {
+    if(visited[i] == 0 ) {
+        no_of_nodes=0;
+        DFS(i,v,visited);
+        nodes.push_back(no_of_nodes);
+    }        
+    }
+    long long int sum=0;
+     vector<long long int>v1;
+        for(int i=nodes.size()-1;i>=0;i--){
+            sum+=nodes[i];
+            v1.push_back(sum);
+        }
+        reverse(v1.begin(),v1.end());
+        long long int ans=0;
+        for(int i=0;i<nodes.size()-1;i++){
+            ans+=nodes[i]*(v1[i+1]);
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/count-unreachable-pairs-of-nodes-in-an-undirected-graph/
