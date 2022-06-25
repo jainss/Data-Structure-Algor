@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int countAsterisks(string s) {
+        int brc=0,c=0,mcm=0;
+        for(char it:s){
+            if(it=='|' and brc==0){
+                brc=1;
+                mcm += c;
+                c=0;
+            }            
+            else if(it=='|' and brc==1) {
+                brc=0;
+            }
+            else if(it=='*' and brc==0){
+                c++;
+            }
+        }
+        mcm+=c;
+        return mcm;
+    }
+
+};
+
+https://leetcode.com/problems/count-asterisks/
