@@ -1,0 +1,21 @@
+#include <bits/stdc++.h> 
+
+void rotateMatrix(vector<vector<int>> &mat, int n, int m){
+    int iu=0,id=n-1,jl=0,jr=m-1;
+    if(jr==0 or id==0)
+        return ;
+    while(id>iu and jr>jl){
+        int temp=mat[iu][iu];
+        for(int j=jl+1;j<=jr;j++)
+            swap(mat[iu][j],temp);
+        for(int i=iu+1;i<=id;i++)
+            swap(mat[i][jr],temp);
+        for(int j=jr-1;j>=jl;j--)
+            swap(mat[id][j],temp);
+        for(int i=id-1;i>=iu;i--)
+            swap(mat[i][jl],temp);
+        iu++;id--;jl++;jr--;
+    }
+}
+
+https://www.codingninjas.com/codestudio/problems/981260?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTab=0
