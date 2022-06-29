@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+#define ll long long int
+using namespace std;
+ 
+int main(){
+    ll n,m;
+	cin>>n>>m;
+	vector<ll>adj[n+1];
+	ll a,b;
+	for(int i=0;i<m;i++){
+	    cin>>a>>b;
+	    adj[b].push_back(a);
+	    adj[a].push_back(b);
+	}
+	queue<ll>qu;
+	qu.push(1);
+	vector<ll>prev(n+1);
+	vector<ll>vis(n+1,0);
+	vis[1]=1;
+	while(!qu.empty()){
+	    int val=qu.front();
+	    qu.pop();
+	    for(auto it:adj[val]){
+	        if(!vis[it]){
+	         vis[it]=1;
+	         prev[it]=val;
+	         qu.push(it);
+	        }
+	       
+	    }
+	}
+	if(vis[n]==0){
+	    cout<<"IMPOSSIBLE"<<endl;
+	}else{
+	    vector<ll>vec;
+	    int u=prev[n];
+	    vec.push_back(n);
+	    while(u!=1){
+	        vec.push_back(u);
+	        u=prev[u];
+	    }
+	    vec.push_back(1);
+	    cout<<vec.size()<<endl;
+	    for(int i=vec.size()-1;i>=0;i--){
+	        cout<<vec[i]<<" ";
+	    }
+	    cout<<endl;
+	}
+	return 0;
+}
+
+
+
+https://cses.fi/problemset/task/1667/
