@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+using namespace std;
+
+// typedef     pair<int,int>       pair<int,int>;
+
+const int MAXN = 1e5 + 3;
+const int INF = INT_MAX;
+
+vector<vector<pair<int,int>> > adjList;
+int n, dist[MAXN], par[MAXN];
+bitset<MAXN> isDone;
+
+bool dijkstra(int s, int t)
+{
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
+    fill(dist, dist+n+1, INF);
+
+    pq.push(pair<int,int>(0, s));
+    dist[s] = 0;
+    par[s] = -1;
+
+    while(!pq.empty()) {
+        int u = pq.top().second; pq.pop();
+
+        if(u == t) return true;
+
+        isDone[u] = true;
+
+        for(auto &pr : adjList[u]) {
+            int v = pr.first, w = pr.second;
+
+            if(!isDone[v] && dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.push(pair<int,int>(dist[v], v));
+                par[v] = u;
+            }
+        }
+    }
+
+    return false;
+}
+
+int main()
+{
+
+    int m;
+    scanf("%d %d", &n, &m);
+
+    adjList.resize(n+3);
+
+    int u, v, w;
+
+    while(m--) {
+        cin>>v>>u>>w;
+        adjList[u].push_back(pair<int,int>(v, w));
+        adjList[v].push_back(pair<int,int>(u, w));
+    }
+
+    if(dijkstra(1, n)) {
+        vector<int> path;
+
+        for(v = n; v != -1; v = par[v]) path.push_back(v);
+
+        for(int i = path.size()-1; i > 0; --i) printf("%d ", path[i]);
+
+        printf("%d\n", path[0]);
+    }
+    else puts("-1");
+
+    return 0;
+}
+
+
+https://codeforces.com/contest/20/problem/C
