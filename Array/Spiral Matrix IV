@@ -1,0 +1,67 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void printSpiralOrder(vector<vector<int>>&mat,vector<int> arr,int m,int n){
+    int top = 0,
+        bottom =  m- 1,
+        left = 0,
+        right = n - 1;
+ 
+    int index = 0;
+ 
+    while (1) {
+ 
+        if (left > right)
+            break;
+        for (int i = left; i <= right; i++)
+            mat[top][i] = arr[index++];
+        top++;
+ 
+        if (top > bottom)
+            break;
+        for (int i = top; i <= bottom; i++)
+            mat[i][right] = arr[index++];
+        right--;
+ 
+        if (left > right)
+            break;
+        for (int i = right; i >= left; i--)
+            mat[bottom][i] = arr[index++];
+        bottom--;
+ 
+        if (top > bottom)
+            break;
+        for (int i = bottom; i >= top; i--)
+            mat[i][left] = arr[index++];
+        left++;
+    }
+}
+ 
+    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+        vector<int>vec;
+        while(head!=NULL){
+            vec.push_back(head->val);
+            head=head->next;
+        }
+        if(vec.size()<(m*n)){
+            while(vec.size()!=(m*n)){
+                vec.push_back(-1);
+            }
+        }
+        vector<vector<int>>mat(m,vector<int>(n));
+        printSpiralOrder(mat,vec,m,n);
+        return mat;
+    }
+};
+
+
+https://leetcode.com/problems/spiral-matrix-iv/
