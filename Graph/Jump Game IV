@@ -1,35 +1,42 @@
 class Solution {
 public:
     int minJumps(vector<int>& arr) {
-        queue<int> q{{0}};
-        const int n = arr.size();        
-        vector<int> visited(n, 0);
-        visited[0]=1;
-        unordered_map<int, vector<int>> equals;
-        for(int i = 0; i < n; i++) 
-             equals[arr[i]].push_back(i);                
-        for(int step = 0;!q.empty(); step++){
-            for(int i = q.size(); i>0;i--){
-                auto cur = q.front(); 
-                q.pop();
-                if(cur == n - 1) 
-                    return step;                             
-                if(cur+1<n&&!visited[cur+1]){
-                    q.push(cur+1);
-                    visited[cur+1]=1;
-                }
-                if(cur-1>=0&&!visited[cur-1]){
-                    q.push(cur-1);
-                    visited[cur-1]=1;
-                }
-                for(auto next: equals[arr[cur]])
-                    if(!visited[next]) {
-                         q.push(next);
-                        visited[next]=1;
-                    }
-                equals[arr[cur]].clear(); // Important. Avoid later lookup equals arr[i]                
-            }
+        map<int,vector<int>>mp;
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            mp[arr[i]].push_back(i);
         }
-        return n - 1;
+        vector<int>vis(n+1,0);
+        queue<int>qu;
+        qu.push(0);
+        int ans=0;
+        while(qu.size()!=0){
+            int len=qu.size();
+            for(int i=0;i<len;i++){
+                int idx=qu.front();
+                if(idx==n-1){
+                return ans;
+                }
+                qu.pop();            
+                vis[idx]=1;
+                if(idx-1>=0 and !vis[idx-1]){
+                   qu.push(idx-1);
+                }
+                if(idx+1<n and !vis[idx+1]){
+                   qu.push(idx+1);
+                }
+                for(auto it:mp[arr[idx]]){
+                   if(!vis[it]){
+                      qu.push(it);
+                   }
+                }
+                mp.erase(arr[idx]);
+            }
+            ans++;
+        }
+        return ans;
     }
 };
+
+
+https://leetcode.com/problems/jump-game-iv/
