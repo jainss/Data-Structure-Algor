@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.rbegin(), g.rend());
+        sort(s.rbegin(), s.rend());
+        
+       int i=0;
+        int j=0;
+        int count = 0;
+        
+        while(i<g.size() && j<s.size()){
+            if(g[i]<=s[j]){
+                count++;
+                i++;
+                j++;
+            }else{
+                i++;
+            }
+        }
+        
+        return count;
+    }
+};
+
+https://leetcode.com/problems/assign-cookies/
