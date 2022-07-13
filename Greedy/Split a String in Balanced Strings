@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int balancedStringSplit(string s) {
+        int c=1,ans=0;
+        char ch=s[0];
+        for(int i=1;i<s.size();i++){
+            if(c==0){
+                ans++;
+                c=1;
+                ch=s[i];
+                continue;
+            }
+           if(ch==s[i]){
+               c++;
+           }else{
+               c--;
+           }
+        }
+        return ans+1;
+    }
+};
+
+https://leetcode.com/problems/split-a-string-in-balanced-strings/
