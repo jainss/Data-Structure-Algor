@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int sum2=0,sum1=0,ans=0;
+        for(int i=0;i<gas.size();i++){
+            sum1+=gas[i]-cost[i];
+            sum2+=gas[i]-cost[i];
+            if(sum2<0){
+                sum2=0;
+                ans=i+1;
+            }
+        }
+        return sum1>=0?ans:-1;
+    }
+};
+
+https://leetcode.com/problems/gas-station/
