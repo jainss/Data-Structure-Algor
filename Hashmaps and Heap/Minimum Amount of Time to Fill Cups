@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int fillCups(vector<int>& a) {
+        priority_queue<int>pq;
+        if(a[0]>0)
+          pq.push(a[0]);
+        if(a[1]>0)
+        pq.push(a[1]);
+        if(a[2]>0)
+        pq.push(a[2]);
+        int ans=0;
+        while(pq.size()>1){
+            ans++;
+            int val=pq.top();
+            pq.pop();
+            int val2=pq.top();
+            pq.pop();
+            if(val-1>0)
+              pq.push(val-1);
+            if(val2-1>0)
+              pq.push(val2-1);
+        }
+        if(pq.size()==1){
+            return ans+pq.top();
+        }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/minimum-amount-of-time-to-fill-cups/
