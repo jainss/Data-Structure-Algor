@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool canChange(string s, string t) {
+        vector<pair<char,int>>vp;
+        for(int i=0;i<s.size();i++){
+           if(s[i]=='L' or s[i]=='R'){
+               vp.push_back({s[i],i});
+           }
+        }
+        int i=0;
+        for(int j=0;j<t.size();j++){
+            if(t[j]=='L' or t[j]=='R'){
+                if(i>=vp.size() or t[j]!=vp[i].first){
+                    return false;
+                }else{
+                    if(t[j]=='L' and vp[i].second<j or t[j]=='R' and vp[i].second>j){
+                        return false;
+                    }else{
+                        i++;
+                    }
+                }
+            }
+        }
+        return i==vp.size();    
+    }
+};
+
+
+https://leetcode.com/problems/move-pieces-to-obtain-a-string/
