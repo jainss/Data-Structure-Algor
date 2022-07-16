@@ -25,4 +25,39 @@ int minimumElements(vector<int> &num, int x){
 }
 
 
+
+method 2 
+tabular 
+
+
+int minimumElements(vector<int> &num, int x){
+  vector<vector<int>>dp(num.size(),vector<int>(x+1,0));
+  for(int i=0;i<=x;i++){
+      if(i%num[0]==0){
+          dp[0][i]=i/num[0];
+      }else{
+          dp[0][i]=1e9;
+      }
+  }
+   for(int i=1;i<num.size();i++){
+       for(int j=0;j<=x;j++){
+           int nottake=dp[i-1][j];
+           int take=1e9;
+           if(num[i]<=j){
+               take=dp[i][j-num[i]]+1;
+           }
+           dp[i][j]=min(take,nottake);
+       }
+   }
+    int ans=dp[num.size()-1][x];
+    if(ans>=1e9){
+        return -1;
+    }
+    return ans;
+    
+}
+
+
+
+
 https://www.codingninjas.com/codestudio/problems/minimum-elements_3843091?leftPanelTab=0
