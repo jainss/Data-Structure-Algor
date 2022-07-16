@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& tmp) {
+        vector<int>ans(tmp.size());
+        stack<pair<int,int>>st;
+        for(int i=tmp.size()-1;i>=0;i--){
+            if(st.empty()){
+                 ans[i]=0;
+            }else{
+                while(!st.empty()&&st.top().first<=tmp[i]){
+                    st.pop();
+                }
+                if(st.empty()){
+                    ans[i]=0;
+                }else{
+                    ans[i]=(abs(i-st.top().second));
+                }
+            }
+            st.push({tmp[i],i});
+        }
+        return ans;
+    }
+};
+https://leetcode.com/problems/daily-temperatures/

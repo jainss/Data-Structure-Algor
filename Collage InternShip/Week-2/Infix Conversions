@@ -1,0 +1,82 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+  
+
+public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String exp = br.readLine();
+
+    Stack<String> post=new Stack<>();
+    Stack<String> pre=new Stack<>();
+    Stack<Character> opera=new Stack<>();
+    
+    for(int i=0;i<exp.length();i++){
+        char ch=exp.charAt(i);
+        if(ch=='('){
+            opera.push(ch);
+        }
+        else if(ch>='a'&&ch<='z'||ch>='0'&&ch<='9'||ch>='A'&&ch<='Z'){
+            post.push(ch + "");
+            pre.push(ch + "");
+        }
+        else if(ch==')'){
+            while(opera.peek()!='('){
+                char op=opera.pop();
+                String s2=post.pop();
+                String s1=post.pop();
+                String ans1=s1+s2+op;
+                post.push(ans1);
+                
+                String st2=pre.pop();
+                String st1=pre.pop();
+                String ans2=op+st1+st2;
+                pre.push(ans2);
+            }
+            if(opera.size()>0){
+                opera.pop();
+            }
+        }else if(ch=='+'||ch=='-'||ch=='/'||ch=='*'){
+            while(opera.size()>0&&opera.peek()!='('&&prece(ch)<=prece(opera.peek())){
+                char op=opera.pop();
+                
+                String s2=post.pop();
+                String s1=post.pop();
+                String ans1=s1+s2+op;
+                post.push(ans1);
+                
+                String st2=pre.pop();
+                String st1=pre.pop();
+                String ans2=op+st1+st2;
+                pre.push(ans2);
+            }
+            opera.push(ch);
+        }
+    }
+    while(opera.size()>0){
+                char op=opera.pop();
+                
+                String s2=post.pop();
+                String s1=post.pop();
+                String ans1=s1+s2+op;
+                post.push(ans1);
+                
+                String st2=pre.pop();
+                String st1=pre.pop();
+                String ans2=op+st1+st2;
+                pre.push(ans2);
+    }
+    System.out.println(post.pop());
+    System.out.println(pre.pop());
+ }
+ public static int prece(char ch){
+     if(ch=='+'||ch=='-'){
+         return 1;
+     }else if(ch=='*'||ch=='/'){
+         return 2;
+     }else{
+         return 0;
+     }
+ }
+}

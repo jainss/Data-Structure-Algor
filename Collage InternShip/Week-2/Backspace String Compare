@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        string st1="",st2="";
+        for(auto it:s){
+            if(it=='#'){
+                if(st1.size()>0){
+                    st1.pop_back();
+                }
+            }else{
+                st1.push_back(it);
+            }
+        }
+        for(auto it:t){
+            if(it=='#'){
+                if(st2.size()>0){
+                    st2.pop_back();
+                }
+            }else{
+                st2.push_back(it);
+            }
+        }
+        return st1==st2?true:false;
+    }
+};
+
+https://leetcode.com/problems/backspace-string-compare/

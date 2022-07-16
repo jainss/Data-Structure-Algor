@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string>st;
+        string s;
+        path.push_back('/');
+        for(auto it:path){
+            if(it=='/'){
+               if(s.empty()){
+                   continue;
+               }
+               if(s==".."  and !st.empty()){
+                   st.pop_back();
+               }else if(s!="." and s!=".."){
+                   st.push_back(s);
+               }
+                s.clear();
+            }else{
+                s+=it;
+            }
+        }
+        string ans;
+        for(auto it:st){
+            ans.push_back('/');
+            ans+=it;
+        }
+        if(ans.empty()){
+            ans+='/';
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/simplify-path/ 
