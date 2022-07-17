@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minTimeToType(string word) {
+        char ch='a';
+        int time =0;
+        for(auto it:word){
+           if(it>ch){
+               time+=min(it-ch,26-(it-ch));
+           }else{
+               time+=min(ch-it,26-(ch-it));
+           }
+            time++;
+            ch=it;
+        }
+        return time;
+    }
+};
+
+https://leetcode.com/problems/minimum-time-to-type-word-using-special-typewriter/
