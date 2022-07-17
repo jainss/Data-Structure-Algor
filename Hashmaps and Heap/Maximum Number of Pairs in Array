@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> numberOfPairs(vector<int>& nums) {
+        map<int,int>mp;
+        for(auto it:nums){
+            mp[it]++;
+        }
+        int cp=0,cl=0;
+        for(auto it:mp){
+            cp+=it.second/2;
+            cl+=it.second%2;
+        }
+        return {cp,cl};
+    }
+};
+
+
+https://leetcode.com/problems/maximum-number-of-pairs-in-array/
