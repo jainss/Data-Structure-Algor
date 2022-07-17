@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int solve(int num){
+        int sum=0;
+        while(num!=0){
+            sum+=num%10;
+            num/=10;
+        }
+        return sum;
+    }
+    int maximumSum(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        map<int,vector<int>>mp;
+        for(auto it:nums){
+            int val=solve(it);
+            mp[val].push_back(it);
+        }
+        int mx=INT_MIN;
+        for(auto it:mp){
+            int si=it.second.size();
+            if(si<2){
+                continue;
+            }
+            mx=max(mx,it.second[si-1]+it.second[si-2]);
+        }
+        return mx==INT_MIN?-1:mx;
+    }
+};
+
+
+https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/
