@@ -1,0 +1,60 @@
+1- Memorization
+
+
+#include<bits/stdc++.h>
+long solve(int *d, int n, int val, vector<vector<long>>&dp){
+    if(n==0){
+        if(val%d[0]==0){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    if(val==0){
+        return 1;
+    }
+    if(dp[n][val]!=-1){
+        return dp[n][val];
+    }
+    long lt=solve(d,n-1,val,dp);
+    long rt=0;
+    if(d[n]<=val){
+        rt=solve(d,n,val-d[n],dp);
+    }
+    return dp[n][val]=lt+rt;
+}
+
+long countWaysToMakeChange(int *d, int n, int val){
+    vector<vector<long>>dp(n,vector<long>(val+1,-1));
+    return solve(d,n-1,val,dp);
+}
+
+
+
+2- Tubular 
+
+
+long countWaysToMakeChange(int *d, int n, int val){
+    vector<vector<long>>dp(n+1,vector<long>(val+1,0));
+    for(int i=0;i<val+1;i++){
+        dp[0][i]=0;
+    }
+    for(int i=0;i<n+1;i++){
+        dp[i][0]=1;
+    }
+    for(int i=1;i<n+1;i++){
+        for(int j=1;j<val+1;j++){
+            if(d[i-1]<=j){
+                dp[i][j]=dp[i][j-d[i-1]]+dp[i-1][j];
+            }else{
+                dp[i][j]=dp[i-1][j];
+            }
+        }
+    }
+    return dp[n][val];
+}
+
+
+
+
+https://www.codingninjas.com/codestudio/problems/ways-to-make-coin-change_630471?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
