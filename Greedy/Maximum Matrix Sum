@@ -1,0 +1,25 @@
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        long long sum=0,c=0,mi=1e5;
+        for(auto it:matrix){
+            for(auto its:it){
+                if(its<0){
+                    c++;
+                    sum+=abs(its);
+                }else{
+                    sum+=its;
+                }mi=min((long long)mi,(long long)abs(its));
+            }
+        }
+        // cout<<sum<<endl;
+        if(c%2==0){
+            return sum;
+        }else{
+            return sum-(2*mi);
+        }
+    }
+};
+
+
+https://leetcode.com/problems/maximum-matrix-sum/
