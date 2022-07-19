@@ -1,0 +1,55 @@
+class Solution
+{
+  public:
+
+bool ispossible(int arr[], int k,long long int mid,int n){
+   
+    int painter=1;
+   long long int paintercount=0;
+   for( long long int i=0;i<n;i++){
+       if(arr[i]+paintercount<=mid)
+       {
+           paintercount+=arr[i];
+       }
+       else
+       {
+           painter++;
+           if(painter>k||arr[i]>mid)
+           {
+               return false;
+           }
+          paintercount=0;
+           paintercount+=arr[i];
+       }
+       
+       
+   }
+   return true;
+}
+long long minTime(int arr[], int n,int k){
+   long long int s=0;
+   long long int sum=0;
+   for( long long int i=0;i<n;i++){
+       sum+=arr[i];
+   }
+   long long int e=sum;
+   long long int ans=-1;
+    long long int mid=s+(e-s)/2;
+   while(s<=e)
+   {
+       if (ispossible(arr,k,mid,n))
+       {
+         ans=mid;
+           e=mid-1;
+       }
+       else
+       {
+           s=mid+1;
+       }
+       mid=s+(e-s)/2;
+   }
+   return ans;
+    }
+};
+
+https://practice.geeksforgeeks.org/problems/the-painters-partition-problem1535/1/#
