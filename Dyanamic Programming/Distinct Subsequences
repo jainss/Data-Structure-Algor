@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int numDistinct(string s, string t) {
+        int lt=s.size(),ls=t.size();
+        vector<vector<double>>dp(lt+1,vector<double>(ls+1,0));
+        for(int i=0;i<=lt;i++){
+            dp[i][0]=1;
+        }
+        for(int i=1;i<lt+1;i++){
+            for(int j=1;j<=ls;j++){
+                if(s[i-1]==t[j-1]){
+                    dp[i][j]=dp[i-1][j-1]+dp[i-1][j];
+                }else{
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+        return (int)dp[lt][ls];
+    }
+};
+
+
+
+https://leetcode.com/problems/distinct-subsequences/
