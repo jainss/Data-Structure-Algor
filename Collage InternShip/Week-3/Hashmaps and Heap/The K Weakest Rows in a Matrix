@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        vector<pair<int,int>>vec;
+        int i=0;
+        for(auto it:mat){
+            int c=0;
+            for(auto its:it){
+               if(its==1){
+                   c++;
+               }
+            }
+            vec.push_back({c,i});
+            i++;
+        }
+        sort(vec.begin(),vec.end());
+        vector<int>ans;
+        for(int j=0;j<k;j++){
+            ans.push_back(vec[j].second);
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/the-k-weakest-rows-in-a-matrix/

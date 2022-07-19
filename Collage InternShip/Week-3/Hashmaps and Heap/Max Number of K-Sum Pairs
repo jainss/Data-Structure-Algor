@@ -1,0 +1,52 @@
+Method -1 By Hashmap :-
+TC O(N)
+SC O(N)
+
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        map<int,int>mp;
+        int ans=0;
+        for(int i=0;i<nums.size();i++){
+            if(mp[k-nums[i]]>0){
+                ans++;
+                mp[k-nums[i]]--;
+            }else{
+                mp[nums[i]]++;
+            }
+        }
+        return ans;
+    }
+};
+
+
+Method -2  By two pointer :-
+TC O(NlogN)
+SC O()
+
+
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        int i=0,j=nums.size()-1,ans=0;
+        while(i<j){
+            if(nums[i]+nums[j]==k){
+                ans++;
+                i++;
+                j--;
+                continue;
+            }
+            if(nums[i]+nums[j]>k){
+                j--;
+                continue;
+            }else{
+                i++;
+                continue;
+            }
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/max-number-of-k-sum-pairs/

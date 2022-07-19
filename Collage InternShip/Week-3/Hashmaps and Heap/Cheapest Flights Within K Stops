@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        unordered_map<int,vector<pair<int,int>>>mp;
+        for(auto it:flights){
+            mp[it[0]].push_back({it[1],it[2]});
+        }
+        priority_queue<vector<int>,vector<vector<int>>,greater<vector<int>>>pq;
+        pq.push({0,src,0});
+        vector<int>noofstop(n+1,INT_MAX);
+        while(!pq.empty()){
+            auto it=pq.top();
+            pq.pop();
+            if(it[2]>noofstop[it[1]]){
+                continue;
+            }
+            noofstop[it[1]]=it[2];
+            if(dst==it[1]){
+                return it[0];
+            }
+            if(it[2]>k){
+                continue;
+            }
+            for(auto its:mp[it[1]]){
+                pq.push({its.second+it[0],its.first,it[2]+1});
+            }
+        }
+        return -1;
+    }
+};
+
+https://leetcode.com/problems/cheapest-flights-within-k-stops/ 

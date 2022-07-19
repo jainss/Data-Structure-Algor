@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string reorganizeString(string s) {
+        unordered_map<char,int>mp;
+        for(auto it:s){
+            mp[it]++;
+        }
+        priority_queue<pair<int,char>>pq;
+        for(auto it:mp){
+            pq.push({it.second,it.first});
+        }
+        string st;
+        while(pq.size()>1){
+            st+=pq.top().second;
+            pair<int,char> it=pq.top();
+            pq.pop();
+            st+=pq.top().second;
+            pair<int,char> its=pq.top();
+            pq.pop();
+            if(it.first-1>0){
+                 pq.push({it.first-1,it.second});
+            }
+            if(its.first-1>0){
+                 pq.push({its.first-1,its.second});
+            }  
+        }
+        if(!pq.empty()){
+            if(pq.top().first>1){
+                return "";
+            }
+            
+            st+=pq.top().second;
+        }
+        return st;
+    }
+};
+
+https://leetcode.com/problems/reorganize-string/ 

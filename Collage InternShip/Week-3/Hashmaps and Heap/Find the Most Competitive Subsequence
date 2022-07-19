@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> mostCompetitive(vector<int>& nums, int k) {
+        int rem=nums.size()-k;
+        vector<int>vec;
+        for(auto it:nums){
+            while(vec.size()&&rem&&it<vec.back()){
+                vec.pop_back();
+                rem--;
+            }
+            vec.push_back(it);
+        }
+        while(rem){
+            vec.pop_back();
+            rem--;
+        }
+        return vec;
+    }
+};
+
+
+https://leetcode.com/problems/find-the-most-competitive-subsequence/ 

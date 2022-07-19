@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string decodeMessage(string key, string message) {
+        map<char,char>mp;
+        int i=0;
+        for(auto it:key){
+            if(it==' '){
+                continue;
+            }else if(mp.find(it)!=mp.end()){
+                continue;
+            }else{
+                mp[it]='a'+i;
+                i++;
+            }
+        }
+        string ans="";
+        for(auto it:message){
+            if(it==' '){
+                ans+=' ';
+                continue;
+            }
+            ans+=mp[it];
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/decode-the-message/
