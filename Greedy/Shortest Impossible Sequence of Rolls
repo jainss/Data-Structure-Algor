@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int>vec;
+    map<int,int>mp;
+    int shortestSequence(vector<int>& r, int k) {
+        int ans=0;
+        for (auto it:r) {
+            mp[it]++;
+            if (mp.size() == k) {
+                 mp.clear();
+                ans++;
+               
+            }
+        }
+        return ans+1;
+    }
+};
+
+
+https://leetcode.com/problems/shortest-impossible-sequence-of-rolls/
