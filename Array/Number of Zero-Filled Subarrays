@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long zeroFilledSubarray(vector<int>& nums) {
+        long long ans=0,c=0;
+        if(nums[0]==0){
+            c=1;
+        }
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]==0){
+                c++;
+            }else{
+                ans+=(c*(c+1))/2;
+                c=0;
+            }
+        }
+         ans+=(c*(c+1))/2;
+        return nums.size()==1?c:ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/number-of-zero-filled-subarrays/
