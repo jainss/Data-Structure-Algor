@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string bestHand(vector<int>& ranks, vector<char>& suits) {
+        map<int,int>mp1;
+        map<char,int>mp2;
+        for(auto it:ranks){
+            mp1[it]++;
+        }
+        for(auto it:suits){
+            mp2[it]++;
+        }
+        vector<pair<int,int>>v1;
+        for(auto it:mp1){
+           v1.push_back({it.second,1});
+        }
+        for(auto it:mp2){
+            v1.push_back({it.second,2});
+        }
+        sort(v1.rbegin(),v1.rend());
+        for(int i=0;i<v1.size();i++){
+            if(v1[i].first==5 and v1[i].second==2){
+                    return "Flush";
+            }
+            else if(v1[i].first>2 and v1[i].second==1){
+                    return "Three of a Kind";
+            }else if(v1[i].first>1 and v1[i].second==1){
+                    return "Pair";
+            }else if(v1[i].first==1){
+                    return "High Card";
+            }
+        }
+        return "";
+    }
+};
+
+
+
+https://leetcode.com/problems/best-poker-hand/
