@@ -1,0 +1,17 @@
+class Solution {
+public:
+    char repeatedCharacter(string s) {
+        map<char,int>mp;
+        for(auto it:s){
+            if(mp.find(it)==mp.end()){
+                mp[it]++;
+            }else{
+                return it;
+            }
+        }
+        return 'a';
+    }
+};
+
+
+https://leetcode.com/problems/first-letter-to-appear-twice/
