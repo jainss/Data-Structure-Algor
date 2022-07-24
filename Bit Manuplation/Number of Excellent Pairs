@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long countExcellentPairs(vector<int>& nums, int k) {
+        set<int>st;
+        for(auto it:nums){
+            st.insert(it);
+        }
+        nums.clear();
+        for(auto it:st){
+            nums.push_back(__builtin_popcount(it));
+        }
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        long long ans=0;
+        for(int i=0;i<n;i++){
+            ans+=n-(lower_bound(nums.begin(),nums.end(),k-nums[i])-nums.begin());
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/number-of-excellent-pairs/
