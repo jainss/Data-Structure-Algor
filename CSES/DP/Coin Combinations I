@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+#define ll long long
+#define mod 1000000007
+using namespace std;
+ 
+ll solve(ll n,vector<ll>vec,vector<ll>&dp,ll x){
+    if(x<0){
+        return 0;
+    }
+    if(x==0){
+       return 1;
+    }
+    if(dp[x]!=-1){
+        return dp[x];
+    }
+    ll ans=0;
+    for(ll i=0;i<n;i++){
+        ans=(ans+solve(n,vec,dp,x-vec[i]))%mod;
+    }
+    return dp[x]=ans;
+}
+void jainss(){
+    ll n,x;
+    cin>>n>>x;
+    vector<ll>vec(n);
+    for(ll i=0;i<n;i++){
+        cin>>vec[i];
+    }
+    vector<ll>dp(1000001,0);
+    dp[0]=1;
+    for(int i=1;i<=x;i++){
+        for(int j=0;j<n;j++){
+            if(i-vec[j]>=0){
+                dp[i]=(dp[i]+dp[i-vec[j]])%mod;
+            }
+        }
+    }
+    ll ans=dp[x];
+    if(ans==1e9){
+        cout<<-1<<endl;
+    }else{
+        cout<<ans<<endl;
+    }
+}
+ 
+int main(){
+    ll t;
+    // cin>>t;
+    t=1;
+    while(t--){
+        jainss();
+    }
+    return 0;
+}
+
+
+https://cses.fi/problemset/task/1635/
