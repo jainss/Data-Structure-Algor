@@ -1,0 +1,33 @@
+class Solution {
+public:
+     bool helper(vector<int> &freq ,string p , string s , vector<int> &freqq){
+            for(int i = 0 ;  i < p.size() ; i++){
+                    if(freq[p[i] - 'a'] == -1 && freqq[s[i] - 'a'] == -1){
+                            freq[p[i] - 'a'] = s[i] - 'a';
+                            freqq[s[i] - 'a'] = p[i] - 'a';
+                    }else{
+                            if(freq[p[i] - 'a'] != s[i] - 'a'){
+                                    return false;
+                            }
+                    }
+            }
+            return true;
+    }
+     vector<string> findAndReplacePattern(vector<string>& w, string p) {
+            vector<string> ans;
+            for(auto i : w){
+                    vector<int> freq(26,-1);
+                    vector<int> freqq(26,-1);
+                    if(i.size() != p.size()){
+                            continue;
+                    }
+                    if(helper(freq,p,i,freqq)){
+                            ans.push_back(i);
+                    }
+            }
+            return ans;
+    }
+};
+
+
+https://leetcode.com/problems/find-and-replace-pattern/
