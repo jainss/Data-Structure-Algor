@@ -1,0 +1,96 @@
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+     vector<vector<int>>dp;
+        int n=grid.size();
+        int m=grid[0].size();
+     for(int i=0;i<n;i++){
+        vector<int>an(m,0);
+        dp.push_back(an);
+     }
+     for(int i=n-1;i>=0;i--){
+         for(int j=m-1;j>=0;j--){
+             if(i==grid.size()-1&&j==grid[0].size()-1){
+                 dp[i][j]=grid[i][j];
+             }else if(i==grid.size()-1){
+                 dp[i][j]=dp[i][j+1]+grid[i][j];
+             }else if(j==grid[0].size()-1){
+                 dp[i][j]=dp[i+1][j]+grid[i][j];
+             }else{
+                 dp[i][j]=min(dp[i+1][j],dp[i][j+1])+grid[i][j];
+             }
+         }
+     }
+        return dp[0][0];
+    }
+};
+
+
+URL: https://leetcode.com/problems/minimum-path-sum/
+
+
+
+Question on codestudio
+
+Method -1 
+TC : O(N*M)
+SC: O((N-1)+(M-1))+O(N*M)
+Memorization
+
+
+#include<bits/stdc++.h>
+
+int solve(int i,int j,vector<vector<int>> &grid,vector<vector<int>> &dp){
+    if(i==0 and j==0)
+        return grid[i][j];
+    if(i<0 or j<0)
+        return 1e9;
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    int lt=0,rt=0;
+    lt=grid[i][j]+solve(i-1,j,grid,dp);
+    rt=grid[i][j]+solve(i,j-1,grid,dp);
+    int ans=min(lt,rt);
+    return dp[i][j]=ans;
+}
+int minSumPath(vector<vector<int>> &grid) {
+    int n=grid.size(),m=grid[0].size();
+    vector<vector<int>>dp(n,vector<int>(m,-1));
+    return solve(n-1,m-1,grid,dp);
+}
+
+
+
+Method -2
+TC :O(N*M)
+SC: O(N*M)
+
+
+#include<bits/stdc++.h>
+
+int minSumPath(vector<vector<int>> &grid) {
+    int n=grid.size(),m=grid[0].size();
+    vector<vector<int>>dp(n,vector<int>(m,-1));
+     for(int i=0;i<n;i++){
+         for(int j=0;j<m;j++){
+             if(i==0 and j==0){
+                 dp[i][j]=grid[0][0];
+             }else{
+                 int lt=1e9;
+                 int rt=1e9;
+                 if(i>0)
+                     lt=grid[i][j]+dp[i-1][j];
+                 if(j>0)
+                     rt=grid[i][j]+dp[i][j-1];
+                 dp[i][j]=min(lt,rt);
+             }
+         }
+     }
+    return dp[n-1][m-1];
+}
+
+https://www.codingninjas.com/codestudio/problems/minimum-path-sum_985349?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
+
+
+

@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int n,vector<int>&vec){
+        if(n==0||n==1){
+            return n;
+        }
+        if(vec[n]!=0){
+            return vec[n];
+        }
+        int feb1=solve(n-1,vec);
+        int feb2=solve(n-2,vec);
+        int fib=feb1+feb2;
+        vec[n]=fib;
+        return fib;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int>vec(46,0);
+    cout<<solve(n,vec)<<endl;
+    return 0;
+}
+
+URL: https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/fibonacci-dp-official/ojquestion

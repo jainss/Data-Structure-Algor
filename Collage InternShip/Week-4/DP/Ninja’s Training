@@ -1,0 +1,89 @@
+Method-1 
+
+TC: 0(N*4)*3
+SC: O(4*4)
+
+int solve(int n,vector<vector<int>> &p,int last,vector<vector<int>>&vp){
+    if(n==0){
+        int maxi=0;
+        for(int i=0;i<3;i++){
+            if(last!=i){
+                maxi=max(maxi,p[0][i]);
+            }
+        }
+        return vp[n][last]=maxi;
+    }
+    if(vp[n][last]!=-1){
+        return vp[n][last];
+    }
+    int maxi=0;
+    for(int i=0;i<3;i++){
+        if(i!=last){
+            int point=p[n][i]+solve(n-1,p,i,vp);
+            maxi=max(maxi,point);
+        }
+    }
+    return vp[n][last]=maxi;
+}
+int ninjaTraining(int n, vector<vector<int>> &p){
+    vector<vector<int>>vp(n,vector<int>(4,-1));
+    return solve(n-1,p,3,vp);
+}
+
+
+
+
+
+Method-2
+
+TC: 0(N*4)*3
+SC: O(3*3)
+
+
+
+#include <bits/stdc++.h>
+
+int ninjaTraining(int n, vector<vector<int>> &v)
+{
+    vector<vector<int>> dp(n, vector<int> (3));
+    dp[0][0] = v[0][0];
+    dp[0][1] = v[0][1];
+    dp[0][2] = v[0][2];
+    for(int i = 1; i < n; i++)
+    {
+        dp[i][0] = v[i][0] + max(dp[i - 1][1], dp[i - 1][2]);
+        dp[i][1] = v[i][1] + max(dp[i - 1][2], dp[i - 1][0]);
+        dp[i][2] = v[i][2] + max(dp[i - 1][0], dp[i - 1][1]);
+    }
+    return *max_element(dp[n - 1].begin(), dp[n - 1].end());
+}
+
+
+
+Method-3
+
+TC: 0(N*4)*3
+SC: O(3)
+
+
+#include <bits/stdc++.h>
+
+int ninjaTraining(int n, vector<vector<int>> &v)
+{
+    vector<int> tmp(3);
+    tmp[0] = v[0][0];
+    tmp[1] = v[0][1];
+    tmp[2] = v[0][2];
+    for(int i = 1; i < n; i++)
+    {
+        vector<int> cur(3);
+        cur[0] = v[i][0] + max(tmp[1], tmp[2]);
+        cur[1] = v[i][1] + max(tmp[2], tmp[0]);
+        cur[2] = v[i][2] + max(tmp[0], tmp[1]);
+        tmp = cur;
+    }
+    return *max_element(tmp.begin(), tmp.end());
+}
+
+
+https://www.codingninjas.com/codestudio/problems/ninja-s-training_3621003?leftPanelTab=0

@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    int tar;
+    cin>>tar;
+    bool dp[n+1][tar+1];
+    // memset(dp,false,sizeof(dp));
+    for(int i=0;i<n+1;i++){
+        for(int j=0;j<tar+1;j++){
+            dp[i][j]=false;
+        }
+    }
+    for(int i=0;i<n+1;i++){
+        for(int j=0;j<=tar;j++){
+            if(i==0&&j==0){
+                dp[i][j]=true;
+            }else if(i==0){
+                dp[i][j]=false;
+            }else if(j==0){
+                dp[i][j]=true;
+            }else{
+                if(dp[i-1][j]==true){
+                    dp[i][j]=true;
+                }else{
+                    int val=a[i-1];
+                    if(j>=val){
+                        if(dp[i-1][j-val]==true){
+                            dp[i][j]=true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(dp[n][tar]==1){
+        cout<<"true";
+    }else{
+        cout<<"false";
+    }
+    return 0;
+}
+
+URL : https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/target-sum-subsets-dp-official/ojquestion

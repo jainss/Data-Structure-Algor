@@ -1,0 +1,22 @@
+class Solution {
+public:
+    long long int mod=1e9+7;
+    int countHousePlacements(int n) {
+        long long int a=2,b=3;
+        if(n==1){
+            return 4;
+        }
+        if(n==2)
+            return 9;
+        n-=2;
+        long long int c=0;
+        while(n--){
+            c=a%mod+b%mod;
+            a=b;
+            b=c;
+        }
+        return (c*c)%mod;
+    }
+};
+
+https://leetcode.com/problems/count-number-of-ways-to-place-houses/

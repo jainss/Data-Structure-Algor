@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int dp[4001];
+
+int solve(int n,int a,int b,int c){
+    if(n==0){
+        return 0;
+    }
+    if(n<0){
+        return INT_MIN;
+    }
+    if(dp[n]!=-1){
+        return dp[n];
+    }
+    return dp[n]=1+max(solve(n-a,a,b,c),max(solve(n-b,a,b,c),solve(n-c,a,b,c)));
+}
+
+int main(){
+    int n,a,b,c;
+    cin>>n>>a>>b>>c;
+    memset(dp,-1,sizeof(dp));
+    cout<<solve(n,a,b,c);
+    return 0;
+}
+
+URL: https://codeforces.com/problemset/problem/189/A

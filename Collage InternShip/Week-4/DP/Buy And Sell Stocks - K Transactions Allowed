@@ -1,0 +1,64 @@
+Method -01
+
+TC : o(n^3);
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    int k;
+    cin>>k;
+    int dp[k+1][n];
+    memset(dp,0,sizeof(dp));
+    for(int i=1;i<k+1;i++){
+        for(int j=1;j<n;j++){
+            int mx=dp[i][j-1];
+            for(int k=0;k<j;k++){
+                int pd=dp[i-1][k];
+                int dif=a[j]-a[k];
+                mx=max(mx,dif+pd);
+            }
+            dp[i][j]=mx;
+        }
+    }
+    cout<<dp[k][n-1];
+    return 0;
+}
+
+URL: https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/buy-and-sell-stocks-kta---official/ojquestion
+
+
+
+Method -01
+
+TC : o(n^2);
+
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        if(prices.size()==0){
+            return 0;
+        }
+        int n=prices.size();
+        int dp[k+1][n];
+        memset(dp,0,sizeof(dp));
+        for(int i=1;i<=k;i++){
+            int mx=INT_MIN;
+            for(int j=1;j<n;j++){
+                mx=max(mx,dp[i-1][j-1]-prices[j-1]);
+                int mx2=dp[i][j-1];
+                dp[i][j]=max(mx2,mx+prices[j]);
+            }
+        }
+        return dp[k][n-1];
+    }
+};
+
+
+URL : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/

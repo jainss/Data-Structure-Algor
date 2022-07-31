@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+        int bsb=-prices[0];
+        int bs=0;
+        for(int i=1;i<prices.size();i++){
+           int newbsb=max(bsb,bs-prices[i]);
+           int newbs=max(bs,prices[i]+bsb-fee);
+           bsb=newbsb;
+           bs=newbs;
+        }
+        return bs;
+    }
+};
+URL : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/

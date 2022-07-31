@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string shortestCommonSupersequence(string str1, string str2) {
+        int n=str1.size(),m=str2.size();
+        int dp[n+1][m+1];
+        memset(dp,0,sizeof(dp));
+        string s;
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<m+1;j++){
+                if(str1[i-1]==str2[j-1]){
+                  dp[i][j]=1+dp[i-1][j-1];
+                }else{
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        int x1=n,x2=m;
+        while(x1>0&&x2>0){
+            if(str1[x1-1]==str2[x2-1]){
+                s.push_back(str1[x1-1]);
+                x1--;
+                x2--;
+            }else{
+                if(dp[x1-1][x2]>dp[x1][x2-1]){
+                    s.push_back(str1[x1-1]);
+                    x1--;
+                }else{
+                    s.push_back(str2[x2-1]);
+                    x2--;
+                }
+            }
+        }
+        while(x1>0){
+            s.push_back(str1[x1-1]);
+            x1--;
+        }while(x2>0){
+            s.push_back(str2[x2-1]);
+            x2--;
+        }
+        reverse(s.begin(),s.end());
+        return s;
+    }
+};
+
+URL : https://leetcode.com/problems/shortest-common-supersequence/

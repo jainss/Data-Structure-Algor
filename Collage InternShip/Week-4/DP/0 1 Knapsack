@@ -1,0 +1,50 @@
+Method -1 
+Memorization 
+
+
+int solve(vector<int> w, vector<int> v, int n, int mw, vector<vector<int>>&dp){
+    if(n==0 and w[0]<=mw)
+        return v[0];
+    if(n==0 or mw==0)
+        return 0;
+    if(dp[n][mw]!=-1)
+        return dp[n][mw];
+    int tack=INT_MIN;
+    int notack=solve(w,v,n-1,mw,dp);
+    if(w[n]<=mw){
+       tack=v[n]+solve(w,v,n-1,mw-w[n],dp);
+    }
+    return dp[n][mw]=max(tack,notack);
+}
+
+int knapsack(vector<int> w, vector<int> v, int n, int mw) {
+    vector<vector<int>>dp(n,vector<int>(mw+1,-1));
+    return solve(w,v,n-1,mw,dp);
+}
+
+
+Method -2
+Tabulation
+
+
+int knapsack(vector<int> w, vector<int> v, int n, int mw) {
+    vector<vector<int>>dp(n+1,vector<int>(mw+1));
+    for(int i=0;i<n+1;i++){
+        for(int j=0;j<mw+1;j++){
+            if(i==0 or j==0){
+                dp[i][j]=0;
+            }
+            else if(w[i-1]<=j){
+                dp[i][j]=max(dp[i-1][j-w[i-1]]+v[i-1],dp[i-1][j]);
+            }else{
+                dp[i][j]=dp[i-1][j];
+            }
+        }
+    }
+    return dp[n][mw];
+}
+
+
+
+https://www.codingninjas.com/codestudio/problems/0-1-knapsack_920542?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+

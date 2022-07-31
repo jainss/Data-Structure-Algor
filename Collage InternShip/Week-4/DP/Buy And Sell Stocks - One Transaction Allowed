@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int maxProfit(const vector<int> &A) {
+    int n=A.size();
+    int mi=INT_MAX;
+    int profit=0,su=0;
+    for(int i=0;i<n;i++){
+        mi=min(mi,A[i]);
+        su=A[i]-mi;
+        profit=max(profit,su);
+    }
+    return profit;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int>vec(n);
+    for(int i=0;i<n;i++){
+        cin>>vec[i];
+    }
+    cout<<maxProfit(vec);
+    return 0;
+}
+
+URL : https://leetcode.com/problems/best-time-to-buy-and-sell-stock/

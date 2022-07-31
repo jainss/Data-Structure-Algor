@@ -1,0 +1,75 @@
+Method -1
+
+Memorization
+TC: 0(N)
+TC: 0(N)+0(N)
+
+
+
+int solve(int n,vector<int>&nums,vector<int>&dp){
+  if(n<0){
+      return 0;
+  }  
+  if(dp[n]!=-1){
+      return dp[n];
+  }
+  int nontake=solve(n-1,nums,dp);
+  int take=solve(n-2,nums,dp)+nums[n];
+  
+  return dp[n]=max(take,nontake);
+}
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    vector<int>dp(nums.size()+1,-1);
+    return solve(nums.size()-1,nums,dp);
+}
+
+
+
+
+Method -2
+Tabulation 
+Tc : 0(n)
+Sc : 0(1)
+
+
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    vector<int>dp(nums.size(),-1);
+    dp[0]=nums[0];
+    for(int i=0;i<nums.size();i++){
+        int nontake=dp[i-1];
+        int take=nums[i];
+        if(i-2>=0){
+            take+=dp[i-2];
+        }
+        dp[i]=max(take,nontake);
+    }
+    return dp[nums.size()-1];
+}
+
+
+Method -3
+Space Optimization 
+TC : 0(N) 
+SC : 0(1)
+
+
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    vector<int>dp(nums.size(),-1);
+    int prev=nums[0],prev2=nums[1],cur;
+    for(int i=0;i<nums.size();i++){
+        int nontake=prev;
+        int take=nums[i];
+        if(i-2>=0){
+            take+=prev2;
+        }
+        cur=max(take,nontake);
+        prev2=prev;
+        prev=cur;
+    }
+    return cur;
+}
+
+https://www.codingninjas.com/codestudio/problems/maximum-sum-of-non-adjacent-elements_843261?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0

@@ -1,0 +1,82 @@
+Method-1
+
+TC: O(N*M)
+SC: O(N*M)
+
+#include<bits/stdc++.h>
+int solve(int i,int j,int n,int m,vector<vector<int>> &mat,vector<vector<int>> &dp){
+    if(i==n-1 and j>=0 and j<m)
+        return mat[i][j];
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    int rd=INT_MIN,ld=INT_MIN,lt=INT_MIN;
+    if(i+1<n)
+        lt=solve(i+1,j,n,m,mat,dp)+mat[i][j];
+    if(i+1<n and j+1<m)
+        rd=solve(i+1,j+1,n,m,mat,dp)+mat[i][j];
+    if(i+1<n and j-1>=0)
+        ld=solve(i+1,j-1,n,m,mat,dp)+mat[i][j];
+    return dp[i][j]=max(lt,max(ld,rd));
+}
+
+int getMaxPathSum(vector<vector<int>> &matrix){
+    int n=matrix.size();
+    int m=matrix[0].size();
+    vector<vector<int>>dp(n,vector<int>(m,-1));
+    int maxi=INT_MIN;
+    for(int i=0;i<m;i++){
+        maxi=max(maxi,solve(0,i,n,m,matrix,dp));
+    }
+    return maxi;
+}
+
+
+
+Method-2
+
+TC: O(N*M)
+SC: O(N*M)
+
+#include<bits/stdc++.h>
+int solve(int i,int j,int n,int m,vector<vector<int>> &mat,vector<vector<int>> &dp){
+    if(i==n-1 and j>=0 and j<m)
+        return mat[i][j];
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    int rd=INT_MIN,ld=INT_MIN,lt=INT_MIN;
+    if(i+1<n)
+        lt=solve(i+1,j,n,m,mat,dp)+mat[i][j];
+    if(i+1<n and j+1<m)
+        rd=solve(i+1,j+1,n,m,mat,dp)+mat[i][j];
+    if(i+1<n and j-1>=0)
+        ld=solve(i+1,j-1,n,m,mat,dp)+mat[i][j];
+    return dp[i][j]=max(lt,max(ld,rd));
+}
+
+int getMaxPathSum(vector<vector<int>> &matrix){
+    int n=matrix.size();
+    int m=matrix[0].size();
+    vector<vector<int>>dp(n,vector<int>(m,-1));
+    for(int i=0;i<m;i++){
+        dp[0][i]=matrix[0][i];
+    }
+    for(int i=1;i<n;i++){
+        for(int j=0;j<m;j++){
+            int rd=INT_MIN,ld=INT_MIN,lt=INT_MIN;
+               lt=dp[i-1][j]+matrix[i][j];
+            if(i-1>=0 and j-1>=0)
+               rd=dp[i-1][j-1]+matrix[i][j];
+            if(i-1>=0 and j+1<m)
+               ld=dp[i-1][j+1]+matrix[i][j];
+            dp[i][j]=max(rd,max(ld,lt));
+        }
+    }
+    
+    return *max_element(dp[n-1].begin(),dp[n-1].end());
+}
+
+
+https://www.codingninjas.com/codestudio/problems/maximum-path-sum-in-the-matrix_797998?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTab=0
+
+
+

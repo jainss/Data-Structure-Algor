@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int solve(int i,int j1,int j2,int n,int m,vector<vector<int>>&grid,vector<vector<vector<int>>>&dp){
+    if(j1<0 or j1>=m or j2<0 or j2>=m){
+        return -1e9;
+    }
+   
+    if(i==n-1){
+        if(j1==j2){
+            return grid[i][j1];
+        }else{
+            return grid[i][j1]+grid[i][j2];
+        }
+    }
+    if(dp[i][j1][j2]!=-1){
+        return dp[i][j1][j2];
+    }
+    int ans=-1;
+    for(int k=-1;k<2;k++){
+        for(int j=-1;j<2;j++){
+            ans=max(ans,solve(i+1,j1+k,j2+j,n,m,grid,dp));
+        }
+    }
+    if(j1==j2){
+        ans+=grid[i][j1];
+    }else{
+        ans+=grid[i][j1]+grid[i][j2];
+    }
+    return dp[i][j1][j2]=ans;
+}
+    int cherryPickup(vector<vector<int>>& grid) {
+        vector<vector<vector<int>>>dp(grid.size(),vector<vector<int>>(grid[0].size(),vector<int>(grid[0].size(),-1)));
+    return solve(0,0,grid[0].size()-1,grid.size(),grid[0].size(),grid,dp);
+      
+    }
+};
+
+
+https://leetcode.com/problems/cherry-pickup-ii/
