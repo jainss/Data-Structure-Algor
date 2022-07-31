@@ -1,0 +1,27 @@
+class Solution{
+public:
+void solve(string s,string out,vector<string>&vec){
+        if(s.empty()){
+            vec.push_back(out);
+            return ;
+        }
+        string o1=out;
+        string o2=out;
+        o2=o2+" ";
+        o2.push_back(s[0]);
+        o1.push_back(s[0]);
+        s.erase(s.begin()+0);
+        solve(s,o2,vec);
+        solve(s,o1,vec);
+    }
+    vector<string> permutation(string S){
+         vector<string>vec;
+        string out="";
+        out.push_back(S[0]);
+        S.erase(S.begin()+0);
+        solve(S,out,vec);
+        return vec;
+    }
+};
+
+//https://practice.geeksforgeeks.org/problems/permutation-with-spaces3627/1#

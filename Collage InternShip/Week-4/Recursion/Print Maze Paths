@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+void solve(int r,int c,int n,int m,string ans){
+   if(r==n&&c==m){
+	   cout<<ans<<endl;
+	   return ;
+   }
+    if(c<m){
+	   solve(r,c+1,n,m,ans+'h');
+    }
+    if(r<n){
+        solve(r+1,c,n,m,ans+'v');
+    }
+}
+
+int main(){
+	int n,m;
+	cin>>n>>m;
+	if(n==0||m==0){
+		cout<<"";
+	}
+	solve(1,1,n,m,"");
+}
+
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-on-the-way-up/print-maze-paths-official/ojquestion

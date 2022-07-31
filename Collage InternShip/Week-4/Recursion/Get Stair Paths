@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> solve(int n){
+    if(n==0){
+        vector<string>vec;
+        vec.push_back("");
+        return vec;
+    }else if(n<0){
+        vector<string>vec;
+        return vec;
+    }
+     vector<string>v1=solve(n-1);
+      vector<string>v2=solve(n-2);
+       vector<string>v3=solve(n-3);
+     vector<string>paths;
+     for(auto it:v1){
+         paths.push_back('1'+it);
+     }
+     for(auto it:v2){
+         paths.push_back('2'+it);
+     }
+     for(auto it:v3){
+         paths.push_back('3'+it);
+     }
+     return paths;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    vector<string>vec=solve(n);
+    cout<<"[";
+    for(int i=0;i<vec.size()-1;i++){
+        cout<<vec[i]<<", ";
+    }
+    cout<<vec[vec.size()-1]<<"]";
+}
+
+
+URL: https://www.pepcoding.com/resources/online-java-foundation/recursion-with-arraylists/get-stair-paths-official/ojquestion

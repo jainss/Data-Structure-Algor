@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+#include<string>
+using namespace std;
+
+void solve(string st,string ans){
+   if(st.size()==0){
+	  cout<<ans<<endl;
+	  return;
+   }
+   else if(st.size()==1){
+	   char ch=st[0];
+	   if(ch=='0'){
+		   return ;
+	   }
+	   else{
+		   int an=(ch-'0');
+		   char cht=(char)('a'+an-1);
+           cout<<ans+cht<<endl;
+	   }
+   }
+   else{
+	   char chaf=st[0];
+	   string res=st.substr(1,st.size());
+	   if(chaf=='0'){
+		   return ;
+	   }
+	   else{
+		   int an=(chaf-'0');
+		   char cht=(char)('a'+an-1);
+           solve(res,ans+cht);
+	   }
+	   string stnew=st.substr(0,2);
+	   string res2=st.substr(2,st.size());
+	   int num=stoi(stnew);
+	   if(num<=26){
+		   char chnew=(char)('a'+num-1);
+		   solve(res2,ans+chnew);
+	   }
+   }
+ }
+
+int main(){
+	string st;
+	cin>>st;
+	solve(st,"");
+	return 0;
+}
+
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-on-the-way-up/print-encodings-official/ojquestion?__cf_chl_jschl_tk__=643351ce33915b796c0cebf39939940af1aeb222-1619462790-0-AU4o8qO5XFnCH2rG7QKDrjpe5pb9OSeeDRYCsled_FMFyL0fKoeW308XyX7CnI8YQaeM6ttOL37xstFgW7dYiSyqeBffueVpk429AYVRQuncXUcZtwrrxsAS1ukb4tIxWOXmBHKbbHVMvUhwhXjL6Ax6WEp9TUV9NCuDmw0bIrdLBxvSHRqxOU5J9coU2FPI47Aut6SMAEK29aNVfBx8ZvgiL4qx-uIwOklD5F_ZmAUmnCX3w2hDktt9AG_SV9kp44s4uv11eOoPts57Y4Z3ZJlzglhN-1IG5ZmNR-UlWe22whxqZiY8zTevF3Li5NEzgFwLrt_8XtjJnAWTivJYnxV7n_8f7odMI5DA6KEhaBaU2yfP_DDXa7MTs9Aic6kFBEyhPXq5sRuYlmZskUGXRo_QXQmShhnwyapRO2GNUPA8PVM1k8LBvytf5wNLXgVXI6bXKLttscSizY2kf0_6etmx5o6YCu7uk0IkdzPP1fjhRbEkkRw4KxiDe1DLdGLOzCoTDnDNKjB5TDZFSsfiS7g

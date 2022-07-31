@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string>kpc={".;","abc","def","ghi","jkl","mno","pqrs","tu","vwx","yz"};
+
+vector<string> solve(string n){
+    if(n.size()==0){
+        vector<string> vec;
+        vec.push_back("");
+        return vec;
+    }
+    char ch=n[0];
+    string st=n.substr(1,n.size());
+    
+      vector<string>ans=solve(st);
+      vector<string>final;
+      string str=kpc[ch-'0'];
+    for(int i=0;i<str.size();i++){
+        for(auto it:ans){
+            final.push_back(str[i]+it);
+        }
+    }
+    return final;
+}
+
+int main(){
+    string n;
+    cin>>n;
+    vector<string>vec=solve(n);
+    cout<<"[";
+    for(int i=0;i<vec.size()-1;i++){
+        cout<<vec[i]<<", ";
+    }
+    cout<<vec[vec.size()-1];
+    cout<<"]";
+}
+
+
+URL: https://www.pepcoding.com/resources/online-java-foundation/recursion-with-arraylists/get-kpc-official/ojquestion

@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+class Solution
+{
+	public:
+ vector<string> solve(string st){
+   if(st.size()==0){
+	  vector<string>vec;
+	  vec.push_back("");
+	   return vec;
+   }
+   vector<string>ans;
+   for(int i=0;i<st.size();i++){
+	   char ch=st[i];
+	   string nw=st;
+	   nw.erase(nw.begin()+i);
+	   vector<string> res=solve(nw);
+	   for(string i:res){
+	       string str="";
+	       str.push_back(ch);
+	       str+=i;
+	       ans.push_back(str);
+	   }
+   }
+   return ans;
+ }
+		vector<string>find_permutation(string S){
+		    vector<string>vec;
+		    vec=solve(S);
+		    sort(vec.begin(),vec.end());
+		    return vec;
+		}
+};
+
+
+
+// { Driver Code Starts.
+int main(){
+    int t;
+    cin >> t;
+    while(t--)
+    {
+	    string S;
+	    cin >> S;
+	    Solution ob;
+	    vector<string> ans = ob.find_permutation(S);
+	    for(auto i: ans)
+	    {
+	    	cout<<i<<" ";
+	    }
+	    cout<<"\n";
+    }
+	return 0;
+}
+  // } Driver Code Ends
+  
+  
+  //https://practice.geeksforgeeks.org/problems/permutations-of-a-given-string2041/1

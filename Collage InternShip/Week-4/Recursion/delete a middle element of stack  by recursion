@@ -1,0 +1,10 @@
+ void dele(stack<int> st,int k){
+    if(k==1){
+        st.pop();
+        return ;
+    }
+    int val=st.top();
+    st.pop();
+    dele(st,k-1);
+    st.push(val);
+   } 

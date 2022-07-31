@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+void solve(string st,string ans){
+   if(st.size()==0){
+	   cout<<ans<<endl;
+	   return ;
+   }
+   for(int i=0;i<st.size();i++){
+	   char ch=st[i];
+	   string nw=st;
+	   nw.erase(nw.begin()+i);
+       solve(nw,ans+ch);
+   }
+}
+
+int main(){
+	string st;
+	cin>>st;
+	solve(st,"");
+}
+
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-on-the-way-up/print-permutations-official/ojquestion

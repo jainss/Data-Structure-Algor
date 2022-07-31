@@ -1,0 +1,39 @@
+class Solution {
+public:
+    
+    void solve(string s,string out,vector<string>&vec){
+        if(s.empty()){
+            vec.push_back(out);
+            return ;
+        }
+        else if(isdigit(s[0])){
+            out.push_back(s[0]);
+            s.erase(s.begin()+0);
+            solve(s,out,vec);
+        }
+        else if(s[0]>='A'&&s[0]<='Z'){
+            string o1=out;
+            string o2=out;
+            o1.push_back(s[0]);
+            o2.push_back(tolower(s[0]));
+            s.erase(s.begin()+0);
+            solve(s,o1,vec);
+            solve(s,o2,vec);
+        }
+        else{
+            string o1=out;
+            string o2=out;
+            o1.push_back(s[0]);
+            o2.push_back(toupper(s[0]));
+            s.erase(s.begin()+0);
+            solve(s,o1,vec);
+            solve(s,o2,vec);
+        }
+    }
+    vector<string> letterCasePermutation(string S) {
+        vector<string>vec;
+        string out="";
+        solve(S,out,vec);
+        return vec;
+    }
+};

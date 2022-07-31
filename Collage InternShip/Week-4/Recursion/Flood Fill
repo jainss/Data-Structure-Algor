@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void floodfill(vector<vector<int>>arr,int n,int m,string str,vector<vector<int>>dum) {
+   if(n<0||m<0||n==arr.size()||m==arr[0].size()||dum[n][m]==1||arr[n][m]==1){
+       return ;
+   }  
+   if(n==arr.size()-1&&m==arr[0].size()-1){
+       cout<<str<<endl;
+       return;
+   }
+   dum[n][m]=1;
+   floodfill(arr,n-1,m,str+"t",dum);
+   floodfill(arr,n,m-1,str+"l",dum);
+   floodfill(arr,n+1,m,str+"d",dum);
+   floodfill(arr,n,m+1,str+"r",dum);
+   dum[n][m]=0;
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector < vector < int >> arr(n, vector < int > (m));
+    vector<vector<int>>dum(n,vector<int>(m,0));
+    // for(int i=0;i<dum.size();i++){
+    //     for(int j=0;j<dum[0].size();j++){
+    //         cout<<dum[i][j]<<" ";
+    //     }
+    // }
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            cin >> arr[i][j];
+            
+    floodfill(arr,0,0,"",dum);
+    return 0;
+}

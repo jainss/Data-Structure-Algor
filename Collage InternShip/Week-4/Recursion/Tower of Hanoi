@@ -1,0 +1,10 @@
+int toh(int n,int s,int d,int h,int &count){
+    count++;
+    if(n==1){
+        cout<<s<<" "<<d;
+    }
+    toh(n-1,s,h,d,cout);
+    cout<<s<<d;
+    toh(n-1,h,d,s,cout);
+    return cout;
+}

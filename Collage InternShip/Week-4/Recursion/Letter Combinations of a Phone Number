@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<string> solve(string digits){
+        if(digits.size()==0){
+            vector<string>vec;
+            vec.push_back("");
+            return vec;
+        }
+        vector<string> code={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        char ch=digits[0];
+        digits.erase(digits.begin()+0);
+        vector<string>res;
+         res=solve(digits);
+        vector<string>ans;
+        string st;
+        st=code[ch-'0'];
+        for(char i:st){
+            for(string s:res){
+                s.push_back(i);
+                ans.push_back(s);
+            }
+        }
+        return ans;
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits==""){
+            return {};
+        }
+        reverse(digits.begin(),digits.end());
+        vector<string> vec;
+        vec=solve(digits);
+        return vec;
+    }
+};
+
+//https://leetcode.com/problems/letter-combinations-of-a-phone-number/submissions/
