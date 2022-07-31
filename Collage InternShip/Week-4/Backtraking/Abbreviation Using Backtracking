@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(string st,string ans,int c,int pos){
+    if(pos==st.size()){
+         if(c>0){
+            ans+=to_string(c);
+			 cout<<ans<<endl;
+		 }
+		 else{
+			 cout<<ans<<endl;
+		 }
+		 return ;
+	}
+	if(c>0){
+		string str=ans;
+		str+=to_string(c);
+		str.push_back(st[pos]);
+		solve(st,str,0,pos+1);
+	}
+	else{
+	    string str=ans;
+		str.push_back(st[pos]);
+		solve(st,str,0,pos+1);
+	}
+	solve(st,ans,c+1,pos+1);
+}
+
+int main(){
+	string st;
+	cin>>st;
+	solve(st,"",0,0);
+	return 0;
+}

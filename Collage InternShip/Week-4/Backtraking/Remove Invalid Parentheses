@@ -1,0 +1,56 @@
+class Solution {
+public:
+    map<string,int>mp;
+    set<string>stt;
+    int getMin(string str) 
+    {
+        stack<char>st;
+        for(int i = 0;i < str.length(); i++){
+            
+            char ch = str[i];
+            if(ch == '('){
+                st.push(ch);
+            }
+            else if(ch == ')'){
+                if(st.size() == 0){
+                    st.push(ch);
+                }
+                else if(st.top() == ')'){
+                    st.push(ch);
+                }
+                else if(st.top() == '('){
+                    st.pop();
+                }
+            }
+        }    
+        
+        return st.size();
+    }
+    void solve(string s,int mr,vector<string>&ans){
+        if(mr==0){
+            if(getMin(s)==0){
+                if(mp.find(s)==mp.end()){
+                    ans.push_back(s);
+                    mp[s]++;
+                }
+            }
+             return ;  
+        }
+        for(int i=0;i<s.size();i++){
+            string lt=s.substr(0,i);
+            string rt=s.substr(i+1);
+            if(stt.find(lt+rt)==stt.end()){
+                stt.insert(lt+rt);
+                 solve(lt+rt,mr-1,ans);
+            }
+        }
+    }
+    vector<string> removeInvalidParentheses(string s) {
+        int mr=getMin(s);
+        vector<string>ans;
+        solve(s,mr,ans);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/remove-invalid-parentheses/

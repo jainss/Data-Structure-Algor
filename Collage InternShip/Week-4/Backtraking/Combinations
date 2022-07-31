@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void solve(int index, vector<vector<int>>&ans,int n,int k,vector<int>v1){
+        if(v1.size()==k){
+            ans.push_back(v1);
+            return;
+        }
+        for(int i=index;i<=n;i++){
+            v1.push_back(i);
+            solve(i+1,ans,n,k,v1);
+            v1.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>>ans;
+        vector<int>v1;
+        solve(1,ans,n,k,v1);
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/combinations/ 

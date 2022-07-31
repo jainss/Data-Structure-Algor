@@ -1,0 +1,136 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool iswordplacehor(vector<vector<char>>&mat,string word,int i,int j){
+    if(j-1>=0&&mat[i][j-1]!='+'){
+        return false;
+    }
+    else if(j+word.size()<mat[0].size()&&mat[i][j+word.size()]!='+'){
+        return false;
+    }
+    for(int jj=0;jj<word.size();jj++){
+        if(j+jj>=mat[0].size()){
+            return false;
+        }
+        if(mat[i][jj+j]=='-'||mat[i][j+jj]==word[jj]){
+            continue;
+        }
+        else{
+            return false;
+        }
+    }
+    return true;
+}
+
+bool iswordplacever(vector<vector<char>>&mat,string word,int i,int j){
+    if(i-1>=0&&mat[i-1][j]!='+'){
+        return false;
+    }
+    else if(i+word.size()<10&&mat[i+word.size()][j]!='+'){
+        return false;
+    }
+    for(int ii=0;ii<word.size();ii++){
+        if(i+ii>=10){
+            return false;
+        }
+        if(mat[ii+i][j]=='-'||mat[ii+i][j]==word[ii]){
+            continue;
+        }
+        else{
+            return false;
+        }
+    }
+    return true;
+}
+
+vector<bool> placethewordhor(vector<vector<char>>&mat,string word,int i,int j){
+    vector<bool>vec(word.size(),false);
+    for(int jj=0;jj<word.size();jj++){
+        if(mat[i][jj+j]=='-'){
+             mat[i][j+jj]=word[jj];
+             vec[jj]=true;
+        }
+    }
+    return vec;
+}
+
+vector<bool> placethewordver(vector<vector<char>>&mat,string word,int i,int j){
+    vector<bool>vec(word.size(),false);
+    for(int ii=0;ii<word.size();ii++){
+        if(mat[i+ii][j]=='-'){
+            mat[ii+i][j]=word[ii];
+            vec[ii]=true;
+        }
+    }
+    return vec;
+}
+
+void unplacehor(vector<vector<char>>&mat,string word,int i,int j,vector<bool>dumy){
+    for(int jj=0;jj<dumy.size();jj++){
+        if(dumy[jj]==true){
+            mat[i][j+jj]='-';
+        }
+    }
+}
+
+void unplacever(vector<vector<char>>&mat,string word,int i,int j,vector<bool>dumy){
+    for(int ii=0;ii<dumy.size();ii++){
+        if(dumy[ii]==true){
+            mat[i+ii][j]='-';
+        }
+    }
+}
+
+void solve(vector<vector<char>>&mat,vector<string>vec,int ind){
+    if(ind==vec.size()){
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                cout<<mat[i][j];
+            }
+            cout<<endl;
+        }
+        return ;
+    }
+    string word=vec[ind];
+    for(int i=0;i<10;i++){
+        for(int j=0;j<10;j++){
+            if(mat[i][j]=='-'||mat[i][i]==word[0]){
+                if(iswordplacehor(mat,word,i,j)){
+                    vector<bool> dumy1;
+                    dumy1=placethewordhor(mat,word,i,j);
+                    solve(mat,vec,ind+1);
+                    unplacehor(mat,word,i,j,dumy1);
+                }
+                if(iswordplacever(mat,word,i,j)){
+                    vector<bool> dumy;
+                    dumy=placethewordver(mat,word,i,j);
+                    solve(mat,vec,ind+1);
+                    unplacever(mat,word,i,j,dumy);
+                }
+            }
+        }
+    }
+}
+
+int main(){
+    vector<vector<char>>mat;
+    for(int i=0;i<10;i++){
+        vector<char>v1;
+        for(int j=0;j<10;j++){
+           char ch;
+           cin>>ch;
+           v1.push_back(ch);
+        }
+        mat.push_back(v1);
+    }
+    int n;
+    cin>>n;
+    vector<string>vec;
+    for(int i=0;i<n;i++){
+        string st;
+         cin >> st;
+        vec.push_back(st);
+    }
+    solve(mat,vec,0);
+    return 0;
+}

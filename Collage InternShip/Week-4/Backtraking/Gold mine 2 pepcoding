@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void travelcoll(vector<int>&vec,vector<vector<bool>>&vis,vector<vector<int>>& grid,int i,int j){
+        if(i<0||j<0||i>=grid.size()||j>=grid.size()||vis[i][j]==true||grid[i][j]==0){
+            return ;
+        }
+        vis[i][j]=true;
+        vec.push_back(grid[i][j]);
+        travelcoll(vec,vis,grid,i+1,j);
+        travelcoll(vec,vis,grid,i,j+1);
+        travelcoll(vec,vis,grid,i,j-1);
+        travelcoll(vec,vis,grid,i-1,j);
+    }
+    
+    int getMaximumGold(vector<vector<int>>& grid) {
+        int max=0;
+        vector<vector<bool>>vis;
+        for(int i=0;i<grid.size();i++){
+            vector<bool>v1(grid.size(),false);
+            vis.push_back(v1);
+        }
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[i].size();j++){
+                if(grid[i][j]!=0&&vis[i][j]!=true){
+                    vector<int>vec;
+                    travelcoll(vec,vis,grid,i,j);
+                    int sum=0;
+                    for(auto it:vec){
+                        sum+=it;
+                    }
+                    if(sum>max){
+                        max=sum;
+                    }
+                }
+            }
+        }
+        return max;
+    }
+    
+    int main(){
+        int n,m;
+        cin>>n>>m;
+        vector<vector<int>>grid;
+        for(int i=0;i<n;i++){
+            vector<int>v1;
+            for(int j=0;j<m;j++){
+               int c;
+               cin>>c;
+               v1.push_back(c);
+            }
+            grid.push_back(v1);
+        }
+        cout<<getMaximumGold(grid);
+        return 0;
+    }

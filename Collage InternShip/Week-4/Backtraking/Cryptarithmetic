@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+#include <sstream>
+using namespace std;
+
+long long int getnumber(map<char, int> mp, string s)
+{
+    long long int p = 0;
+    for (auto it : s)
+    {
+        p *= 10;
+        p += mp[it];
+    }
+    return p;
+}
+
+void solve(string uni, int ind, map<char, int> mp, vector<bool> num, string s1, string s2, string s3)
+{
+    if (ind == uni.size())
+    {
+        long long int n1 = getnumber(mp, s1);
+        long long int n2 = getnumber(mp, s2);
+        long long int n3 = getnumber(mp, s3);
+        
+        if ((n1 + n2) == n3)
+        {
+            for (auto it : mp)
+            {
+                cout << it.first << "-" << it.second << " ";
+            }
+            cout << endl;
+        }
+        return;
+    }
+    char ch = uni[ind];
+    for (int i = 0; i <= 9; i++)
+    {
+        if (num[i] == false)
+        {
+            mp[ch] = i;
+            num[i] = true;
+            solve(uni, ind + 1, mp, num, s1, s2, s3);
+            mp[ch] = -1;
+            num[i] = false;
+        }
+    }
+}
+
+int main()
+{
+    string s1, s2, s3;
+    cin >> s1 >> s2 >> s3;
+    map<char, int> mp;
+    string unique = "";
+    for (auto it : s1)
+    {
+        if (mp[it] == 0)
+        {
+            mp[it] = -1;
+            unique += it;
+        }
+    }
+    for (auto it : s2)
+    {
+        if (mp[it] == 0)
+        {
+            mp[it] = -1;
+            unique += it;
+        }
+    }
+    for (auto it : s3)
+    {
+        if (mp[it] == 0)
+        {
+            mp[it] = -1;
+            unique += it;
+        }
+    }
+    vector<bool> num(10, false);
+    solve(unique, 0, mp, num, s1, s2, s3);
+    return 0;
+}
