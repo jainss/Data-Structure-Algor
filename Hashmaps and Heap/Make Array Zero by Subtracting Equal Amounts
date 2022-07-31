@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        map<int,int>mp;
+        for(auto it:nums){
+            if(it!=0){
+                mp[it]++;
+            }
+        }
+        return mp.size();
+    }
+};
+
+https://leetcode.com/problems/make-array-zero-by-subtracting-equal-amounts/
