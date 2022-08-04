@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> meetingPlanner( const vector<vector<int>>& A, const vector<vector<int>>& B, int dur) { 
+   int i=0,j=0;
+  while(i<A.size() and j<B.size()){
+    int start=max(A[i][0],B[j][0]);
+    int end=min(A[i][1],B[j][1]);
+    if(start+dur<=end){
+      return {start,start+dur};
+    }
+    if(A[i][1]<B[j][1]){
+      i++;
+    }else{
+      j++;
+    }
+  }
+  vector<int>a;
+  return a;
+}
+
+int main() {
+
+  return 0;
+}
