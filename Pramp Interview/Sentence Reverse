@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<char> reverseWords(const  vector<char>& temp ) {
+   vector<char> arr=temp;
+  reverse(arr.begin(),arr.end());
+  string st="";
+  for(int i=0;i<arr.size();i++){
+    if(arr[i]==' '){
+      cout<<st;
+      for(int j=0;j<st.size();j++){
+        arr[i-j-1]=st[j];
+      }
+      st="";
+    }else{
+      st= st+arr[i];
+    }
+  }
+ 
+  for(int j=0;j<st.size();j++){
+        arr[arr.size()-j-1]=st[j];
+      }
+  
+return arr;
+}
+
+int main() {
+ return 0;
+}
+
+
