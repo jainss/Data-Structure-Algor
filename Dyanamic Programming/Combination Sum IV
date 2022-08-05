@@ -1,0 +1,59 @@
+Method -1 
+
+Recursion + Dp Array 
+
+
+class Solution {
+public:
+    int solve(vector<int>& nums, int t,vector<int>& dp){
+        if(t==0){
+            return 1;
+        }
+        if(t<0){
+            return 0;
+        }
+        if(dp[t]!=-1){
+            return dp[t];
+        }
+        int ans=0;
+        for(auto it:nums){
+            if(it<=t){
+                ans+=solve(nums,t-it,dp);
+            }
+        }
+        return dp[t]=ans;
+    }
+    int combinationSum4(vector<int>& nums, int t) {
+        int n=nums.size();
+        vector<int>dp(t+1,-1);
+        return solve(nums,t,dp);
+    }
+};
+
+
+
+method -2 
+
+tabular Formate
+
+
+class Solution {
+public:
+    int combinationSum4(vector<int>& nums, int t) {
+        int n=nums.size();
+        vector<unsigned int>dp(t+1,0);
+        dp[0]=1;
+        for(int i=1;i<=t;i++){
+            for(auto it:nums){
+                if(it<=i){
+                    dp[i]+=dp[i-it];
+                }
+            }
+        }
+        return dp[t];
+    }
+};
+
+
+
+https://leetcode.com/problems/combination-sum-iv/
