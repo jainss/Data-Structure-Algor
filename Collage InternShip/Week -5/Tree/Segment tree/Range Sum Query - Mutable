@@ -1,0 +1,68 @@
+class NumArray {
+public:
+    vector<int> seg;
+    int n;
+    void buildtree(vector<int>&nums,int pos,int left,int right){
+        if(left==right){
+            seg[pos]=nums[left];
+             return ;
+        }
+        int mid=(left+right)/2;
+        buildtree(nums,2*pos+1,left,mid);
+        buildtree(nums,2*pos+2,mid+1,right);
+        seg[pos]=seg[2*pos+1]+seg[2*pos+2];
+    }
+    
+    void updatetil(int pos,int left,int right,int index,int val){
+        if(index<left||index>right){
+            return ;
+        }else if(index==left&&index==right){
+            seg[pos]=val;
+            return ;
+        }
+        int mid=(left+right)/2;
+        updatetil(2*pos+1,left,mid,index,val);
+        updatetil(2*pos+2,mid+1,right,index,val);
+        seg[pos]=seg[2*pos+1]+seg[2*pos+2];
+    }
+    
+    int rangeuntil(int pos,int left,int right,int l,int r){
+       if(l<=left&&r>=right){
+           return seg[pos];
+       }
+        if(l>right||r<left){
+            return 0;
+        }
+        int mid=left+(right-left)/2;
+        return rangeuntil(2*pos+1,left,mid,l,r)+rangeuntil(2*pos+2,mid+1,right,l,r);
+    }
+    
+    NumArray(vector<int>& nums) {
+        if(nums.size()>0){
+            n=nums.size();
+            seg.resize(4*n,0);
+            buildtree(nums,0,0,n-1);
+        }
+    }
+    
+    void update(int index, int val) {
+        if(n==0){
+            return ;
+        }
+        updatetil(0,0,n-1,index,val);
+    }
+    
+    int sumRange(int left, int right) {
+        if(n==0){
+            return 0;
+        }
+        return rangeuntil(0,0,n-1,left,right);
+    }
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * obj->update(index,val);
+ * int param_2 = obj->sumRange(left,right);
+ */
