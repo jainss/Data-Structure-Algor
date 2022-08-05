@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool solve(TreeNode* root,TreeNode* r2){
+        if(root==NULL||r2==NULL){
+          return root==r2;
+        }
+        return (root->val==r2->val)&&(solve(root->left,r2->left)&&solve(root->right,r2->right));
+    }
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if(root==NULL){
+            return false;
+        }
+        if(solve(root,subRoot)){
+            return true;
+        }
+        return isSubtree(root->left,subRoot)||isSubtree(root->right,subRoot);
+    }
+};
+
+https://leetcode.com/problems/subtree-of-another-tree/

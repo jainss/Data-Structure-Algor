@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void solve(TreeNode* root,int& sum){
+        if(root){
+            if(root->left!=NULL&&root->left->left==NULL&&root->left->right==NULL){
+                sum+=root->left->val;
+            }
+            solve(root->left,sum);
+            solve(root->right,sum);
+        }
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }
+        int sum=0;
+        solve(root,sum);
+        return sum;
+    }
+};
+
+https://leetcode.com/problems/sum-of-left-leaves/ 

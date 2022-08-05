@@ -1,0 +1,60 @@
+O(n^2) Method : 
+
+
+class Solution {
+public:
+    void pathflow(TreeNode* root,int sum,int target){
+        if(root==NULL){
+            return ;
+        }
+        sum+=root->val;
+        if(sum==target){
+            total++;
+        }
+        pathflow(root->left,sum,target);
+        pathflow(root->right,sum,target);
+    }
+    int total=0;
+    int pathSum(TreeNode* root, int targetSum) {
+        if(root==NULL){
+            return 0;
+        }
+        pathflow(root,0,targetSum);
+        pathSum(root->left,targetSum);
+        pathSum(root->right,targetSum);
+        return total;
+    }
+};
+
+
+O(n) by precomputation method :
+
+
+class Solution {
+public:
+    int total=0;
+    void pathflow(TreeNode* root,int sum,int target,map<int,int>mp){
+        if(root==NULL){
+            return ;
+        }
+        sum+=root->val;
+        if(mp.find(sum-target)!=mp.end()){
+            total+=mp[sum-target];
+        }
+        mp[sum]+=1;
+        pathflow(root->left,sum,target,mp);
+        pathflow(root->right,sum,target,mp);
+    }
+    int pathSum(TreeNode* root, int targetSum) {
+        if(root==NULL){
+            return 0;
+        }
+        map<int,int>mp;
+        mp[0]=1;
+        pathflow(root,0,targetSum,mp);
+        return total;
+    }
+};
+
+
+https://leetcode.com/problems/path-sum-iii/ 

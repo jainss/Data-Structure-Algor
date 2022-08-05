@@ -1,0 +1,27 @@
+class Solution {
+public:
+    
+    bool isBalanced(TreeNode* root) {
+        return dfscall(root)!=-1;
+    }
+    
+    int dfscall(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+        int lt=dfscall(root->left);
+        if(lt==-1){
+            return -1;
+        }
+        int rt=dfscall(root->right);
+        if(rt==-1){
+            return -1;
+        }
+        if(abs(lt-rt)>1){
+            return -1;
+        }
+        return 1+max(lt,rt);
+    }
+};
+
+https://leetcode.com/problems/balanced-binary-tree/ 

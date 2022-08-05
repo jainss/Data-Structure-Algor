@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        int diameter=INT_MIN;
+        height(root,diameter);
+        return diameter;
+    }
+    int height(TreeNode* root,int &dia){
+        if(root==NULL){
+            return 0;
+        }
+        int lt=max(0,height(root->left,dia));
+        int rt=max(0,height(root->right,dia));
+        dia=max(dia,lt+rt+root->val);
+        return root->val+max(lt,rt);
+    }
+};
+
+https://leetcode.com/problems/binary-tree-maximum-path-sum/

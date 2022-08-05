@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<TreeNode*> helper(int s,int e){
+        vector<TreeNode*>ans;
+        if(s>e){
+            ans.push_back(NULL);
+            return ans;
+        }
+        if(s==e){
+            TreeNode *root=new TreeNode(s);
+            ans.push_back(root);
+            return ans;
+        }
+        for(int i=s;i<=e;i++){
+            vector<TreeNode*>lroottree=helper(s,i-1);
+            vector<TreeNode*>rroottree=helper(i+1,e);
+            for(auto lroot:lroottree){
+                for(auto rroot:rroottree){
+                    TreeNode *root=new TreeNode(i);
+                    root->left=lroot;
+                    root->right=rroot;
+                    ans.push_back(root);
+                }
+            }
+        }
+        return ans;
+    }
+    vector<TreeNode*> generateTrees(int n) {
+       return helper(1,n);
+    }
+};
+https://leetcode.com/problems/unique-binary-search-trees-ii/ 

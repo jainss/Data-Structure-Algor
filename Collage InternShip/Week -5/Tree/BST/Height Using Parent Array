@@ -1,0 +1,19 @@
+class Solution{
+public:
+    int findHeight(int n, int arr[]){
+        int i;
+        int c,m=0;
+        for(int j=n-1;j>=0;j--){
+          i=j;
+          c=1;
+          while (arr[i]!=-1){
+            i=arr[i];
+            c++;
+          }
+          m=max(m,c);
+        }
+        return m;
+    }
+};
+
+https://practice.geeksforgeeks.org/problems/height-using-parent-array4103/1#
