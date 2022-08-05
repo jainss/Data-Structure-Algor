@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+class Solution {
+public:
+	int isNegativeWeightCycle(int N, vector<vector<int>>edges)
+    {
+        int dist[N] = {0};
+        
+        for(int i = 0; i < N - 1; i++)
+        {
+          bool notUpdate = true;
+            
+            for(auto edge: edges)
+            {
+                int u = edge[0];
+                int v = edge[1];
+                int weight = edge[2];
+                
+                if(dist[v] > dist[u] + weight)
+                {
+                    dist[v] = dist[u] + weight;
+                    
+                    notUpdate = false;
+                }
+            }
+            
+            if(notUpdate)
+            {
+                break;
+            }
+        }
+        
+        for(auto edge: edges)
+        {
+            int u = edge[0];
+            int v = edge[1];
+            int weight = edge[2];
+            
+            if(dist[v] > dist[u] + weight)
+            {
+                return 1;
+            }
+        }
+        
+        return 0;
+    }
+};
+
+// { Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n, m;
+		cin >> n >> m;
+		vector<vector<int>>edges;
+		for(int i = 0; i < m; i++){
+			int x, y, z;
+			cin >> x >> y >> z;
+			edges.push_back({x,y,z});
+		}
+		Solution obj;
+		int ans = obj.isNegativeWeightCycle(n, edges);
+		cout << ans <<"\n";
+	}
+	return 0;
+}  // } Driver Code Ends

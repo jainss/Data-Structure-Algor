@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>>dir={{1,1},{1,0},{0,1},{-1,-1},{-1,0},{0,-1},{-1,1},{1,-1}};
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int n=grid.size()-1,m=grid[0].size()-1;
+        if(n==0 and m==0){
+            return 1;
+        }
+        if(grid[0][0]==1 or grid[n][m]==1){
+            return -1;
+        }
+        queue<pair<int,int>>qu;
+        qu.push({0,0});
+        int cou=0,f=1;
+        while(!qu.empty()){
+            int len=qu.size();
+            cou++;
+            while(len--){
+                int r=qu.front().first;
+                int c=qu.front().second;
+                qu.pop();
+                for(auto it:dir){
+                    int row=r+it[0];
+                    int col=c+it[1];
+                    if(row==n and col==m){
+                        f=0;
+                        break;
+                    }
+                    if(row>=0 and row<=n and col>=0 and col<=m and grid[row][col]==0){
+                        grid[row][col]=-1;
+                        qu.push({row,col});
+                    }
+                }
+                if(f==0){
+                    break;
+                }
+            }
+            if(f==0){
+                break;
+            }
+        }if(f==1){
+            return -1;
+        }
+        return cou+1;
+    }
+};
+
+https://leetcode.com/problems/shortest-path-in-binary-matrix/

@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int>>dir={{0,1},{1,0},{-1,0},{0,-1}};
+    int solve(vector<vector<int>>& matrix,int i,int j,vector<vector<int>>&vis){
+        if(vis[i][j]){
+            return vis[i][j];
+        }
+        int ans=0;
+        for(auto it:dir){
+            int ii=i+it[0];
+            int jj=j+it[1];
+            if(ii>=0 and ii<matrix.size() and jj>=0 and jj<matrix[0].size() and matrix[i][j]<matrix[ii][jj]){
+                ans=max(ans,solve(matrix,ii,jj,vis));
+            }
+        }
+        return vis[i][j]=ans+1;
+    }
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        if(n==0){
+            return 0;
+        }
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        int ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                ans=max(ans,solve(matrix,i,j,vis));
+            }
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/longest-increasing-path-in-a-matrix/

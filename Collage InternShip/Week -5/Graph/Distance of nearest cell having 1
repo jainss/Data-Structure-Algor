@@ -1,0 +1,37 @@
+class Solution 
+{
+    public:
+    vector<vector<int>>dir={{-1,0},{0,1},{0,-1},{1,0}};
+	vector<vector<int>>nearest(vector<vector<int>>grid){
+	    queue<pair<int,int>>qu;
+	    int r=grid.size();
+	    int c=grid[0].size();
+	    for(int i=0;i<r;i++){
+	        for(int j=0;j<c;j++){
+	            if(grid[i][j]==0){
+	                grid[i][j]=-1;
+	            }else{
+	                qu.push({i,j});
+	                grid[i][j]=0;
+	            }
+	        }
+	    }
+	    while(!qu.empty()){
+	        int x=qu.front().first;
+	        int y=qu.front().second;
+	        qu.pop();
+	        for(auto it:dir){
+	            int row=it[0]+x;
+	            int col=it[1]+y;
+	            if(row>=0 and col>=0 and row<r and col<c and grid[row][col]==-1){
+	                qu.push({row,col});
+	                grid[row][col]=grid[x][y]+1;
+	            }
+	        }
+	    }
+	    return grid;
+	}
+};
+
+
+https://practice.geeksforgeeks.org/problems/distance-of-nearest-cell-having-1-1587115620/1#

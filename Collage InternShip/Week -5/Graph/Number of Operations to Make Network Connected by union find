@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int>par;
+    vector<int>rank;
+    int find(int node){
+        if(node==par[node]){
+            return node;
+        }
+        return par[node]=find(par[node]);
+    }
+    void unionrank(int u,int v){
+        u=find(u);
+        v=find(v);
+        if(rank[u]>rank[v]){
+            par[v]=u;
+        }else if(rank[v]>rank[u]){
+            par[u]=v;
+        }else{
+            par[u]=v;
+            rank[v]++;
+        }
+    }
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        int m=connections.size();
+        par.resize(n);
+        rank.resize(n,0);
+        for(int i=0;i<n;i++){
+            par[i]=i;
+        }
+        if(m<n-1){
+            return -1;
+        }
+        int extra=0;
+        for(auto it: connections){
+            if(find(it[0])==find(it[1])){
+                extra++;
+            }else{
+                unionrank(it[0],it[1]);
+            }
+        }
+        int need=0;
+        for(int i=0;i<n;i++){
+            if(par[i]==i){
+                need++;
+            }
+        }
+        return need-1<=extra?need-1:-1;
+    }
+};
+
+https://leetcode.com/problems/number-of-operations-to-make-network-connected/

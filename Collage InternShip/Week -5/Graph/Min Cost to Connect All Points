@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int man(int x1, int y1, int x2, int y2){
+        return abs(x1 - x2) + abs(y1 - y2);
+    }
+    
+    void makeset(int *parent, int *rank, int n) {
+        for(int i=0; i<n; i++)
+        {
+            parent[i] = i;
+            rank[i] = 1;
+        }
+    }
+    int find(int ele, int *parent){
+        if(parent[ele] == ele)
+        {
+            return ele;
+        }
+        else
+        {
+            return parent[ele] = find(parent[ele], parent);
+        }
+    }
+    void unionFind(int x1, int x2, int *parent, int *rank){
+        int root1 = find(x1, parent);
+        int root2 = find(x2, parent);
+        if(root1 != root2){
+            if(rank[root1] < rank[root2])
+            {
+                parent[root1] = root2;
+                rank[root2] += rank[root1];
+            }
+            else
+            {
+                parent[root2] = root1;
+                rank[root1] += rank[root2];
+            }
+        }
+    }
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int n = points.size();
+        int *parent = new int[n];
+        int *rank = new int[n];  
+        makeset(parent, rank, n);
+        vector<vector<int>> edges;
+        for(int i=0; i<n-1 ;i++){
+            for(int j=i+1; j<n;j++){
+                edges.push_back({man(points[i][0], points[i][1], points[j][0], points[j][1]),i,j});
+            }
+        }
+        sort(edges.begin(), edges.end());
+        int count=0;   
+        for(int i=0;i<edges.size(); i++){
+            if(find(edges[i][1], parent) != find(edges[i][2],parent)){
+            unionFind( edges[i][1], edges[i][2],parent, rank);
+                count+=edges[i][0];
+            }
+        }
+        return count;
+    }
+};
+
+https://leetcode.com/problems/min-cost-to-connect-all-points/

@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int minJumps(vector<int>& arr) {
+        map<int,vector<int>>mp;
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            mp[arr[i]].push_back(i);
+        }
+        vector<int>vis(n+1,0);
+        queue<int>qu;
+        qu.push(0);
+        int ans=0;
+        while(qu.size()!=0){
+            int len=qu.size();
+            for(int i=0;i<len;i++){
+                int idx=qu.front();
+                if(idx==n-1){
+                return ans;
+                }
+                qu.pop();            
+                vis[idx]=1;
+                if(idx-1>=0 and !vis[idx-1]){
+                   qu.push(idx-1);
+                }
+                if(idx+1<n and !vis[idx+1]){
+                   qu.push(idx+1);
+                }
+                for(auto it:mp[arr[idx]]){
+                   if(!vis[it]){
+                      qu.push(it);
+                   }
+                }
+                mp.erase(arr[idx]);
+            }
+            ans++;
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/jump-game-iv/

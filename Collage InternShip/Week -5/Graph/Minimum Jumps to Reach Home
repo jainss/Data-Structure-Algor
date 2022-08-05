@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+        set<int>st;
+        for(auto it:forbidden){
+            st.insert(it);
+        }
+        queue<pair<int,int>>qu;
+        qu.push({0,1});
+        int steps=0;
+        while(!qu.empty()){
+            int n=qu.size();
+            while(n--){
+                auto val=qu.front();
+                int i=val.first;
+                qu.pop();
+                if(i==x){
+                    return steps;
+                }
+                if(st.count(i)==1){
+                    continue;
+                }
+                st.insert(i);
+                if(val.second==1){
+                    if(i-b>=0){
+                        qu.push({i-b,0});
+                    }
+                }
+                if(i+a<=2000+b+a){
+                    qu.push({i+a,1});
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+};
+
+https://leetcode.com/problems/minimum-jumps-to-reach-home/ 

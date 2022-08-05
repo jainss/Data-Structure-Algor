@@ -1,0 +1,64 @@
+class UnionFind {
+public:
+    vector<int> parent, rank;
+
+    UnionFind(int n) : parent(vector<int>(n)), rank(vector<int>(n)) {
+        for (int i = 0; i < n; ++i) parent[i] = i;
+    };
+
+    int find_(int n) {
+        if (parent[n] == n) return n;
+        return parent[n] = find_(parent[n]);
+    }
+
+    void union_(int x, int y) {
+        int pX = find_(x);
+        int pY = find_(y);
+
+        if (pX == pY) return;
+
+        if (rank[pY] > rank[pX]) {
+            parent[pX] = pY;
+        } else if (rank[pX] > rank[pY]) {
+            parent[pY] = pX;
+        } else {
+            parent[pX] = pY;
+            ++rank[pY];
+        }
+    }
+};
+class Solution {
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        int len = accounts.size();
+
+        UnionFind uf(len);
+        unordered_map<string, int> emailToAccountIdx;
+
+        for (int i = 0; i < len; ++i) {
+            for (int j = 1; j < accounts[i].size(); ++j) {
+                if (emailToAccountIdx.count(accounts[i][j]) > 0) {
+                    uf.union_(i, emailToAccountIdx[accounts[i][j]]);
+                } else {
+                    emailToAccountIdx[accounts[i][j]] = i;
+                }
+            }
+        }
+        unordered_map<int, set<string>> accountIdxToEmail;
+        for (int i = 0; i < len; ++i) {
+            int par = uf.find_(i);
+            for (int j = 1; j < accounts[i].size(); ++j) {
+                accountIdxToEmail[par].insert(accounts[i][j]);
+            }
+        }
+        vector<vector<string>> res;
+        for (const auto &[k, v] : accountIdxToEmail) {
+            res.push_back({accounts[k][0]});
+
+            for (const auto& email : v) res.back().push_back(email);
+        }
+        return res;
+    }
+};
+
+https://leetcode.com/problems/accounts-merge/

@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+
+int main(){
+    ll n,m;
+    cin>>n>>m;
+    vector<pair<ll,ll>>adj[n+1];
+    for(int i=0;i<m;i++){
+        int a,b,c;
+        cin>>a>>b>>c;
+        adj[a].push_back({b,c});
+        adj[b].push_back({a,c});
+    }
+    priority_queue <pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>>pqt;
+    pqt.push(make_pair(0,1));
+    vector<ll>dist(n+1,INT_MAX);
+    dist[1]=0;
+    while(!pqt.empty()){
+        int prev=pqt.top().second;
+        int val=pqt.top().first;
+        pqt.pop();
+        for(auto it:adj[prev]){
+            int disnew=it.second;
+            int node=it.first;
+            if(dist[node]>dist[prev]+disnew){
+                dist[node]=dist[prev]+disnew;
+                pqt.push(make_pair(dist[node],node));
+            }
+        }
+    }
+    for(int i=0;i<=n;i++){
+        if(dist[i]==INT_MAX){
+            cout<<-1<<" ";
+        }else{
+            cout<<dist[i]<<" ";
+        }
+    }
+    cout<<endl;
+    return 0;
+}

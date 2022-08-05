@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        vector<vector<int>> adj(n);       
+        
+        for (int i = 0; i < manager.size(); i++) {
+            if (manager[i] == -1) continue;
+            adj[manager[i]].push_back(i);
+        }
+        
+        return dfs(headID, adj, informTime, 0);
+        return bfs(headID, adj, informTime);
+    }
+    
+    int dfs(int i, vector<vector<int>>& adj, vector<int>& informTime, int maxcost) 
+    {
+        for (int k: adj[i]) {
+           maxcost = max(maxcost, dfs(k, adj, informTime, 0));
+        }
+
+        return informTime[i] + maxcost;     
+    }
+    
+    int bfs(int headID, vector<vector<int>>& adj, vector<int>& informTime) {
+        int result = 0;
+        queue<pair<int, int>> q;
+        q.push({ headID, 0 });
+        
+        while(!q.empty()) {
+            auto t = q.front(); q.pop();
+            int emp = t.first, time = t.second;
+            
+            int totalTime = time + informTime[t.first];
+            result = max(result, totalTime);
+            
+            for (int j = 0; j < adj[emp].size(); ++j) {
+                q.push({ adj[emp][j], totalTime });
+            }
+        }
+         
+        return result;
+    }
+};
+
+
+https://leetcode.com/problems/time-needed-to-inform-all-employees/ 

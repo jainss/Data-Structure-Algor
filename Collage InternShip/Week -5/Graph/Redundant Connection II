@@ -1,0 +1,58 @@
+class Solution {
+public:
+    vector<int>par;
+    vector<int>rank;
+    int find(int node){
+        if(node==par[node]){
+            return node;
+        }
+        return par[node]=find(par[node]);
+    }
+    void unionrank(int u,int v){
+        u=find(u);
+        v=find(v);
+        if(rank[u]>rank[v]){
+            par[v]=u;
+        }else if(rank[v]>rank[u]){
+            par[u]=v;
+        }else{
+            par[u]=v;
+            rank[v]++;
+        }
+    }
+    vector<int> findRedundantDirectedConnection(vector<vector<int>>& edges) {
+       int n=edges.size();
+        rank.resize(n+1,1);
+        for(int i=0;i<=n;i++){
+            par.push_back(i);
+        }
+       vector<int>arr(n+1,-1);
+       int bkl1=-1,bkl2=-1;
+       for(int i=0;i<edges.size();i++){
+           int v=edges[i][1];
+           if(arr[v]==-1){
+               arr[v]=i;
+           }else{
+               bkl1=i;
+               bkl2=arr[v];
+               break;
+           }
+       }
+       for(int i=0;i<edges.size();i++){
+           if(i==bkl1){
+               continue;
+           }
+           if(find(edges[i][0])==find(edges[i][1])){
+               if(bkl2==-1){
+                   return edges[i];
+               }else{
+                   return edges[bkl2];
+               }
+           }
+           unionrank(edges[i][0],edges[i][1]);
+       }
+        return edges[bkl1];
+    }
+};
+
+https://leetcode.com/problems/redundant-connection-ii/ 
