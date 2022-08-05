@@ -8,56 +8,20 @@ sc  : O(n)
 
 class MyCalendar {
 public:
-    multiset<pair<int,int>>s;
-    MyCalendar() {
-       s.clear(); 
-    }
-    
-    bool book(int start, int end) {
-        s.insert({start,1});
-        s.insert({end,-1});
-        int runtime=0;
-        for(auto it:s){
-            if(it.second>0){
-                runtime++;
-            }
-            else{
-                runtime--;
-            }
-            if(runtime>1){
-                s.erase(s.find({start,1}));
-                s.erase(s.find({end,-1}));
-                return false;
-            }
-        }
-        return true;
-    }
-};
-
-
-Method :2
-
-tc O(1)
-
-sc :O(N)
-
-class MyCalendar {
-public:
     MyCalendar() {
         
     }
-    set<pair<int,int>>s;
+    vector<pair<int,int>>vp;
     bool book(int start, int end) {
-        auto itr=s.lower_bound({start,end});
-        if(itr!=s.end()&&end>itr->first){
-            return false;
+        for(auto it:vp){
+            if(start<it.second and end>it.first){
+                return false;
+            }
         }
-        if(itr!=s.begin()&&(--itr)->second>start){
-            return false;
-        }
-        s.insert({start,end});
+        vp.push_back({start,end});
         return true;
     }
 };
 
-Youtube : https://youtu.be/gMnCGS7230U
+
+https://leetcode.com/problems/my-calendar-i/
