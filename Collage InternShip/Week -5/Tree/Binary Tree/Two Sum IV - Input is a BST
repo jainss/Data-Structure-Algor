@@ -1,0 +1,62 @@
+class TwosumBST {
+    stack<TreeNode*>st;
+    bool isreverse=true;
+    
+    public:
+     TwosumBST(TreeNode *root,bool dir){
+        isreverse=dir;
+        pushAll(root);
+     }
+     bool hasNext(){
+        return !st.empty();
+     }
+     int next(){
+        TreeNode* node=st.top();
+        st.pop();
+        if(!isreverse){
+            pushAll(node->right);
+        }else{
+            pushAll(node->left);
+        }
+        return node->val;
+     }
+    
+    private:
+     void pushAll(TreeNode *node){
+        while(node!=NULL){
+            st.push(node);
+            if(!isreverse){
+                 node=node->left;
+            }else{
+                 node=node->right;
+            }
+        }
+     }
+};
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if(root==NULL){
+            return false;
+        }
+        TwosumBST l(root,false);
+        TwosumBST r(root,true);
+        
+        int i=l.next();
+        int j=r.next();
+        while(i<j){
+            if(i+j==k){
+                return true;
+            }
+            if(i+j<k){
+                i=l.next();
+            }else{
+                j=r.next();
+            }
+        }
+        return false;
+    }
+};
+
+
+https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
