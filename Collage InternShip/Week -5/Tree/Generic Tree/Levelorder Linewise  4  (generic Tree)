@@ -1,0 +1,265 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    int size=0;
+    vector<Node *>child;
+};
+
+Node *newnode(int data){
+    Node *temp=new Node;
+    temp->data=data;
+    return temp;
+}
+
+
+
+void printtree(Node *root){
+    if(root==NULL){
+        return ;
+    }
+    cout<<root->data<<":";
+    for(int i=0;i<root->child.size();i++){
+        cout<<root->child[i]->data<<",";
+    }
+    cout<<endl;
+    for(int i=0;i<root->child.size();i++){
+        printtree(root->child[i]);
+    }
+}
+
+Node* inputtree(){
+  int rootdata;
+  cout<<"Enter data";
+  cin>>rootdata;
+  Node *root=newnode(rootdata);
+  int n;
+  cout<<"Enter the number of children of "<<rootdata<<endl;
+  cin>>n;
+  for(int i=0;i<n;i++){
+      Node *child=inputtree();
+      root->child.push_back(child);
+  }
+  return root;
+}
+
+int sizeoft(Node*root){
+ int s=0;
+ for(auto i :root->child){
+     int si=sizeoft(i);
+     s+=si;
+ }
+ root->size=s;
+ s++;
+ return s;
+}
+
+int maxnode(Node *root){
+   int ma=INT_MIN;
+   for(auto child:root->child){
+       int cm=maxnode(child);
+       ma=max(cm,ma);
+   }
+   ma=max(ma,root->data);
+   return ma;
+}
+
+int height(Node *root){
+   int h=-1;
+   for(auto child:root->child){
+       int cm=height(child);
+       h=max(h,cm);
+   }
+   h+=1;
+   return h;
+}
+
+void levelorder(Node *root){
+    queue<Node*>q;
+    q.push(root);
+    while(!q.empty()){
+        Node *node =q.front();
+        cout<<node->data<<" ";
+        q.pop();
+        for(auto child: node->child){
+            q.push(child);
+        }
+    }
+    cout<<"."<<endl;
+}
+
+void preposttra(Node *root){
+     cout<<"Node Pre "<<root->data<<endl;
+     for(auto child: root->child){
+         cout<<"Edge Pre "<<root->data<<"--"<<child->data<<endl;
+         preposttra(child);
+         cout<<"Edge Post "<<root->data<<"--"<<child->data<<endl;
+     }
+     cout<<"Node Post "<<root->data<<endl;
+}
+
+void levelorderline(Node *root){
+    queue<Node *>q1;
+    q1.push(root);
+    queue<Node*>q2;
+    while(!q1.empty()){
+         Node* node=q1.front();
+         cout<<node->data<<" ";
+         q1.pop();
+         for(auto child:node->child){
+             q2.push(child);
+         }
+         if(q1.empty()){
+             cout<<endl;
+             q1=q2;
+             while (!q2.empty()){
+                q2.pop();
+             }
+             
+         }
+    }
+} 
+
+void levelorderzigzag(Node *root){
+   stack<Node*>st1;
+   st1.push(root);
+   stack<Node*>st2;
+   int level=1;
+   while(!st1.empty()){
+        Node * node =st1.top();
+        st1.pop();
+        cout<<node->data<<" ";
+        if(level%2==1){
+            for(auto child:node->child){
+                st2.push(child);
+            }
+        }
+        else{
+            for(int i= node->child.size()-1;i>=0;i--){
+                st2.push(node->child[i]);
+            }
+        }
+        if(st1.empty()){
+            st1=st2;
+            while (!st2.empty()) {
+                st2.pop();
+            }
+             cout<<endl;
+             level++;
+        }
+   }
+}
+
+void levelorderline2(Node *root){
+    queue<Node *>q1;
+    q1.push(root);
+    q1.push(NULL);
+    while(!q1.empty()){
+         Node* node=q1.front();
+         if(node==NULL){
+             cout<<node->data;
+             for(auto child:node->child){
+                 q1.push(child);
+             }
+         } 
+         else{
+             if(!q1.empty()){
+                 q1.push(NULL);
+                 cout<<endl;
+             }
+         } 
+    }
+} 
+
+
+void levelorderline3(Node *root){
+    queue<Node*>q;
+    q.push(root);
+    while (!q.empty()){
+      int si=q.size();
+      for(int i=0;i<si;i++){
+          Node *node=q.front();
+          q.pop();
+          cout<<node->data<<" ";
+          for(auto child:node->child){
+              q.push(child);
+          }
+      }
+      cout<<endl;
+    }
+}
+
+
+void levelorderline4(Node* root){
+    queue<pair<Node *,int >>q;
+    q.push({root,1});
+    int level =1;
+    while (!q.empty()){
+        pair<Node*,int> p;
+        p=q.front();
+        q.pop();
+        if(p.second>level){
+            level=p.second;
+            cout<<endl;
+        }
+        cout<<p.first->data<<" ";
+        for(auto child:p.first->child){
+            q.push({child,level+1});
+        }
+    }
+}
+
+int main(){
+
+    // method -1
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    stack<Node*>st;
+    struct Node *root=NULL;
+    for(int i=0;i<n;i++){
+      if(arr[i]==-1){
+          st.pop();
+      }
+      else{
+          Node *node=newnode(arr[i]);
+          if(st.size()>0){
+              st.top()->child.push_back(node);
+          }
+          else{
+             root=node;
+          }
+          st.push(node);
+      }
+    }
+
+    // method -2
+
+    // Node *root=inputtree();
+    // printtree(root);
+
+    // int siz=sizeoft(root);
+    
+    // int max=maxnode(root);
+    
+    // int high=height(root);
+  
+    // levelorder(root);
+
+    // preposttra(root);
+
+    // levelorderline(root);
+
+    // levelorderzigzag(root);
+
+    // levelorderline2(root);
+
+    // levelorderline3(root);
+
+    levelorderline4(root);
+    return 0;
+}
