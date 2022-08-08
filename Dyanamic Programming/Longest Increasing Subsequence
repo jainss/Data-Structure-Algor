@@ -1,0 +1,61 @@
+Two method 
+
+Method -1 
+
+TC: O(n*n)
+SC: O(n*n)
+recursion Take or not take and memorization 
+
+But give TLE at end.
+
+class Solution {
+public:
+    int solve(vector<int>nums,int idx,int prev,vector<vector<int>>&dp){
+        if(idx==nums.size()){
+            return 0;
+        }
+        if(dp[idx][prev+1]!=-1){
+            return dp[idx][prev+1];
+        }
+        int lt=solve(nums,idx+1,prev,dp);
+        int rt=INT_MIN;
+        if(prev==-1 or nums[idx]>nums[prev]){
+            rt=solve(nums,idx+1,idx,dp)+1;
+        }
+        return dp[idx][prev+1]=max(lt,rt);
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        return solve(nums,0,-1,dp);
+    }
+};
+
+
+Method -2
+
+TC: O(N*N)
+SCL O(N)
+
+linear Dp apply make a two loop and check each value for other loop
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size(),ans=1;
+        vector<int>dp(n,1);
+        for(int i=1;i<n;i++){
+            for(int j=i-1;j>=0;j--){
+                if(nums[i]>nums[j]){
+                    dp[i]=max(dp[i],dp[j]+1);
+                    ans=max(ans,dp[i]);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/longest-increasing-subsequence/
+
+
