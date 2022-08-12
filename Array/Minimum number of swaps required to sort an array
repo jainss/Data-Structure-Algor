@@ -1,0 +1,28 @@
+int minSwaps(vector<int> &arr){
+	vector<pair<int,int>>vec;
+    for(int i=0;i<arr.size();i++){
+        vec.push_back({arr[i],i});
+    }
+    sort(vec.begin(),vec.end());
+    int n=arr.size();
+    vector<int>vis(n,0);
+    int ans=0;
+    for(int i=0;i<n;i++){
+        if(vis[i] or vec[i].second==i){
+            continue;
+        }
+        int j=i,c=0;
+        while(!vis[j]){
+            c++;
+            vis[j]=1;
+            j=vec[j].second;
+        }
+        if(c>0){
+            ans+=c-1;
+        }
+    }
+    return ans;
+}
+
+
+https://www.codingninjas.com/codestudio/problems/minimum-number-of-swaps-required-to-sort-an-array_973251?leftPanelTab=0 
