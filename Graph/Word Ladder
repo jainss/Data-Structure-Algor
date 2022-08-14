@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int ladderLength(string bw, string ew, vector<string>& wl) {
+        bool flag=false;
+        unordered_set<string>st;
+        for(auto it:wl){
+            if(it==ew){
+                flag=true;
+            }
+            st.insert(it);
+        }
+        if(!flag){
+            return 0;
+        }
+        queue<string>qu;
+        qu.push(bw);
+        int ans=0;
+        while(!qu.empty()){
+            ans++;
+            int len=qu.size();
+            while(len--){
+                string str=qu.front();
+                qu.pop();
+                for(int i=0;i<str.length();i++){
+                    string temp=str;
+                    for(char ch='a';ch<='z';ch++){
+                        temp[i]=ch;
+                        if(str.compare(temp)==0){
+                            continue;
+                        }
+                        if(temp.compare(ew)==0){
+                            return ans+1;
+                        }
+                        if(st.find(temp)!=st.end()){
+                            qu.push(temp);
+                            st.erase(temp);
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+};
