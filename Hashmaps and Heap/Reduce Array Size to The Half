@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int minSetSize(vector<int>& arr) {
+        map<int,int>mp;
+        for(auto it:arr){
+            mp[it]++;
+        }
+        priority_queue<int>pq;
+        for(auto it:mp){
+            pq.push(it.second);
+        }
+        int len=arr.size()/2;
+        int sum=0,c=0;
+        while(!pq.empty()){
+            c++;
+            sum+=pq.top();
+            pq.pop();
+            if(sum>=len){
+                return c;
+            }
+        }
+        return mp.size();
+    }
+};
+
+
+https://leetcode.com/problems/reduce-array-size-to-the-half/
