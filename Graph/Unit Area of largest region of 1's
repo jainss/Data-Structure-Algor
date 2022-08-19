@@ -1,0 +1,36 @@
+class Solution
+{
+    public:
+    int c=0;
+    void dfs(vector<vector<int>>& grid,int i,int j){
+        if(i<0 or j<0 or i==grid.size() or j==grid[0].size() or grid[i][j]==0){
+            return ;
+        }
+        c++;
+        grid[i][j]=0;
+        dfs(grid,i+1,j);
+        dfs(grid,i-1,j);
+        dfs(grid,i,j+1);
+        dfs(grid,i,j-1);
+        dfs(grid,i+1,j+1);
+        dfs(grid,i+1,j-1);
+        dfs(grid,i-1,j+1);
+        dfs(grid,i-1,j-1);
+    }
+    int findMaxArea(vector<vector<int>>& grid) {
+        int ans=0;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]==1){
+                    dfs(grid,i,j);
+                    ans=max(ans,c);
+                    c=0;
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+
+https://practice.geeksforgeeks.org/problems/length-of-largest-region-of-1s-1587115620/1
