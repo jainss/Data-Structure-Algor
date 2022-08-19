@@ -1,0 +1,28 @@
+class Solution
+{
+    public:
+    //Function to find a continuous sub-array which adds up to a given number.
+    vector<int> subarraySum(int arr[], int n, long long s){
+        long long sum=0;
+        int i=0,j=0;
+        while(j<n){
+            sum+=arr[j];
+            if(sum==s){
+               return {i+1,j+1};
+            }else if(sum>s){
+                while(sum>s and i<j){
+                    sum-=arr[i];
+                    i++;
+                }
+                if(sum==s){
+                   return {i+1,j+1};
+                }
+            }
+            j++;
+        }
+        return {-1};
+    }
+};
+
+
+https://practice.geeksforgeeks.org/problems/subarray-with-given-sum-1587115621/1?page=1&status[]=solved&company[]=Amazon&sortBy=submissions
