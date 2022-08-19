@@ -1,0 +1,26 @@
+int Solution::solve(int A, vector<int> &B) {
+    int sum=0;
+    for(auto it:B){
+        sum+=it;
+    }
+    int ans=0;
+    int partsum=sum/3;
+    int partsum2=partsum*2;
+    if(sum%3==0){
+    sum=0;
+    int c=0;
+    for(int i=0;i<B.size()-1;i++){
+        sum+=B[i];
+        if(sum==partsum2){
+            ans+=c;
+        }
+        if(sum==partsum){
+            c++;
+        }
+    }
+    }
+    return ans;
+}
+
+
+https://www.interviewbit.com/problems/partitions/
