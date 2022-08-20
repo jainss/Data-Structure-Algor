@@ -1,0 +1,33 @@
+class Solution {
+  public:
+    string findSum(string x, string y) {
+        int i=x.size()-1,j=y.size()-1;
+        string ans="";
+        int sum=0;
+        while(i>=0 or j>=0){
+            if(i>=0){
+                sum+=x[i]-'0';
+            }
+            if(j>=0){
+                sum+=y[j]-'0';
+            }
+            ans+=to_string(sum%10);
+            sum/=10;
+            i--;
+            j--;
+        }
+        if(sum>0){
+            ans+=to_string(sum);
+        }
+        while(ans.back()=='0' and ans.size()>1){
+            ans.pop_back();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
+
+
+
+
+https://practice.geeksforgeeks.org/problems/sum-of-numbers-or-number1219/1
