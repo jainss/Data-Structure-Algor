@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+
+void jainss(string st,int idx,string &ans){
+    if(st.size()==idx){
+        return ;
+    }
+    if(st[idx-1]==st[idx]){
+        ans+='*';
+    }
+    ans+=st[idx];
+    jainss(st,idx+1,ans);
+}
+
+int main(){
+    ll t;
+    // cin>>t;
+    t=1;
+    while(t--){
+        string st;
+        cin>>st;
+        string ans="";
+        ans+=st[0];
+        jainss(st,1,ans);
+        cout<<ans<<endl;
+    }
+    return 0;
+}
+
+
+https://www.geeksforgeeks.org/recursive-program-to-insert-a-star-between-pair-of-identical-characters/
