@@ -1,3 +1,6 @@
+METHOD  -1 
+
+
 class Solution {
 public:
     int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
@@ -28,5 +31,35 @@ public:
         return ans;
     }
 };
+
+
+
+METHOD -2
+
+
+class Solution {
+public:
+    int minRefuelStops(int t, int sf, vector<vector<int>>& st) {
+        priority_queue<int>pq;
+        int cur=sf,fuel=0,i=0,n=st.size();
+        while(cur<t){
+            while(i<n and st[i][0]<=cur){
+                pq.push(st[i][1]);
+                i++;
+            }
+            if(pq.empty()){
+                return -1;
+            }
+            cur+=pq.top();
+            pq.pop();
+            fuel++;
+        }
+        return fuel;
+    }
+};
+
+
+
+
 
 https://leetcode.com/problems/minimum-number-of-refueling-stops/ 
