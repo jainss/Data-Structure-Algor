@@ -1,0 +1,24 @@
+class Solution{   
+public:
+    int MaxGcd(int n, int a[]) { 
+       map<int ,int>mp;
+       int mxele=INT_MIN;
+       for(int i=0;i<n;i++){
+           mp[a[i]]++;
+           mxele=max(mxele,a[i]);
+       }
+       for(int i=mxele;i>0;i--){
+           int ans=0;
+           for(int j=i;j<=mxele;j+=i){
+               ans+=mp[j];
+           }
+           if(ans>=2){
+               return  i;
+           }
+       }
+       return -1;
+    } 
+};
+
+
+https://practice.geeksforgeeks.org/problems/maximum-gcd-pair3534/1
