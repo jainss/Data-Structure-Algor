@@ -1,0 +1,20 @@
+class Solution
+{
+    public:
+    //Function to find the nth catalan number.
+    cpp_int findCatalan(int n) {
+        vector<cpp_int>vec(n+1,0);
+        vec[0]=1;
+        vec[1]=1;
+        for(int i=2;i<=n;i++){
+            for(int j=0;j<i;j++){
+                vec[i]+=vec[j]*vec[i-j-1];
+            }
+        }
+        return vec[n];
+    }
+};
+
+
+
+https://practice.geeksforgeeks.org/problems/nth-catalan-number0817/1
