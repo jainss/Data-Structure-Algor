@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool check(string str, int s, int e){
+        if (s == e || str.length()==1 || str.length()==0)
+              return true;
+         if (str[s] != str[e])
+              return false;
+         return check(str, s + 1, e - 1);
+    }
+    bool isPalindrome(string str) {
+        int s=0;
+        int e=str.length()-1;
+        string ans;
+        
+        for(int i=0;i<str.length();i++){
+           if(isalpha(str[i]) || isdigit(str[i])){
+               ans+=tolower(str[i]);
+           }
+        }
+        return check(ans,s,e);
+        
+    }
+};
+
+
+https://leetcode.com/problems/valid-palindrome/
