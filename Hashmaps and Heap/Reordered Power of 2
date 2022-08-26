@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool reorderedPowerOf2(int n) {
+        map<int,vector<int>>mp;
+        for(int i=1;i<=1e9;i*=2){
+            vector<int>vec(10,0);
+            int p=i;
+            while(p!=0){
+                int rem=p%10;
+                vec[rem]++;
+                p/=10;
+            }
+            mp[i]=vec;
+        }
+        vector<int>dig(10,0);
+        while(n!=0){
+            int rem=n%10;
+            dig[rem]++;
+            n/=10;
+        }
+        for(auto it:mp){
+            vector<int>v1=it.second;
+            int f=1;
+            for(int i=0;i<10;i++){
+                if(v1[i]!=dig[i]){
+                    f=0;
+                    break;
+                }
+            }
+            if(f==1){
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+
+
+https://leetcode.com/problems/reordered-power-of-2/
