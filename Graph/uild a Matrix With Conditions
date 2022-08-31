@@ -1,0 +1,83 @@
+class Solution {
+public:
+   bool dfs(int V,vector<int>&vis,vector<int>&dfsvisited, vector<int> adj[]){
+        vis[V]=1;
+        dfsvisited[V]=1;
+        for(auto node: adj[V]){
+            if(vis[node]==1 and dfsvisited[node] == 1) 
+                return true;
+            if(!vis[node] and dfs(node,vis,dfsvisited,adj)) 
+                return true;
+        }
+        dfsvisited[V]=0;
+        return false;
+    }
+   bool isCycle(int V, vector<int> adj[]) {
+        vector<int> vis(V,0);
+        vector<int> dfsvisited(V,0);
+        for(int i=0; i<V; i++){
+            if(dfs(i,vis,dfsvisited,adj)) 
+                return true;
+        }
+        return false;
+    }
+    void solve2(vector<int>adj[],vector<bool>&vis,int idx,stack<int>&st){
+        vis[idx]=true;
+        for(auto it:adj[idx]){
+            if(vis[it]==false){
+                solve2(adj,vis,it,st);
+            }
+        }
+        st.push(idx);
+    }
+    vector<int> toposort(vector<int>adj[],int k){
+        vector<int>vec;
+        stack<int>st;
+        vector<bool>vis(k+1,false);
+        for(int i=1;i<=k;i++){
+            if(vis[i]==false){
+                solve2(adj,vis,i,st);
+            }
+        }
+        while(!st.empty()){
+            vec.push_back(st.top());
+            st.pop();
+        }
+        return vec;
+    }
+    vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rc, vector<vector<int>>& cc) {
+        vector<int>adj1[k+1];
+        for(auto it:rc){
+            adj1[it[0]].push_back(it[1]);
+        }
+        if(isCycle(k+1,adj1)){
+             return {};
+        }  
+        vector<int>adj2[k+1];
+        for(auto it:cc){
+            adj2[it[0]].push_back(it[1]);
+        }
+         
+        if(isCycle(k+1,adj2)){
+            return {};
+        }
+        vector<int>v1=toposort(adj1,k);
+        vector<int>v2=toposort(adj2,k);
+        map<int,int>mp1,mp2;
+        for(int i=0;i<v1.size();i++){
+            mp1[v1[i]]=i;
+        }
+        for(int i=0;i<v2.size();i++){
+            mp2[v2[i]]=i;
+        }
+        vector<vector<int>>vec(k,vector<int>(k,0));
+        for(int i=1;i<=k;i++){
+            vec[mp1[i]][mp2[i]]=i;
+        }
+        return vec;
+    }
+};
+
+
+
+https://leetcode.com/problems/build-a-matrix-with-conditions/
