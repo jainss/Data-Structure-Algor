@@ -1,0 +1,67 @@
+class Solution {
+public:
+    int garbageCollection(vector<string>& g, vector<int>& t) {
+        for(int i=1;i<t.size();i++){
+            t[i]+=t[i-1];
+        }
+        int gi=-1,mi=-1,pi=-1,f=0,cg=0,cm=0,cp=0;
+        for(int i=g.size()-1;i>=0;i--){
+            string st=g[i];
+            for(auto it:st){
+                if(it=='G'){
+                    f=1;
+                    gi=i;
+                    break;
+                }
+            }
+            if(f==1){
+                break;
+            }
+        }
+        f=0;
+        for(int i=g.size()-1;i>=0;i--){
+            string st=g[i];
+            for(auto it:st){
+                if(it=='M'){
+                    f=1;
+                    mi=i;
+                    break;
+                }
+            }
+            if(f==1){
+                break;
+            }
+        }
+        f=0;
+        for(int i=g.size()-1;i>=0;i--){
+            string st=g[i];
+            for(auto it:st){
+                if(it=='P'){
+                    f=1;
+                    pi=i;
+                    break;
+                }
+            }
+            if(f==1){
+                break;
+            }
+        }
+        int sum=0;
+        for(auto it:g){
+            sum+=it.size();
+        }
+        if(mi>0){
+            sum+=t[mi-1];
+        }
+        if(pi>0){
+            sum+=t[pi-1];
+        }
+        if(gi>0){
+            sum+=t[gi-1];
+        }
+        return sum;
+    }
+};
+
+
+https://leetcode.com/problems/minimum-amount-of-time-to-collect-garbage/
