@@ -1,0 +1,27 @@
+class Solution {
+public:
+    #define ll long long int
+    ll edgeScore(vector<int>& edges) {
+        vector<ll>vec(edges.size(),0);
+        for(int i=0;i<edges.size();i++){
+            vec[edges[i]]+=i;
+        }
+        vector<pair<ll,ll>>vp;
+        for(ll i=0;i<vec.size();i++){
+            vp.push_back({vec[i],i});
+        }
+        sort(vp.rbegin(),vp.rend());
+        ll ans=vp[0].first;
+        ll idx=vp[0].second;
+        for(ll i=0;i<vp.size();i++){
+            if(vp[i].first<ans){
+                break;
+            }
+            idx=vp[i].second;
+        }
+        return idx;
+    }
+};
+
+
+https://leetcode.com/problems/node-with-highest-edge-score/
