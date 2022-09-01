@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minNumberOfHours(int ien, int ie, vector<int>& e, vector<int>& exp) {
+        int sum=accumulate(e.begin(),e.end(),0);
+        int ans=0;
+        if(ien<=sum){
+            ans+=sum-ien+1;
+        }
+        int val=ie;
+        for(int i=0;i<exp.size();i++){
+            if(exp[i]>=val){
+                int num=exp[i]-val+1;
+                val+=num;
+                ans+=num;
+            }
+            val+=exp[i];
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/minimum-hours-of-training-to-win-a-competition/
