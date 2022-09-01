@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string smallestNumber(string pat) {
+        stack<char>st;
+        string ans="";
+        if(pat[0]=='I'){
+            ans+='1';
+        }else{
+            st.push('1');
+        }
+        for(int i=1;i<=pat.size();i++){
+            if(pat[i-1]=='I'){
+                while(!st.empty()){
+                    ans+=st.top();
+                    st.pop();
+                }
+            }
+            st.push('0'+i+1);
+        }
+        while(!st.empty()){
+            ans+=st.top();
+            st.pop();
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/construct-smallest-number-from-di-string/
