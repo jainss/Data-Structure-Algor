@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int amountOfTime(TreeNode* root, int start) {
+        map<int,vector<int>>mp;
+        map<int,int>vis;
+        queue<TreeNode*>qu;
+        qu.push(root);
+        while(!qu.empty()){
+            auto it=qu.front();
+            qu.pop();
+            if(it->left){
+                mp[it->val].push_back(it->left->val);
+                mp[it->left->val].push_back(it->val);
+                qu.push(it->left);
+            }
+            if(it->right){
+                mp[it->val].push_back(it->right->val);
+                mp[it->right->val].push_back(it->val);
+                qu.push(it->right);
+            }
+        }
+        queue<pair<int,int>>pq;
+        pq.push({start,0});
+        vis[start]=1;
+        int ans=0;
+        while(!pq.empty()){
+            auto it=pq.front();
+            pq.pop();
+            ans=max(ans,it.second);
+            for(auto its:mp[it.first]){
+                if(!vis[its]){
+                    pq.push({its,it.second+1});
+                    vis[its]=1;
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/
