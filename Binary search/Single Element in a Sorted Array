@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        int n=nums.size();
+        int l=0,r=n-1;
+        while(l<r){
+            int mid=l+(r-l)/2;
+            int val=(mid%2)?mid-1:mid+1;
+            if(nums[mid]!=nums[val]){
+                r=mid;
+            }else{
+                l=mid+1;
+            }
+        }
+        return nums[l];
+    }
+};
+
+
+
+https://leetcode.com/problems/single-element-in-a-sorted-array/
