@@ -1,0 +1,29 @@
+class Solution{
+  public:
+    // Function to find floor of x
+    // n: size of vector
+    // x: element whose floor is to find
+    int findFloor(vector<long long> v, long long n, long long x){
+        long long i=0,j=n-1,res=-1;
+        if(x<v[0]){
+            return -1;
+        }
+        while(i<=j){
+            long long mid=i+(j-i)/2;
+            if(v[mid]==x){
+                return mid;
+            }
+            if(v[mid]<x){
+                res=mid;
+                i=mid+1;
+            }else{
+                j=mid-1;
+            }
+        }
+        return res;
+    }
+};
+
+
+
+https://practice.geeksforgeeks.org/problems/floor-in-a-sorted-array-1587115620/1
