@@ -1,0 +1,36 @@
+/************************************************************
+
+    Use get function that returns the value at index i
+    in the infinite sorted binary array.
+
+    get(i)
+    {
+
+    }
+    
+
+************************************************************/
+
+long long firstOne()
+{
+    long long i=0,j=1;
+    while(get(j)!=1){
+        i=j;
+        j*=2;
+    }
+    long long ans;
+    while(i<=j){
+        long long mid=i+(j-i)/2;
+        if(get(mid)==1){
+            ans=mid;
+            j=mid-1;
+        }else{
+            i=mid+1;
+        }
+    }
+    return  ans;
+}
+
+
+
+https://www.codingninjas.com/codestudio/problems/search-in-infinite-sorted-0-1-array_696193?leftPanelTab=0
