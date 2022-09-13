@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool validUtf8(vector<int>& data) {
+        int c=0;
+        for(auto it:data){
+            if(c==0){
+                if((it>>7)==0b0){
+                    c=0;
+                }else if((it>>5)==0b110){
+                    c=1;
+                }else if((it>>4)==0b1110){
+                    c=2;
+                }else if((it>>3)==0b11110){
+                    c=3;
+                } else {
+                    return false;
+                }
+            }else{
+                if((it>>6)==0b10){
+                    c--;
+                }else{
+                    return false;
+                }
+            }
+        }
+        if(c==0){
+            return true;
+        }
+        return false;
+    }
+};
+
+
+
+https://leetcode.com/problems/utf-8-validation/
