@@ -1,0 +1,12 @@
+void printReverse(Node *head)
+{
+    if(head==NULL){
+        return ;
+    }
+    printReverse(head->next);
+    cout<<head->data<<" ";
+}
+
+
+
+https://www.codingninjas.com/codestudio/problems/print-reverse-linkedlist_564?leftPanelTab=0
