@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool solve(vector<int>& bd,int mid, int m, int k){
+        int c=0,temp=0;
+        for(int i=0;i<bd.size();i++){
+            if(bd[i]<=mid){
+                temp++;
+            }else{
+                temp=0;
+            }
+            if(temp==k){
+                c++;
+                temp=0;
+            }
+        }
+        if(c<m){
+            return false;
+        }
+        return true;
+    }
+    int minDays(vector<int>& bd, int m, int k) {
+        if(m*k>bd.size()){
+            return -1;
+        }
+        int i=1,j=*max_element(bd.begin(),bd.end());
+        int ans=-1;
+        while(i<=j){
+            int mid=i+(j-i)/2;
+            if(solve(bd,mid,m,k)){
+                ans=mid;
+                j=mid-1;
+            }else{
+                i=mid+1;
+            }
+        }
+        return  ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
