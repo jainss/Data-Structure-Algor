@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> findOriginalArray(vector<int>& vec) {
+        unordered_map<int,int>mp;
+        vector<int>ans;
+        sort(vec.begin(),vec.end());
+        for(int i=vec.size()-1;i>=0;i--){
+            if(mp.find(vec[i]*2)==mp.end()){
+                mp[vec[i]]++;
+            }else{
+                ans.push_back(vec[i]);
+                mp[vec[i]*2]--;
+                if(mp[vec[i]*2]==0){
+                    mp.erase(vec[i]*2);
+                }
+            }
+        }
+        int as=0;
+        for(auto it:mp){
+            as+=it.second;
+        }
+        if(as==0){
+            return ans;
+        }
+        return {};
+    }
+};
+
+
+
+https://leetcode.com/problems/find-original-array-from-doubled-array/
