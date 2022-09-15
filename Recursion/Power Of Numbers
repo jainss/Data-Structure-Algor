@@ -1,0 +1,22 @@
+class Solution{
+    public:
+    //You need to complete this fucntion
+    
+    long long power(int N,int R)
+    {
+       if(R==1){
+           return N;
+       }
+       long long val=power(N,R/2);
+       if(R%2==0){
+           return (val*val)%mod;
+       }else{
+           return ((val*val)%mod*N)%mod;
+       }
+    }
+
+};
+
+
+
+https://practice.geeksforgeeks.org/problems/power-of-numbers-1587115620/1
