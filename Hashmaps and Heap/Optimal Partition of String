@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int partitionString(string s) {
+        map<char,int>mp;
+        int ans=0;
+        string st="";
+        for(auto it:s){
+            if(mp.find(it)!=mp.end()){
+                ans++;
+                mp.clear();
+                mp[it]++;
+            }else{
+                // st+=it;
+                mp[it]++;
+            }
+        }
+        return ans+1;
+    }
+};
+
+
+
+https://leetcode.com/problems/optimal-partition-of-string/
