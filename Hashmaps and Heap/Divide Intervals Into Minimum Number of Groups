@@ -1,0 +1,48 @@
+Method -1 Priority_queue
+
+class Solution {
+public:
+    int minGroups(vector<vector<int>>& in) {
+        sort(in.begin(),in.end());
+        priority_queue<int,vector<int>,greater<int>>pq;
+        for(auto it: in){
+            if(pq.size() and pq.top()<it[0]){
+                pq.pop();
+            }
+            pq.push(it[1]);
+        }
+        return pq.size();
+    }
+};
+
+
+
+
+
+
+
+Method -2
+Vector of Vector
+
+
+class Solution {
+public:
+    int minGroups(vector<vector<int>>& in) {
+        int mx=0;
+        vector<vector<int>>vec;
+        for(auto it:in){
+            vec.push_back({it[0],1});
+            vec.push_back({it[1]+1,-1});
+        }
+        sort(vec.begin(),vec.end());
+        int sum=0;
+        for(auto it:vec){
+            sum+=it[1];
+            mx=max(mx,sum);
+        }
+        return mx;
+    }
+};
+
+
+https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/
