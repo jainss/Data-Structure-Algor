@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+class Solution {
+public:
+    int ans=0;
+    bool check(map<char,int>mp,string str){
+         map<char,int>mp2;
+        for(auto it:str){
+            mp2[it]++;
+            if(mp2[it]>1){
+                return false;
+            }
+            if(mp[it]>0){
+                return false;
+            }
+        }
+       
+        return true;
+    }
+    void solve(vector<string>& arr,int st,int n,map<char,int>&mp,string out){
+        if(st==n){
+            if(out.size()>ans){
+                ans=out.size();
+            }
+            return ;
+        }
+        if(check(mp,arr[st])==true){
+           for(auto it:arr[st]){
+                mp[it]++;
+           }
+           solve(arr,st+1,n,mp,out+arr[st]);
+            for(auto it:arr[st]){
+                mp[it]--;
+            }
+        }
+        solve(arr,st+1,n,mp,out);
+    }
+    int maxLength(vector<string>& arr) {
+        sort(arr.rbegin(),arr.rend());
+        map<char,int>mp;
+        solve(arr,0,arr.size(),mp,"");
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/
