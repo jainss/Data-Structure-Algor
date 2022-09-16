@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool solve(vector<int>& nums, int k,int st,int sum,int n,int med,vector<bool>&vis){
+        if(k==0){
+            return true;
+        }
+        if(sum>med){
+            return false;
+        }
+        if(sum==med){
+            return solve(nums,k-1,0,0,n,med,vis);
+        }
+        for(int i=st;i<n;i++){
+            if(vis[i]){
+              continue;
+            }
+            vis[i]=true;
+            if(solve(nums,k,i+1,sum+nums[i],n,med,vis)) return true;
+            vis[i]=false;
+        }
+        return false;
+    }
+    bool canPartitionKSubsets(vector<int>& nums, int k) {
+        int tot=accumulate(nums.begin(),nums.end(),0);
+        if(tot%k!=0){
+            return false;
+        }
+        sort(nums.rbegin(),nums.rend());
+        int med=tot/k;
+        if(nums[0]>med){
+            return false;
+        }
+        vector<bool>vis(nums.size(),false);
+        return solve(nums,k,0,0,nums.size(),med,vis);
+    }
+};
+
+
+
+
+
+https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
