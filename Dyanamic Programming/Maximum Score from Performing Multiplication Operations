@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int n,m;
+    int score(int i, int st, int e, vector<int>& nums, vector<int>& mul,vector<vector<int>>&dp)
+    {
+        if(i==mul.size())   return 0;
+        if(dp[i][st]!=INT_MIN)    return dp[i][st];
+        int start = nums[st]*mul[i]+score(i+1,st+1,e,nums,mul,dp);
+        int end = nums[e]*mul[i]+score(i+1,st,e-1,nums,mul,dp);
+        return dp[i][st] = max(start,end);
+    }
+    int maximumScore(vector<int>& nums, vector<int>& mul) {
+        n=nums.size(),m=mul.size();
+        vector<vector<int>>dp(1001,vector<int>(1001,INT_MIN));
+        return score(0,0,n-1,nums,mul,dp);
+    }
+};
+
+
+
+
+
+
+https://leetcode.com/problems/maximum-score-from-performing-multiplication-operations/
