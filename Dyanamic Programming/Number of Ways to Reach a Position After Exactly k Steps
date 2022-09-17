@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int mod =(1000000000 + 7);
+    int solve(int sp,int ep,int k, vector<vector<int>>&dp){
+        if(k==0){
+            if(sp==ep){
+                return 1;
+            }
+            return 0;
+        }
+        if(dp[sp][k]!=-1){
+            return dp[sp][k];
+        }
+        return dp[sp][k]=(solve(sp+1,ep,k-1,dp)+solve(sp-1,ep,k-1,dp))%mod;
+    }
+    int numberOfWays(int sp, int ep, int k) {
+        vector<vector<int>>dp(10000,vector<int>(k+1,-1));
+        return solve(sp+1000,ep+1000,k,dp);
+    }
+};
+
+
+
+https://leetcode.com/problems/number-of-ways-to-reach-a-position-after-exactly-k-steps/
