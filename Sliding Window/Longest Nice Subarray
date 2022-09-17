@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool check(vector<int>& bits){ 
+        for(int i=0; i<32; i++){
+            if(bits[i]>1){  
+                return false;  
+            } 
+        }
+        return true;
+    }
+    
+    int longestNiceSubarray(vector<int>& nums) {
+        vector<int>bit(32,0);
+        int st=0,j=0,ans=0,n=nums.size();
+        while(j<n){
+            int num=nums[j];
+            for(int i=0;i<32;i++){
+                if(num&(1<<i)){
+                    bit[i]++;
+                }
+            }
+            bool f=check(bit);
+            if(f==true){
+                ans=max(ans,j-st+1);
+            }else{
+                while(st<j and check(bit)==false){
+                    num=nums[st];
+                    for(int i=0;i<32;i++){
+                       if(num&(1<<i)){
+                           bit[i]--;
+                       }
+                    }
+                    st++;
+                }
+            }
+            j++;
+        }
+        return ans;
+    }
+};
+
+
+
+
+
+
+https://leetcode.com/problems/longest-nice-subarray/
