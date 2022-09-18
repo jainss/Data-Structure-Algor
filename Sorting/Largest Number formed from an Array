@@ -1,0 +1,24 @@
+class Solution{
+public:
+	// The main function that returns the arrangement with the largest value as
+	// string.
+	// The function accepts a vector of strings
+	static int cmp(string A,string B){
+	    string str=A.append(B);
+	    string str2=B.append(A);
+	    return str.compare(str2)>0?1:0;
+	}
+	string printLargest(vector<string> &arr) {
+	    sort(arr.begin(),arr.end(),cmp);
+	    string ans="";
+	    for(auto it:arr){
+	        ans+=it;
+	    }
+	    return ans;
+	}
+};
+
+
+
+
+https://practice.geeksforgeeks.org/problems/largest-number-formed-from-an-array1117/1
