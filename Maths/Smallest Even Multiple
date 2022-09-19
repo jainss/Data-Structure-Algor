@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int smallestEvenMultiple(int n) {
+        int i=2;
+        while(1){
+            if(n%2==0){
+                return n;
+            }
+            n*=i;
+            i++;
+        }
+        return n;
+    }
+};
+
+
+
+https://leetcode.com/problems/smallest-even-multiple/
