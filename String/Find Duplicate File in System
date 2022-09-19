@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<string>> findDuplicate(vector<string>& paths) {
+        vector<vector<string>>ans;
+       unordered_map<string,vector<string>>mp;
+       for(auto it:paths){
+           stringstream str(it);
+           string dir;
+           string file;
+           getline(str,dir,' ');
+           while(getline(str,file,' ')){
+               string content = file.substr(file.find('(')+1,file.find(')')-file.find('(')-1);
+               string location=dir+'/'+file.substr(0,file.find('('));
+               mp[content].push_back(location);
+           }
+       }
+       for(auto it:mp){
+           if(it.second.size()>1){
+               ans.push_back(it.second);
+           }
+       }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/find-duplicate-file-in-system/
