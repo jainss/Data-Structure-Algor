@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int countQuadruplets(vector<int>& nums) {
+        map<int,int>mp;
+        int ans=0;
+        int n=nums.size();
+        for(int i=1;i<=n-2;i++){
+            for(int j=0;j<i;j++){
+                mp[nums[i]+nums[j]]++;
+            }
+            for(int j=i+2;j<n;j++){
+                ans+=mp[nums[j]-nums[i+1]];
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/count-special-quadruplets/
