@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> sumEvenAfterQueries(vector<int>& nums, vector<vector<int>>& q) {
+        int sum=0;
+        for(auto it:nums){
+            if((it%2)==0){
+                sum+=it;
+            }
+        }
+        vector<int>ans;
+       for (auto it : q) {
+           if (nums[it[1]] % 2 == 0) sum -= nums[it[1]];
+               nums[it[1]] += it[0];
+           if (nums[it[1]] % 2 == 0) sum += nums[it[1]];
+           ans.push_back(sum);
+       }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/sum-of-even-numbers-after-queries/
