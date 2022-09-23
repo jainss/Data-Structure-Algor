@@ -1,0 +1,16 @@
+class Solution {
+public:
+    long long mod=1e9+7;
+    int concatenatedBinary(int n) {
+        long long sum=0;
+        for(int i=1;i<=n;i++){
+            int len=log2(i)+1;
+            sum=((sum<<len)%mod+i)%mod;
+        }
+        return sum;
+    }
+};
+
+
+
+https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers/
