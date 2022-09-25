@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> goodIndices(vector<int>& nums, int k) {
+        vector<int>prefix(nums.size()),sufix(nums.size()),ans;
+        if(nums.size()<=2*k){
+            return ans;
+        }
+        prefix[0]=1;
+        for(int i=1;i<nums.size();i++){
+            if(nums[i-1]>=nums[i]){
+                prefix[i]=prefix[i-1]+1;
+            }else{
+                prefix[i]=1;
+            }
+        }
+        sufix[nums.size()-1]=1;
+        for(int i=nums.size()-2;i>=0;i--){
+            if(nums[i+1]>=nums[i]){
+                sufix[i]=sufix[i+1]+1;
+            }else{
+                sufix[i]=1;
+            }
+        }
+        for(int i=1;i<nums.size()-1;i++){
+            if(prefix[i-1]>=k and sufix[i+1]>=k){
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/find-all-good-indices/
