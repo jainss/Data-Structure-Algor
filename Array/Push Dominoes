@@ -1,0 +1,54 @@
+class Solution {
+public:
+    string pushDominoes(string dom) {
+        int n=dom.size(),time=1;
+        vector<int>ltr(n,0);
+        vector<int>rtl(n,0);
+        char ch='.';
+        for(int i=0;i<n;i++){
+            if(dom[i]=='R'){
+                time=1;
+                ch='R';
+            }else if(dom[i]=='L'){
+                time=0;
+                ch='L';
+            }else if(dom[i]=='.' and ch=='R'){
+                ltr[i]=time;
+                time++;
+            }
+        }
+        time=1;
+        ch='.';
+        for(int i=n-1;i>=0;i--){
+            if(dom[i]=='L'){
+                time =1;
+                ch='L';
+            }else if(dom[i]=='R'){
+                ch='R';
+                time=0;
+            }else if(dom[i]=='.' and ch=='L'){
+                rtl[i]=time;
+                time++;
+            }
+        }
+        string ans="";
+        for(int i=0;i<n;i++){
+            if(ltr[i]==0 and rtl[i]==0){
+                ans+=dom[i];
+            }else if(ltr[i]==0){
+                ans+='L';
+            }else if(rtl[i]==0){
+                ans+='R';
+            }else if(ltr[i]==rtl[i]){
+                ans+='.';
+            }else if(ltr[i]>rtl[i]){
+                ans+='L';
+            }else{
+                ans+='R';
+            }
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/push-dominoes/
