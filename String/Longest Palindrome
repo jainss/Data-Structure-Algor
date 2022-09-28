@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        map<int,int>mp;
+        for(auto it:s){
+            mp[it]++;
+        }
+        int odd=0,even=0;
+        for(auto it:mp){
+            even+=it.second-it.second%2;
+            odd+=it.second%2;
+        }
+        return (odd>0)?even+1:even;
+    }
+};
+
+
+
+https://leetcode.com/problems/longest-palindrome/
