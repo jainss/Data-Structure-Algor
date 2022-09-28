@@ -1,0 +1,44 @@
+#include <bits/stdc++.h> 
+class Data{
+    public:
+    int val,aval,pval;
+    Data(int val,int aval,int pval){
+        this->val=val;
+        this->aval=aval;
+        this->pval=pval;
+    }
+};
+
+struct mycmp{
+    bool operator()(Data &d1,Data &d2){
+        return d1.val>d2.val;
+    }
+};
+
+vector<int> mergeKSortedArrays(vector<vector<int>>&kArrays, int k){
+    priority_queue<Data,vector<Data>,mycmp>pq;
+    for(int i=0;i<k;i++){
+        Data d(kArrays[i][0],i,0);
+        pq.push(d);
+    }
+    vector<int>ans;
+    while(!pq.empty()){
+        Data front=pq.top();
+        pq.pop();
+        int val=front.val;
+        int apos=front.aval;
+        int pval=front.pval+1;
+        ans.push_back(val);
+        if(pval<kArrays[apos].size()){
+             Data d(kArrays[apos][pval],apos,pval);
+             pq.push(d);
+        }
+    }
+    return ans;
+}
+
+
+
+
+
+https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1
