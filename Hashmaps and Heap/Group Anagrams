@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string solve(string st){
+        vector<int>vec(26,0);
+        for(auto it:st){
+            vec[it-'a']++;
+        }
+        string ans="";
+        int i=0;
+        while(i<26){
+            if(vec[i]==0){
+                i++;
+            }else{
+                ans+=i+'a';
+                vec[i]--;
+            }
+        }
+        return ans;
+    }
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<string,vector<string>>mp;
+        for(auto it:strs){
+            mp[solve(it)].push_back(it);
+        }
+        vector<vector<string>>ans;
+        for(auto it:mp){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/group-anagrams/
