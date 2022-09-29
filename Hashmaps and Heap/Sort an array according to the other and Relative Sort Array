@@ -1,0 +1,30 @@
+class Solution{
+    public:
+    //Function to sort an array according to the other array.
+    vector<int> sortA1ByA2(vector<int> A1, int N, vector<int> A2, int M) {
+       vector<int>ans;
+       map<int,int>mp;
+       for(auto it:A1){
+           mp[it]++;
+       }
+       for(int i=0;i<M;i++){
+           while(mp[A2[i]]>0){
+               ans.push_back(A2[i]);
+               mp[A2[i]]--;
+           }
+       }
+       for(auto it:mp){
+           while(it.second>0){
+               ans.push_back(it.first);
+               it.second--;
+           }
+       }
+       return ans;
+    } 
+};
+
+
+https://practice.geeksforgeeks.org/problems/relative-sorting4323/1
+
+
+https://leetcode.com/problems/relative-sort-array/
