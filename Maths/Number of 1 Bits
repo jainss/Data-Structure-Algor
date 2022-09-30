@@ -1,8 +1,47 @@
+Method -1
+
+
 class Solution {
 public:
     int hammingWeight(uint32_t n) {
         return  __builtin_popcount(n);
     }
 };
+
+
+
+Method -2
+TC: O(32)
+
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int i=32,c=0;
+        while(i--){
+            if(n&1){
+                c++;
+            }
+            n=n>>1;
+        }
+        return c;
+    }
+};
+
+Method -3 
+TC: O(Number of bits)
+
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int c=0;
+        while(n){
+            n&=(n-1);
+            c++;
+        }
+        return c;
+    }
+};
+
+
 
 https://leetcode.com/problems/number-of-1-bits/
