@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int nextGreaterElement(int n) {
+      string s = to_string(n);
+      int i = s.size() - 2;
+      for(; i >= 0; i--){
+          if(s[i] < s[i + 1]) break;
+      }
+      if(i < 0) return -1;
+      for(int j = s.size() - 1; j > i; j--){
+          if(s[j] > s[i]){
+              swap(s[i], s[j]);
+              break;
+           }
+      }
+     reverse(s.begin() + i + 1, s.end());
+     long res = stol(s);
+     return res > INT_MAX? -1 : res; 
+    }
+};
+
+
+
+https://leetcode.com/problems/next-greater-element-iii/
