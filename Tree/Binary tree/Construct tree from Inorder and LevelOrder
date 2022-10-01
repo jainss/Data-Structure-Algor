@@ -1,0 +1,27 @@
+map<int,int>mp;
+Node *solve(int in[], int lo[], int i, int j){
+    if(i>j){
+        return NULL;
+    }
+    int idx=i;
+    for(int k=i+1;k<=j;k++){
+        if(mp[in[idx]]>mp[in[k]]){
+            idx=k;
+        }
+    }
+    Node *node=new Node(in[idx]);
+    node->left=solve(in,lo,i,idx-1);
+    node->right=solve(in,lo,idx+1,j);
+    return node;
+}
+Node* buildTree(int inorder[], int levelOrder[], int iStart, int iEnd,int n){
+    for(int i=0;i<n;i++){
+        mp[levelOrder[i]]=i;
+    }
+    return solve(inorder,levelOrder,iStart,iEnd);
+    
+}
+
+
+
+https://practice.geeksforgeeks.org/problems/construct-tree-from-inorder-and-levelorder/1
