@@ -36,5 +36,63 @@ class Solution
 };
 
 
+Method -2
+
+
+TC : O(logN)
+SC : O(N)
+
+
+vector<int>par;
+void makepar(int n){
+    par.resize(n+1);
+    for(int i=0;i<=n;i++){
+        par[i]=i;
+    }
+}
+
+int find(int val){
+    if(par[val]==val){
+        return val;
+    }
+    return par[val]=find(par[val]);
+}
+
+void merge(int u,int v){
+    par[v]=u;
+}
+
+class Solution 
+{
+    public:
+    
+    static bool mycmp(const Job & j1 , const Job & j2  ){
+        return j1.profit > j2.profit;
+    }
+    
+    vector<int> JobScheduling(Job arr[], int n){ 
+        sort(arr,arr + n,mycmp);
+        int maxdeadline = arr[0].dead;
+        for(int i = 1; i<n ; i++){
+            maxdeadline = max(maxdeadline,arr[i].dead);
+        }
+        makepar(maxdeadline);
+        vector<int>avail(maxdeadline+1,0);
+        int total_profit = 0;
+        int number_of_jobs = 0;
+        for(int i = 0; i<n ;i++){
+            int val=find(arr[i].dead);
+            if(val>0){
+                total_profit+=arr[i].profit;
+                number_of_jobs++;
+                merge(find(val-1),val);
+            }
+        }
+        return {number_of_jobs,total_profit};
+        
+    } 
+};
+
+
 
 https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1#
