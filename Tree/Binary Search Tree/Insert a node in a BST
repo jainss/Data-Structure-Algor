@@ -1,0 +1,49 @@
+method -1
+
+
+Node* insert(Node* root, int Key) {
+    if(root==NULL){
+        return new Node(Key);
+    }
+    if(root->data>Key){
+        root->left=insert(root->left,Key);
+    }else if(root->data<Key){
+        root->right=insert(root->right,Key);
+    }
+    return root;
+}
+
+
+method -2
+
+
+
+
+Node* insert(Node* root, int key) {
+    if(root==NULL){
+        return new Node(key);
+    }
+     Node *prev=NULL;
+     Node *cur=root;
+    while(root){
+        prev=root;
+        if(root->data>key){
+            root=root->left;
+        }else if(root->data<key){
+            root=root->right;
+        }else{
+            return cur;
+        }
+    }
+    if(prev->data>key){
+        prev->left=new Node(key);
+    }else{
+        prev->right=new Node(key);
+    }
+    return root;
+}
+
+
+
+
+https://practice.geeksforgeeks.org/problems/insert-a-node-in-a-bst/1
