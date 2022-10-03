@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int minCost(string c, vector<int>& nt) {
+       int sum= nt[0];
+        int mx=nt[0];
+       char ch=c[0];
+        int co=1,ans=0;
+        for(int i=1;i<nt.size();i++){
+            if(c[i]==ch){
+                co++;
+                sum+=nt[i];
+                mx=max(mx,nt[i]);
+            }else{
+                if(co>1){
+                    co=1;
+                    ans+=(sum-mx);
+                }
+                ch=c[i];
+                sum=nt[i];
+                mx=nt[i];
+            }
+        }
+        if(co>1){
+          co=1;
+          ans+=(sum-mx);
+        }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/minimum-time-to-make-rope-colorful/
