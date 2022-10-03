@@ -1,0 +1,21 @@
+#include <bits/stdc++.h> 
+
+int c;
+ void inorder(TreeNode<int>* root, int& k) {
+        if (!root) return;
+        inorder(root->left, k);
+        if (--k == 0){
+            c = root->data;
+            return;
+        } 
+        inorder(root->right, k);
+    }  
+
+int kthSmallest(TreeNode<int> *root, int k)
+{
+	inorder(root,k);
+    return c;
+}
+
+
+https://www.codingninjas.com/codestudio/problems/kth-smallest-node-in-bst_920441?leftPanelTab=0
