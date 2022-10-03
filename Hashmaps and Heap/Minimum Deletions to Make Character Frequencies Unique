@@ -1,3 +1,37 @@
+Mthod-1 
+TC :O(Logn)
+
+class Solution {
+public:
+    int minDeletions(string s) {
+        vector<int>vec(26,0);
+        for(auto it:s){
+            vec[it-'a']++;
+        }
+        sort(vec.begin(),vec.end(),greater<int>());
+        int mx=vec[0],ans=0;
+        cout<<mx<<endl;
+        for(auto it:vec){
+            if(it>mx){
+                // cout<<it<<endl;
+                if(mx>0){
+                    ans+=it-mx;
+                }else{
+                    ans+=it;
+                }
+            }
+            mx=min(mx-1,it-1);
+        }
+        return ans;
+    }
+};
+
+
+Method -2
+TC: O(N);
+TC: O(N);
+
+
 class Solution {
 public:
     int minDeletions(string s) {
