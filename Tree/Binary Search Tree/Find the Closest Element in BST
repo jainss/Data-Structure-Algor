@@ -1,0 +1,47 @@
+class Solution
+{
+    public:
+    //Function to find the least absolute difference between any node
+	//value of the BST and the given integer.
+	int ceilBST(Node *root,int input){
+	    int cei=-1;
+    while(root){
+       if(root->data==input){
+           return input;
+        }
+       if(root->data>input){
+          cei=root->data;
+          root=root->left;
+       }else{
+          root=root->right;
+       }
+    }
+    return cei;
+   }
+
+	int floorInBST(Node * root, int x){
+    int floo=-1;
+    while(root){
+        if(root->data==x){
+            return x;
+        }
+        if(root->data<x){
+            floo=root->data;
+            root=root->right;
+        }else{
+            root=root->left;
+        }
+    }
+    return floo;
+   }
+    int minDiff(Node *root, int k)
+    {
+        int f=floorInBST(root,k);
+        int c=ceilBST(root,k);
+        return min(abs(f-k),abs(k-c));
+    }
+};
+
+
+
+https://practice.geeksforgeeks.org/problems/find-the-closest-element-in-bst/1
