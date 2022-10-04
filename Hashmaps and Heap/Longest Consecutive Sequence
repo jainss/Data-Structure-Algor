@@ -18,4 +18,69 @@ public:
     }
 };
 
+
+Method -2 
+
+
+class Solution {
+public:
+    unordered_map<int,int>par;// keep track of parents
+    unordered_map<int,int>size;//track of size of groups 
+    
+    void make(int u)
+    {
+        par[u]=u;
+        size[u]=1;
+    }
+    int find(int u)
+    {
+        if(par[u]==u)
+            return u;
+        return par[u] = find(par[u]);
+    }
+    
+    void Union(int x,int y)
+    {
+        int a = find(x);
+       int b = find(y);
+        
+        if(a!=b)
+        {
+            if(size[b]>size[a])
+            {
+                swap(b,a);
+            }
+        
+          par[b]=a;
+          size[a]+=size[b];
+        }
+    }
+    int longestConsecutive(vector<int>& nums)
+    {
+       int n = nums.size();
+        for(int i=0;i<n;i++)
+        {
+           make(nums[i]);
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(par.find(nums[i]+1)!=par.end())
+            {
+              Union(nums[i],nums[i]+1);//make one group for neighbour elements 
+            }
+        }
+        int mx=0;
+        for(int i=0;i<n;i++)
+        {
+            mx = max(mx,size[nums[i]]);//find max size of group
+        }
+        return mx;
+    }
+};
+
+
+
+
+
+
 https://leetcode.com/problems/longest-consecutive-sequence/
