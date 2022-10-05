@@ -1,0 +1,44 @@
+class Solution {
+  public:
+    int shortestDistance(int N, int M, vector<vector<int>> A, int X, int Y) {
+        // code here
+        if(A[0][0]==0 || A[X][Y]==0 )
+           return -1;
+        //BFS traversal
+        queue<pair<int,int>> q;
+        //All four direction
+        int deltaRow[] = {-1,0,1,0};
+        int deltaCol[] = {0,1,0,-1};
+        int level = -1;
+        q.push({0,0});
+        while(!q.empty())
+        {
+            level++;
+            int n = q.size();
+            for(int k=0;k<n;k++)
+            {
+                int row = q.front().first;
+                int col = q.front().second;
+                q.pop();
+                //ans 
+                if(row==X && col==Y)
+                   return level;
+                //traveras all four direction
+                for(int i=0;i<4;i++){
+                   int tempRow = row + deltaRow[i];
+                   int tempCol = col + deltaCol[i];
+                   if(tempRow>=0 && tempCol>=0 && tempRow<N && tempCol<M && A[tempRow][tempCol]==1){
+                       q.push({tempRow,tempCol});
+                       A[tempRow][tempCol]=0;
+                   }
+                }
+            }
+        }
+        return -1;
+    }
+};
+
+
+
+
+https://practice.geeksforgeeks.org/problems/shortest-source-to-destination-path3544/1
