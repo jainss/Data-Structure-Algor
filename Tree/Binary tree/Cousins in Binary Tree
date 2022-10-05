@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void solve(TreeNode *root,int x,int h,int p,pair<int,int>&p1){
+        if(root==NULL){
+          return ;
+        }
+        if(root->val==x){
+            p1={p,h};
+            return ;
+        }
+        solve(root->left,x,h+1,root->val,p1);
+        solve(root->right,x,h+1,root->val,p1);
+    }
+    bool isCousins(TreeNode* root, int x, int y) {
+        if(root->val== x or root->val ==y){
+            return false;
+        }
+        pair<int,int>p1,p2;
+        solve(root,x,0,0,p1);
+        solve(root,y,0,0,p2);
+        return p1.first!=p2.first and p1.second==p2.second;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/cousins-in-binary-tree/
