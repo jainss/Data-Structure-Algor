@@ -1,0 +1,50 @@
+class Solution{
+    public:
+    vector<int> topoSort(vector<vector<int>> &adj) {
+        int i, n=adj.size();
+        vector<int> ans, indegree(n, 0);
+        queue<int> q;
+        for(i=0;i<n;i++) {
+            for(auto x: adj[i]) {
+                indegree[x]++;
+            }
+        }
+        for(i=0;i<n;i++) if(indegree[i]==0) q.push(i);
+        while(q.size()) {
+            int u=q.front(); q.pop();
+            ans.push_back(u);
+            for(auto x: adj[u]) {
+                indegree[x]--;
+                if(indegree[x]==0) q.push(x);
+            }
+        }
+        return ans;
+    }
+    void f(string &a, string &b, vector<vector<int>> &adj) {
+        int i, n=a.size(), m=b.size();
+        for(i=0;i<min(n,m);i++) {
+            if(a[i]!=b[i]) {
+                adj[a[i]-'a'].push_back(b[i]-'a');
+                break;
+            }
+        }
+    }
+    string findOrder(string dict[], int size, int n) {
+        string ans="";
+        vector<vector<int>> adj(n);
+        for(int i=0;i<size-1;i++) {
+            string a=dict[i];
+            string b=dict[i+1];
+            f(a, b, adj);
+        }
+        vector<int> topo=topoSort(adj);
+        for(auto x: topo) ans+=(x+'a');
+        return ans;
+    }
+};
+
+
+
+
+
+https://practice.geeksforgeeks.org/problems/alien-dictionary/1
