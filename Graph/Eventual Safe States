@@ -1,0 +1,39 @@
+class Solution {
+  public:
+  bool dfs(vector<int>adj[],vector<int>&vis,vector<int>&patvis,int i,vector<int>&check){
+         vis[i]=1;
+         patvis[i]=1;
+         for(auto it:adj[i]){
+             if(vis[it]==0){
+                 if(dfs(adj,vis,patvis,it,check)){
+                     check[i]=0;
+                     return true;
+                 }
+             }else if(patvis[it]){
+                 check[i]=0;
+                 return true;
+             }
+         }
+         check[i]=1;
+         patvis[i]=0;
+         return false;
+    }
+    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
+        vector<int>vis(V,0),patvis(V,0),check(V,0);
+        vector<int>ans;
+        for(int i=0;i<V;i++){
+            if(vis[i]==0){
+                dfs(adj,vis,patvis,i,check);
+            }
+        }
+        for(int i=0;i<V;i++){
+            if(check[i]==1){
+                ans.push_back(i);
+            }
+        }
+         return ans;
+    }
+};
+
+
+https://practice.geeksforgeeks.org/problems/eventual-safe-states/1
