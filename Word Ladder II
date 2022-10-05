@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<vector<string>> findSequences(string bw, string ew, vector<string>& wl) {
+       queue<vector<string>>qu;
+       vector<vector<string>>ans;
+       unordered_set<string>st(wl.begin(),wl.end());
+       qu.push({bw});
+       vector<string>usedlevel;
+       usedlevel.push_back(bw);
+       int level=0;
+       while(!qu.empty()){
+           vector<string>vec=qu.front();
+           qu.pop();
+           if(vec.size()>level){
+               level++;
+               for(auto it:usedlevel){
+                   st.erase(it);
+               }
+               usedlevel.clear();
+           }
+           
+           string word=vec.back();
+           if(word==ew){
+               if(ans.size()==0){
+                   ans.push_back(vec);
+               }else if(ans[0].size()==vec.size()){
+                   ans.push_back(vec);
+               }
+           }
+           for(int i=0;i<word.size();i++){
+               char ch=word[i];
+               for(char ch='a';ch<='z';ch++){
+                   word[i]=ch;
+                   if(st.find(word)!=st.end()){
+                       usedlevel.push_back(word);
+                       vec.push_back(word);
+                       qu.push(vec);
+                       vec.pop_back();
+                   }
+               }
+               word[i]=ch;
+           }
+       }
+       return ans;
+    }
+};
+
+
+
+
+https://practice.geeksforgeeks.org/problems/word-ladder-ii/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=word-ladder-ii
