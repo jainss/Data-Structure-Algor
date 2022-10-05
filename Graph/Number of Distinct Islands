@@ -1,0 +1,37 @@
+class Solution {
+  public:
+  vector<vector<int>>dir={{-1,0},{0,-1},{1,0},{0,1}};
+  void dfs(int i,int j,vector<vector<int>>& grid,vector<pair<int,int>>&vec,int sti,int stj){
+      grid[i][j]=0;
+      vec.push_back({i-sti,j-stj});
+      for(auto it:dir){
+          int x=it[0]+i;
+          int y=it[1]+j;
+          if(x>=0 and x<grid.size() and y>=0 and y<grid[0].size() and grid[x][y]==1){
+              dfs(x,y,grid,vec,sti,stj);
+          }
+      }
+      
+  }
+    int countDistinctIslands(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        set<vector<pair<int,int>>>st;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    vector<pair<int,int>>vec;
+                    dfs(i,j,grid,vec,i,j);
+                    st.insert(vec);
+                }
+            }
+        }
+        return st.size();
+    }
+};
+
+
+
+
+
+https://practice.geeksforgeeks.org/problems/number-of-distinct-islands/1
