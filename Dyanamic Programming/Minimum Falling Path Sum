@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        for(int i=1;i<n;i++){
+            for(int j=0;j<n;j++){
+                int lt=INT_MAX,rt=INT_MAX,up=INT_MAX;
+                if(i>0 and j>0){
+                    lt=matrix[i-1][j-1];
+                }
+                if(i>0){
+                    up=matrix[i-1][j];
+                }
+                if(i>0 and j<n-1){
+                    rt=matrix[i-1][j+1];
+                }
+                matrix[i][j]+=min(lt,min(up,rt));
+            }
+        }
+        int ans=INT_MAX;
+        for(int i=0;i<n;i++){
+            ans=min(ans,matrix[n-1][i]);
+        }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/minimum-falling-path-sum/
