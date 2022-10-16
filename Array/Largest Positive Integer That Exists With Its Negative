@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int findMaxK(vector<int>& nums) {
+        int maxi = INT_MIN; 
+        unordered_set<int> s;
+        for(auto i : nums){
+            if(s.find(i * -1) == s.end()){
+                s.insert(i);
+            }else{
+                maxi = max(maxi, abs(i));
+            }
+        }
+        return maxi == INT_MIN ? -1 : maxi;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/largest-positive-integer-that-exists-with-its-negative/
