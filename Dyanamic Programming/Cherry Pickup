@@ -1,0 +1,81 @@
+TC : O(N^3) 
+Sc : O(N^3)
+
+
+
+Memorize form 
+
+
+class Solution {
+public:
+    int solve(vector<vector<int>>& grid,int st1,int en1,int st2, vector<vector<vector<int>>>&dp){
+        int en2=st1+en1-st2;
+        if(st1>=grid.size() or st2>=grid.size() or en1>=grid[0].size() or en2>=grid[0].size() or grid[st1][en1]==-1 or grid[st2][en2]==-1){
+            return INT_MIN;
+        }
+        if(dp[st1][en1][st2]!=-1){
+            return dp[st1][en1][st2];
+        }
+        if(st1==grid.size()-1 and en1==grid.size()-1 ){
+            return grid[st1][en1];
+        }
+        int can=0;
+        if(st1==st2 and en1==en2){
+            can+=grid[st1][en1];
+        }else{
+            can+=grid[st1][en1]+grid[st2][en2];
+        }
+        int f1=solve(grid,st1+1,en1,st2+1,dp);
+        int f2=solve(grid,st1,en1+1,st2,dp);
+        int f3=solve(grid,st1+1,en1,st2,dp);
+        int f4=solve(grid,st1,en1+1,st2+1,dp);
+        return dp[st1][en1][st2]=can+max({f1,f2,f3,f4});
+    }
+    int cherryPickup(vector<vector<int>>& grid) {
+        int n=grid.size();
+        vector<vector<vector<int>>>dp(n,vector<vector<int>>(n,vector<int>(n,-1)));
+        int val= solve(grid,0,0,0,dp);
+        if(val>=0){
+            return val;
+        }
+        return 0;
+    }
+};
+
+tabular form 
+
+
+
+class Solution {
+public:
+    int cherryPickup(vector<vector<int>>& grid) {
+        int n=grid.size();
+        vector<vector<vector<int>>>dp(n+1,vector<vector<int>>(n+1,vector<int>(n+1,INT_MIN)));
+        dp[1][1][1]=grid[0][0];
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                for(int k=1;k<=n;k++){
+                    int c2=i+j-k;
+                    if(dp[i][j][k] > 0 or c2<1 or c2>n or grid[i-1][j-1]==-1 or grid[k-1][c2-1]==-1){
+                        continue;
+                    }
+                    int cur=max({dp[i-1][j][k],dp[i-1][j][k-1],dp[i][j-1][k],dp[i][j-1][k-1]});
+                    if(cur<0){
+                        continue;
+                    }
+                    dp[i][j][k]=cur+grid[i-1][j-1];
+                    if(i!=k ){
+                        dp[i][j][k]+=grid[k-1][c2-1];
+                    }
+                }
+            }
+        }
+        return dp[n][n][n] < 0 ? 0 : dp[n][n][n];
+    }
+};
+
+
+
+
+
+https://leetcode.com/problems/cherry-pickup/
