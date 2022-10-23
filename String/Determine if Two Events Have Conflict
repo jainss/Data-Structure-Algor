@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int time_to_min(string str){
+        return ((str[0]-'0')*10 +str[1]-'0')*60 + (str[3]-'0')*10 + str[4]-'0';
+    }
+    bool haveConflict(vector<string>& event1, vector<string>& event2) {
+        int t1=time_to_min(event1[0]);
+        int t2=time_to_min(event1[1]);
+        int t3=time_to_min(event2[0]);
+        int t4=time_to_min(event2[1]);
+        if(t2>=t3 and t1<=t4)
+          return true;
+        return false;
+    }
+};
+
+
+
+https://leetcode.com/problems/determine-if-two-events-have-conflict/
