@@ -1,0 +1,75 @@
+Method -1 
+
+TC : O(NXM)
+SC : O(NXM) + O(NXM)
+
+
+class Solution {
+public:
+    int solve(string s,string p,int i,int j,vector<vector<int>>&dp){
+        if(i<0 and j<0){
+            return true;
+        }
+        if(i>=0 and j<0){
+            return false;
+        }
+        if(i<0 and j>=0){
+            for(int k=j;k>=0;k--){
+                if(p[k]!='*'){
+                    return false;
+                }
+            }
+            return true;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        if(s[i]==p[j] or p[j]=='?'){
+            return dp[i][j]=solve(s,p,i-1,j-1,dp);
+        }
+        if(p[j]=='*'){
+            return dp[i][j]=solve(s,p,i-1,j,dp) or solve(s,p,i,j-1,dp);
+        }
+        return dp[i][j]=false;
+    }
+    bool isMatch(string s, string p) {
+        int n=s.size(),m=p.size();
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        return solve(s,p,n-1,m-1,dp);
+    }
+};
+
+
+Method - 2
+
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int n=s.size(),m=p.size();
+        vector<vector<bool>>dp(n+1,vector<bool>(m+1,false));
+        dp[0][0]=true;
+        for (int j = 0; j < p.size() && p[j] == '*'; ++j) {
+            dp[0][j + 1] = true;
+        }
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                 if(s[i-1]==p[j-1] or p[j-1]=='?'){
+                    dp[i][j]=dp[i-1][j-1];
+                 }
+                 else if(p[j-1]=='*'){
+                    dp[i][j]=dp[i-1][j] or dp[i][j-1];
+                 }else
+                    dp[i][j]=false;
+            }
+        }
+        return dp[n][m];
+    }
+};
+
+TC : O(NXM)
+SC : O(NXM)
+
+
+
+
+https://leetcode.com/problems/wildcard-matching/
