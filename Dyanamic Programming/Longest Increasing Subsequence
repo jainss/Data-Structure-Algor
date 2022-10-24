@@ -56,6 +56,30 @@ public:
     }
 };
 
+Method - 3
+Binary search
+O(n*logn)
+O{N)
+
+
+#include<bits/stdc++.h>
+int longestIncreasingSubsequence(int arr[], int n){
+    vector<int>temp;
+    temp.push_back(arr[0]);
+    int len=1;
+    for(int i=1;i<n;i++){
+        if(arr[i]>temp.back()){
+          temp.push_back(arr[i]);
+            len++;
+        }else{
+            int idex=lower_bound(temp.begin(),temp.end(),arr[i])-temp.begin();
+            temp[idex]=arr[i];
+        }
+    }
+    return len;
+}
+
+
 https://leetcode.com/problems/longest-increasing-subsequence/
 
 
