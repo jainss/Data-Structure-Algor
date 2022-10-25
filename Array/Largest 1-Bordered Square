@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int largest1BorderedSquare(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>hori(n,vector<int>(m,0));
+        vector<vector<int>>verti(n,vector<int>(m,0));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+              if (grid[i][j] == 1) { 
+                   hori[i][j] = (j==0)? 1: hori[i][j-1] + 1;   
+                   verti[i][j] = (i==0)? 1: verti[i-1][j] + 1;  
+               } 
+            }
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                int size=min(hori[i][j],verti[i][j]);
+                while(size>ans){
+                    if (verti[i][j-size+1] >= size &&  hori[i-size+1][j] >= size)  
+                        ans = size; 
+                    size--; 
+                }
+            }
+        }
+        return ans*ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/largest-1-bordered-square/
