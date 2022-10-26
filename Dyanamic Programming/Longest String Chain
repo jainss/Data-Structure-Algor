@@ -1,0 +1,45 @@
+class Solution {
+public:
+   static bool comp(string &s1,string &s2){
+        return s1.size()<s2.size();
+    }
+    bool compare(string s1,string s2){
+        if(s1.size()!=s2.size()+1){
+            return false;
+        }
+        int i=0,j=0;
+        while(i<s1.size() and j<s2.size()){
+            if(s1[i]==s2[j]){
+                i++;
+                j++;
+            }else{
+                i++;
+            }
+        }
+        if(i==s1.size() and j==s2.size()){
+            return true;
+        }
+        return false;
+    }
+    int longestStrChain(vector<string>& words) {
+        int n=words.size();
+        vector<int>dp(n,1);
+        int mx=1;
+        sort(words.begin(),words.end(),comp);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(compare(words[i],words[j]) and dp[i]<dp[j]+1){
+                    dp[i]=dp[j]+1;
+                }
+            }
+            if(dp[i]>mx)
+                mx=dp[i];
+        }
+        return mx;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/longest-string-chain/
