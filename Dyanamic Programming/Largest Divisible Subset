@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size(),mx=1,last=0;
+        vector<int>dp(n,1),hash(n),ans;
+        for(int i=0;i<n;i++){
+            hash[i]=i;
+            for(int j=0;j<i;j++){
+                if(nums[i]%nums[j]==0 and dp[i]<dp[j]+1){
+                    dp[i]=dp[j]+1;
+                    hash[i]=j;
+                }
+            }
+            if(dp[i]>mx){
+                mx=dp[i];
+                last=i;
+            }
+        }
+        ans.push_back(nums[last]);
+        while(hash[last]!=last){
+            last=hash[last];
+            ans.push_back(nums[last]);
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/largest-divisible-subset/
