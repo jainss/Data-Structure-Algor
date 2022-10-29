@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string oddString(vector<string>& words) {
+        map<vector<int>,vector<string>>mp;
+        for(auto it:words){
+            vector<int>vec;
+            for(int i=1;i<it.size();i++){
+                vec.push_back((it[i]-'a')-(it[i-1]-'a'));
+            }
+            mp[vec].push_back(it);
+        }
+        for(auto it:mp){
+            if(it.second.size()==1){
+                return it.second[0];
+            }
+        }
+        return "";
+    }
+};
+
+
+
+https://leetcode.com/problems/odd-string-difference/
