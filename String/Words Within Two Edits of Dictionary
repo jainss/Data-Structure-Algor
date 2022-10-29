@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> twoEditWords(vector<string>& que, vector<string>& dic) {
+        int c=0;
+        vector<string>ans;
+        for(int i=0; i<que.size();i++)
+            for(int j=0;j<dic.size();j++){
+                c=0;
+                for(int kj=0; kj<dic[j].size();kj++){
+                    if(que[i][kj]!=dic[j][kj])
+                        c++;
+                }
+                if(c<3){ 
+                    ans.push_back(que[i]);
+                    break;
+                }
+            }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/words-within-two-edits-of-dictionary/
