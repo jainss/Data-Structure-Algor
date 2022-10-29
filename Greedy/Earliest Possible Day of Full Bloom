@@ -1,0 +1,24 @@
+class Solution {
+public:
+    static bool comp(pair<int,int> &p1,pair<int,int> &p2){
+       return p1.second>p2.second;
+    }
+    int earliestFullBloom(vector<int>& pt, vector<int>& gt) {
+        vector<pair<int,int>>vp;
+        for(int i=0;i<pt.size();i++){
+            vp.push_back({pt[i],gt[i]});
+        }
+        sort(vp.begin(),vp.end(),comp);
+        int start=0,ans=0;
+        for(int i=0;i<pt.size();i++){
+            start+=vp[i].first;
+            ans=max(ans,start+vp[i].second);
+        }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/earliest-possible-day-of-full-bloom/
