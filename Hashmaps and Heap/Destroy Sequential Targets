@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int destroyTargets(vector<int>& nums, int space) {
+        unordered_map<int,int>mp;
+        int high=INT_MIN;
+        for(auto it:nums){
+            mp[it%space]++;
+            high=max(high,mp[it%space]);
+        }
+        int ans=INT_MAX;
+        for(auto it:nums){
+            if(mp[it%space]==high){
+                ans=min(ans,it);
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/destroy-sequential-targets/
