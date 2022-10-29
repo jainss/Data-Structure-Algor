@@ -1,0 +1,48 @@
+#import <iostream>
+#import <vector>
+#import<algorithm>
+using namespace std;
+
+bool comp(int &ele1,int &ele2){
+  if(ele1<=0 and ele2<=0){
+    if(ele1==ele2){
+      return true;
+    }else{
+      return ele1>ele2;
+    }
+  }else if(ele1>=0 and ele2>=0){
+    return ele2>ele1;
+  }else if(ele1<=0 and ele2>=0){
+    if(abs(ele1)==ele2){
+      return true;
+    }else if(abs(ele1)>ele2){
+      return false;
+    }else{
+      return true;
+    }
+  }else {
+    if(abs(ele2)==ele1){
+      return false;
+    }else if(abs(ele2)>ele1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+
+
+vector<int> absSort(const vector<int>& arr){
+	 vector<int>vec=arr;
+   sort(vec.begin(),vec.end(),comp);
+  return vec;
+}
+
+  
+
+int main() 
+{
+	return 0;
+}
+
+https://www.pramp.com/challenge/4E4NW7NjbnHQEx1AxoXE
