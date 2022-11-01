@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<string>> mostPopularCreator(vector<string>& cre, vector<string>& ids, vector<int>& vie) {
+        unordered_map<string,long long>mp1;
+        unordered_map<string,pair<long long,string>>mp2;
+        long long mx=0;
+        for(int i=0;i<ids.size();i++){
+            if(mp1.find(cre[i])==mp1.end()){
+                mp1[cre[i]]=vie[i];
+            }else{
+                mp1[cre[i]]+=vie[i];
+            }
+            mx=max(mx,mp1[cre[i]]);
+            if(mp2.find(cre[i])==mp2.end()){
+                mp2[cre[i]]={vie[i],ids[i]};
+            }else{
+                if(mp2[cre[i]].first<vie[i]){
+                    mp2[cre[i]]={vie[i],ids[i]};
+                }else if(mp2[cre[i]].first==vie[i] and mp2[cre[i]].second>ids[i]){
+                    mp2[cre[i]]={vie[i],ids[i]};
+                }
+            }
+        }
+        vector<vector<string>> ans;
+        for(auto it:mp1){
+            if(it.second==mx){
+                ans.push_back({it.first,mp2[it.first].second});
+            }
+        }
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/most-popular-video-creator/
