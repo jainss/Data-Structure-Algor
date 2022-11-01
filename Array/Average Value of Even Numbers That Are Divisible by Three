@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int averageValue(vector<int>& nums) {
+        int sum=0,c=0;
+        for(auto it:nums){
+            if(it%2==0 and it%3==0){
+                sum+=it;
+                c++;
+            }
+        }
+        if(c==0){
+            return 0;
+        }
+        return sum/c;
+    }
+};
+
+
+
+https://leetcode.com/problems/average-value-of-even-numbers-that-are-divisible-by-three/
