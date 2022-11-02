@@ -1,0 +1,50 @@
+class Solution {
+public:
+    vector<vector<int>>dir={{-1,0},{0,-1},{0,1},{1,0}};
+    int shortestPath(vector<vector<int>>& grid, int k) {
+        int n=grid.size(),m=grid[0].size();
+        vector<vector<bool>>vis(n,vector<bool>(m,false));
+        vector<vector<int>>oldobs(n,vector<int>(m,0));
+        queue<vector<int>>qu;
+        qu.push({0,0,grid[0][0]});
+        vis[0][0]=true;
+        oldobs[0][0]=grid[0][0];
+        int level=0;
+        while(!qu.empty()){
+            int len=qu.size();
+            for(int le=0;le<len;le++){
+                int obscount=qu.front()[2];
+                int i=qu.front()[0];
+                int j=qu.front()[1];
+                qu.pop();
+                if(i==n-1 and j==m-1){
+                   return level;
+                }
+               for(auto it:dir){
+                   int x=i+it[0];
+                    int y=j+it[1];
+                   if(x<0 or x>=n or y<0 or y>=m){
+                     continue;
+                    } 
+                   if(!vis[x][y] and obscount+grid[x][y]<=k){
+                       qu.push({x,y,obscount+grid[x][y]});
+                       vis[x][y]=true;
+                       oldobs[x][y]=obscount+grid[x][y];
+                   }
+                   if(oldobs[x][y]>obscount+grid[x][y] and obscount+grid[x][y]<=k){
+                       qu.push({x,y,obscount+grid[x][y]});
+                       vis[x][y]=true;
+                       oldobs[x][y]=obscount+grid[x][y];
+                   }
+               }
+            }
+            level++;
+        }
+        return -1;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
