@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int longestPalindrome(vector<string>& words) {
+        unordered_map<string,int>mp;
+        for(auto it:words){
+            mp[it]++;
+        }
+        int ans=0;
+        int mx=0,f=0;
+        for(int i=0;i<words.size();i++){
+            string st=words[i];
+            if(mp.find(st)==mp.end()){
+                continue;
+            }
+            if(st[0]!=st[1]){
+                string st2="";
+                st2+=st[1];
+                st2+=st[0];
+                if(mp.find(st2)!=mp.end()){
+                    int val=min(mp[st],mp[st2]);
+                    mp[st]-=val;
+                    if(mp[st]==0){
+                        mp.erase(st);
+                    }
+                    mp[st2]-=val;
+                    if(mp[st2]==0){
+                        mp.erase(st2);
+                    }
+                    ans+=val*4;
+                }else{
+                    mp.erase(st);
+                }
+            }else{
+                if(mp[st]%2==0){
+                    ans+=mp[st]*2;
+                }else{
+                    if(f==0){
+                        ans+=mp[st]*2;
+                        f=1;
+                    }else{
+                        ans+=(mp[st]-mp[st]%2)*2;
+                    }
+                }
+                mp.erase(st);
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/
