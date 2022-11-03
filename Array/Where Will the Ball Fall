@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<int> findBall(vector<vector<int>>& grid) {
+        vector<int>ans;
+        int n=grid.size(),m=grid[0].size();
+        for(int i=0;i<m;i++){
+            int row=0,col=i,f=1;
+            while(row<n){
+                if(grid[row][col]==1){
+                    if(col+1<m and grid[row][col+1]==1){
+                        row++;
+                        col++;
+                    }else{
+                        f=0;
+                        break;
+                    }
+                }else{
+                    if(col-1>=0 and grid[row][col-1]==-1){
+                        row++;
+                        col--;
+                    }else{
+                        f=0;
+                        break;
+                    }
+                }
+            }
+            if(f==1){
+                ans.push_back(col);
+            }else{
+                ans.push_back(-1);
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/where-will-the-ball-fall/
