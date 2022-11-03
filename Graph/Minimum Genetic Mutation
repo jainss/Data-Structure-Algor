@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int minMutation(string startGene, string endGene, vector<string>& bank) {
+        unordered_set<string>st;
+        for(auto it:bank){
+            st.insert(it);
+        }
+        if(st.find(endGene)==st.end()){
+            return -1;
+        }
+        queue<string>qu;
+        int ans=0;
+        qu.push(startGene);
+        vector<char>gene={'A','C','G','T'};
+        while(!qu.empty()){
+          int len=qu.size();
+          for(int i=0;i<len;i++){
+            string str=qu.front();
+            qu.pop();
+            if(str==endGene){
+                return ans;
+            }
+            for(int i=0;i<str.size();i++){
+                char old=str[i];
+                for(auto it:gene){
+                   str[i]=it;
+                   if(st.find(str)!=st.end()){
+                       qu.push(str);
+                       st.erase(str);
+                   }
+                }
+                str[i]=old;
+            }
+          }
+            ans++;
+        }
+        return -1;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/minimum-genetic-mutation/
