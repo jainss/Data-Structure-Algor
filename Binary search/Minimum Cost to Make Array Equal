@@ -1,3 +1,9 @@
+Method -1
+Binary Search 
+O(nlogn)
+O(1)
+
+
 class Solution {
 public:
     long long getSum(vector<int>& nums, vector<int>& cost,int mid){
@@ -29,6 +35,43 @@ public:
         return 0;   
     }
 };
+
+
+Method -2
+
+O(N)
+O(N)
+
+
+class Solution {
+public:
+    long long getSum(vector<int>& nums, vector<int>& cost,int mid){
+         long long sum = 0;
+            for(int i =0;i<nums.size();i++){
+                long long k = abs(nums[i]-mid);
+                sum+= k*cost[i];  
+            }   return sum;
+    }
+    long long minCost(vector<int>& nums, vector<int>& cost) {
+        vector<pair<int,int>>vp;
+        long long n=cost.size(),sum=0;
+        for(int i=0;i<n;i++){
+            vp.push_back({nums[i],cost[i]});
+            sum+=cost[i];
+        }
+        sort(vp.begin(),vp.end());
+        long long i=0,medium=0,coun=0;
+        while(coun<((sum+1)/2) and i<n){
+            coun+=vp[i].second;
+            medium=vp[i].first;
+            i++;
+        }
+        return getSum(nums,cost,medium);   
+    }
+};
+
+
+
 
 
 
