@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
+        int AreaA=(ax2-ax1)*(ay2-ay1),overlape=0;
+        int AreaB=(bx2-bx1)*(by2-by1);
+        int Xoverlape=min(bx2,ax2)-max(bx1,ax1);
+        int Yoverlape=min(ay2,by2)-max(ay1,by1);
+        if(Xoverlape>0 and Yoverlape>0){
+            overlape=Xoverlape*Yoverlape;
+        }
+        return (AreaA+AreaB)-overlape;
+    }
+};
+
+
+
+
+
+https://leetcode.com/problems/rectangle-area/description/
