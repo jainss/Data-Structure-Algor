@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isPossible(int n, vector<vector<int>>& edges) {
+        vector<unordered_set<int>>adj(n+1);
+        for(int i=0;i<edges.size();i++){
+            adj[edges[i][0]].insert(edges[i][1]);
+            adj[edges[i][1]].insert(edges[i][0]);
+        }
+        vector<int>odd;
+        for(int i=1;i<=n;i++){
+            if(adj[i].size()%2==1){
+                odd.push_back(i);
+            }
+        }
+        if(odd.size()==2){
+            for(int i=1;i<=n;i++){
+                if(adj[odd[0]].count(i)==0 and adj[odd[1]].count(i)==0){
+                      return true;
+                }
+            }
+        }
+        if(odd.size()==4){
+            return (adj[odd[0]].count(odd[1])==0 and adj[odd[2]].count(odd[3])==0)
+                   || (adj[odd[0]].count(odd[2])==0 and adj[odd[3]].count(odd[1])==0)
+                   || (adj[odd[0]].count(odd[3])==0 and adj[odd[1]].count(odd[2])==0);
+        }
+        return odd.size()==0;
+    }
+};
+
+
+
+https://leetcode.com/problems/add-edges-to-make-degrees-of-all-nodes-even/
