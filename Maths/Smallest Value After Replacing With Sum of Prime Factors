@@ -1,0 +1,45 @@
+class Solution {
+public:
+    bool isPrime( long long int n){
+       if (n <= 1)
+           return false;
+       for (int i = 2; i * i <= n; i++) {
+          if (n % i == 0)
+             return false;
+       }
+       return true;
+    }
+    long long int printDivisors( long long int n){
+         long long int sum=0;
+        int m=n;
+     for (int i=2; i<=m; i++){
+        while(n%i==0){
+            sum+=i;
+            n/=i;
+        }
+         if(n==1){
+             break;
+         }
+     }
+        return sum;
+    }
+    int smallestValue(int n) {
+        if(n==4){
+            return 4;
+        }
+        if(isPrime(n)){
+            return n;
+        }
+        while(isPrime(n)==false){
+            // cout<<n;
+            n=printDivisors(n);
+            // cout<<n;
+            // break;
+        }
+        return n;
+    }
+};
+
+
+
+https://leetcode.com/problems/smallest-value-after-replacing-with-sum-of-prime-factors/
