@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> cycleLengthQueries(int n, vector<vector<int>>& queries) {
+        vector<int>vec(queries.size());
+        int x=0;
+        for(auto it:queries){
+            int start=it[0];
+            int end=it[1];
+            vector<int>st,en;
+            while(start>0){
+                st.push_back(start);
+                start/=2;
+            }
+            while(end>0){
+                en.push_back(end);
+                end/=2;
+            }
+            reverse(st.begin(),st.end());
+            reverse(en.begin(),en.end());
+            int s=0;
+            while(s<st.size() and s<en.size()){
+                if(st[s]!=en[s]){
+                    break;
+                }
+                s++;
+            }
+            vec[x]=(st.size()+en.size()-2*s+1);
+            x++;
+        }
+        return vec;
+    }
+};
+
+
+https://leetcode.com/problems/cycle-length-queries-in-a-tree/
