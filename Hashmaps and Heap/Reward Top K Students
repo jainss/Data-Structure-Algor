@@ -1,0 +1,54 @@
+class Solution {
+public:
+    static bool cmp(const pair<int,int> &a,const pair<int,int> &b){
+      if(a.first==b.first)
+            return a.second>b.second;
+         return a.first<b.first;
+    }
+    vector<int> topStudents(vector<string>& pf, vector<string>& nf, vector<string>& rp, vector<int>& stid, int k) {
+        int n=rp.size();
+        map<string,int>mpp,mpn;
+        map<int,int>mpst;
+        for(auto it:pf){
+            mpp[it]++;
+        }
+        for(auto it:nf){
+            mpn[it]++;
+        }
+        for(auto it:stid){
+            mpst[it]=0;
+        }
+        for(int i=0;i<rp.size();i++){
+            string str=rp[i];
+             stringstream st(str);
+             string word;
+             int count = 0;
+         while (st >> word){
+            if(mpp[word]>0){
+                mpst[stid[i]]+=3;
+            }
+            else if(mpn[word]>0){
+                mpst[stid[i]]-=1;
+            }
+         }
+        }
+        vector<pair<int,int>>vp;
+        for(auto it:mpst){
+          vp.push_back({it.second,it.first});
+        }
+        sort(vp.begin(),vp.end(),cmp);
+        vector<int>ans;
+        for(int i=n-1;i>=0;i--){
+            if(k==0){
+                break;
+            }
+            ans.push_back(vp[i].second);
+            k--;
+        }
+        return ans;
+       }
+};
+
+
+
+https://leetcode.com/problems/reward-top-k-students/
