@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int closetTarget(vector<string>& words, string target, int si) {
+        int f=1;
+        int n=words.size();
+        vector<int>vec;
+        // int c=0;
+        for(int i=0;i<words.size();i++){
+            if(words[i]==target){
+                vec.push_back(i);
+                f=0;
+            }
+        }
+        // cout<<vec.size();
+        if(f==1){
+            return -1;
+        }
+        int mi=INT_MAX;
+        for(auto it:vec){
+            mi=min({mi,abs(it-si),n-abs(it-si)});
+        }
+        return mi;
+    }
+};
+
+
+
+https://leetcode.com/problems/shortest-distance-to-target-string-in-a-circular-array/
