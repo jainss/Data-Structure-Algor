@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int takeCharacters(string s, int k) {
+        if(k==0){
+            return 0;
+        }
+        int i=0,j=0,n=s.size(),mi=INT_MAX,c=0;
+        map<char,int>mp;
+        while(j<n*2){
+            if(s[j%n]<='c'){
+                 mp[s[j%n]]++;
+                 if(mp[s[j%n]]==k){
+                     c++;
+                 }
+            }
+            while(c==3 and ((i<n and i>0 and j>=n) or (i==0 and j<n) or (j==n-1 and i>0))){
+               
+                mi=min(mi,j-i+1);
+                if(s[i]<='c'){
+                  if(mp[s[i]]==k){
+                      c--;
+                  }
+                    
+                  mp[s[i]]--;
+                }
+                i++;
+            }
+           j++;
+        }
+       return mi==INT_MAX?-1:mi;
+    }
+};
+
+
+
+https://leetcode.com/problems/take-k-of-each-character-from-left-and-right/
