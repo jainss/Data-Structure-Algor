@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isValid(vector<int>price,int mid,int k){
+        int c=1;
+        int pre=price[0];
+        for(int i=1;i<price.size();i++){
+            if(price[i]>=mid+pre){
+                c++;
+                pre=price[i];
+            }
+        }
+        if(c>=k){
+            return true;
+        }
+        return false;
+    }
+    int maximumTastiness(vector<int>& price, int k) {
+        sort(price.begin(),price.end());
+        int n=price.size();
+        int lt=0,rt=price[n-1]-price[0],ans=0;
+        while(lt<=rt){
+            int mid=lt+(rt-lt)/2;
+            if(isValid(price,mid,k)){
+                ans=max(ans,mid);
+                lt=mid+1;   
+            }else{
+                rt=mid-1;
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/maximum-tastiness-of-candy-basket/
+
