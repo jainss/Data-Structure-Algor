@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int deleteGreatestValue(vector<vector<int>>& grid) {
+        for(int i=0;i<grid.size();i++){
+            vector<int>vec=grid[i];
+            sort(vec.begin(),vec.end());
+            for(int j=0;j<grid[i].size();j++){
+                grid[i][j]=vec[j];
+            }
+        }
+        int ans=0;
+        for(int i=grid[0].size()-1;i>=0;i--){
+            int mx=0;
+            for(int j=0;j<grid.size();j++){
+                mx=max(mx,grid[j][i]);
+            }
+            ans+=mx;
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/delete-greatest-value-in-each-row/
