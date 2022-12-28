@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int longestSquareStreak(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        map<long long int,long long int>mp;
+        for(auto it:nums){
+            mp[it]++;
+        }
+        long long int c=0;
+        for(int i=0;i<nums.size();i++){
+            long long int mx=0,val=nums[i];
+            while(mp.find(val)!=mp.end()){
+                mx++;
+                long long int prev=val;
+                val=val*val;
+                mp.erase(prev);
+            }
+            c=max(mx,c);
+        }
+        return c==1?-1:c;
+    }
+};
+
+
+
+https://leetcode.com/problems/longest-square-streak-in-an-array/
