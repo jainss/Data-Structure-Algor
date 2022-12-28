@@ -1,0 +1,58 @@
+class Allocator {
+public:
+    
+    int p;
+   vector<int>vec;
+    Allocator(int n) {
+        p=n;
+        vec.resize(n,0);
+    }
+    
+    
+    
+    int allocate(int size, int mID) {
+        int len=0,st=-1;
+        for(int i=0;i<p;i++){
+            if(vec[i]==0){
+                if(st==-1){
+                    st=i;
+                }
+                len++;
+                if(len==size){
+                    for(int j=st;j<st+size;j++){
+                        vec[j]=mID;
+                    }
+                    return st;
+                }
+            }else{
+                st=-1;
+                len=0;
+            }
+        }
+        return -1;
+        
+    }
+    
+    int free(int mID) {
+        int f=0;
+        for(int i=0;i<p;i++){
+            if(vec[i]==mID){
+                f++;
+                vec[i]=0;
+            }
+        }
+        return f;
+    }
+};
+
+/**
+ * Your Allocator object will be instantiated and called as such:
+ * Allocator* obj = new Allocator(n);
+ * int param_1 = obj->allocate(size,mID);
+ * int param_2 = obj->free(mID);
+ */
+ 
+ 
+ 
+ 
+ https://leetcode.com/problems/design-memory-allocator/
