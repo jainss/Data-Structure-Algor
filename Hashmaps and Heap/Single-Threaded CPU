@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> getOrder(vector<vector<int>>& task) {
+        for(int i=0;i<task.size();i++)task[i].push_back(i);
+        sort(begin(task),end(task));
+        int time=0,i=0;
+        priority_queue<pair<int,int>> pq;
+        vector<int> ans;
+        while(i<task.size())
+        {
+            while(i<task.size() && (task[i][0]<=time || pq.empty()))
+            {
+                if(pq.empty() && time<task[i][0])time=task[i][0];
+                pq.push({-task[i][1],-task[i][2]});
+                i++;
+            }
+            pair<int,int> p=pq.top();
+            ans.push_back(-p.second);
+            time+=(-p.first);
+            pq.pop();
+            
+        }
+        while(!pq.empty())
+        {
+            ans.push_back(-pq.top().second);
+            pq.pop();
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/single-threaded-cpu/
