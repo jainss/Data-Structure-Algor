@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minimumPartition(string s, int k) {
+        long long int c=0,cou=1;
+        for(auto it:s){
+            c*=10;
+            c+=it-'0';
+            if(c>k){
+                if(c-(it-'0')==0){
+                    return -1;
+                }else{
+                    c=it-'0';
+                    if(c>k){
+                        return -1;
+                    }
+                    cou++;
+                }
+            }
+        }
+        return cou;
+    }
+};
+
+
+
+https://leetcode.com/problems/partition-string-into-substrings-with-values-at-most-k/
