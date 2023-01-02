@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> closestPrimes(int left, int right) {
+       vector<bool>vec(right+1,0);
+       vec[0]=1;
+       vec[1]=1;
+       for(int i=2;i<right+1;i++){
+           if(vec[i]==0){
+               for(int j=i*2;j<right+1;j+=i){
+                    vec[j]=1;
+               }
+           }
+       }
+       vector<int>ans(2);
+       int mini=INT_MAX;
+       int prev=-1;
+       for(int i=left;i<=right;i++){
+           if(vec[i]==0){
+               if(prev!=-1){
+                   if(i-prev<mini){
+                       mini=i-prev;
+                       ans[0]=prev;
+                       ans[1]=i;
+                   }
+               }
+               prev=i;    
+           }
+       }
+       if(mini==INT_MAX){
+           return {-1,-1};
+       }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/closest-prime-numbers-in-range/
