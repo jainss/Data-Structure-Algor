@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int maxJump(vector<int>& stones) {
+        if(stones.size()==2){
+            return stones[1];
+        }
+        int ans=INT_MIN;
+        for(int i=1;i<stones.size()-1;i++){
+            ans=max(ans, stones[i+1]-stones[i-1]);
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/frog-jump-ii/
