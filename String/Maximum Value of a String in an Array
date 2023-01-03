@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maximumValue(vector<string>& strs) {
+        int mx=INT_MIN;
+        for(auto it:strs){
+            int f=1; 
+            int val=0;
+            for(int i=0;i<it.size();i++){
+                if(it[i]>='0' and it[i]<='9'){
+                    val*=10;
+                    val+=it[i]-'0';
+                }else{
+                    f=0;
+                }
+            }
+            if(f==1){
+                mx=max(mx,val);
+            }else{
+                mx=max(mx,(int)it.size());
+            }
+        }
+        return mx;
+    }
+};
+
+
+
+https://leetcode.com/problems/maximum-value-of-a-string-in-an-array/
