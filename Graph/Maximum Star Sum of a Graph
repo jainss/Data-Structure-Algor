@@ -1,0 +1,37 @@
+
+
+vector<int>val;
+    static bool cmp(int a,int b){
+        return val[a]>val[b];
+    }
+class Solution {
+public:
+    
+    int maxStarSum(vector<int>& vals, vector<vector<int>>& edges, int k) {
+        val=vals;
+        if(k==0){
+            sort(vals.rbegin(),vals.rend());
+            return vals[0];
+        }
+        vector<int>adj[vals.size()];
+        for(auto it:edges){
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        int ans=INT_MIN;
+        for(int i=0;i<vals.size();i++){
+            sort(adj[i].begin(),adj[i].end(),cmp);
+            int sum=vals[i];
+            ans=max(ans,sum);
+            for(int j=0;j<k and j<adj[i].size();j++){
+                sum+=vals[adj[i][j]];
+                ans=max(ans,sum);
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/maximum-star-sum-of-a-graph/
