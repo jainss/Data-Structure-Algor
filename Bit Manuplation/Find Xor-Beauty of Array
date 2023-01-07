@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int xorBeauty(vector<int>& nums) {
+        int val=0;
+        for(auto it:nums){
+            val^=it;
+        }
+        return val;
+    }
+};
+
+
+
+https://leetcode.com/problems/find-xor-beauty-of-array/
