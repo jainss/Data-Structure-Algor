@@ -1,0 +1,20 @@
+class Solution {
+     #define ll unsigned long long int
+public:
+    string categorizeBox(int l, int w, int h, int m) {
+        ll vol=(ll)l*(ll)w*(ll)h;
+        if((l>=1e4 or w>=1e4 or h>=1e4 or m>=1e4 or vol>=1e9) and m>=100){
+            return "Both";
+        }else if(l>=1e4 or w>=1e4 or h>=1e4 or m>=1e4 or vol>=1e9){
+            return "Bulky";
+        }else if(m>=100){
+            return "Heavy";
+        }else{
+            return "Neither";
+        }
+    }
+};
+
+
+
+https://leetcode.com/problems/categorize-box-according-to-criteria/
