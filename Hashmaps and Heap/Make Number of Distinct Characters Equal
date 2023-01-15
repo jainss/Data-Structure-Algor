@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool isItPossible(string word1, string word2) {
+        map<int,int>mp1,mp2;
+        for(auto it:word1){
+            mp1[it]++;
+        }
+        for(auto it:word2){
+            mp2[it]++;
+        }
+        for(char i='a';i<='z';i++){
+            for(char j='a';j<='z';j++){
+                if(mp1[i]>0 and mp2[j]>0){
+                    mp1[i]--;
+                    mp2[j]--;
+                    mp1[j]++;
+                    mp2[i]++;
+                    int s1=0,s2=0;
+                    for(char z='a';z<='z';z++){
+                        if(mp1[z]>0){
+                            s1++;
+                        }
+                        if(mp2[z]>0){
+                            s2++;
+                        }
+                    }
+                    if(s1==s2){
+                        return true;
+                    }
+                    mp1[j]--;
+                    mp2[i]--;
+                    mp1[i]++;
+                    mp2[j]++;
+                }
+            }
+        }
+        return false;
+    }
+};
+
+
+https://leetcode.com/problems/make-number-of-distinct-characters-equal/
