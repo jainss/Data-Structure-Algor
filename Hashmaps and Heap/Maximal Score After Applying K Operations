@@ -1,0 +1,28 @@
+class Solution {
+public:
+    long long maxKelements(vector<int>& nums, int k) {
+        priority_queue<long long int>pq;
+        for(auto it:nums){
+            pq.push(it);
+        }
+        long long int sum=0;
+        while(k-- and pq.size()!=0){
+            sum+=pq.top();
+            long long int val=pq.top();
+            pq.pop();
+            long long int as;
+            if(val%3==0){
+                as=(long long int)(val/3);
+            }else{
+                as=(long long int)val/3+1;
+            }
+            if(val!=0)
+             pq.push(as);
+        }
+        return sum;
+    }
+};
+
+
+
+https://leetcode.com/problems/maximal-score-after-applying-k-operations/
