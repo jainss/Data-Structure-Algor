@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long countGood(vector<int>& nums, int k) {
+        int N = nums.size();
+        unordered_map<int, int> mp; 
+        long long ans = 0;
+        int sum = 0, left = 0, right = 0;
+        while (right < N) {
+            auto& res = ++mp[nums[right]];
+            if (res > 1) {
+                sum += res - 1; 
+            }
+            while (sum >= k) { 
+                ans += N - right; 
+               
+                auto& res = --mp[nums[left]];
+                if (res) {
+                    sum -= res; 
+                }
+                ++left;
+            }
+            ++right;
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/count-the-number-of-good-subarrays/
