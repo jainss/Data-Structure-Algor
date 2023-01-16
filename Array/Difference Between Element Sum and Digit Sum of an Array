@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int differenceOfSum(vector<int>& nums) {
+        int sum=0;
+        for(auto it:nums){
+            sum+=it;
+        }
+        int sum2=0;
+        for(auto it:nums){
+            while(it!=0){
+                sum2+=it%10;
+                it/=10;
+            }
+        }
+        return sum-sum2;
+    }
+};
+
+
+
+https://leetcode.com/problems/difference-between-element-sum-and-digit-sum-of-an-array/
