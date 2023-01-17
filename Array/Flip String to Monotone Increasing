@@ -1,0 +1,54 @@
+Method -1 
+
+
+class Solution {
+public:
+    int minFlipsMonoIncr(string s) {
+        
+        int n = s.size();
+        vector<int> zero(n, 0), one(n, 0);
+
+        for(int i = 0; i < n; i++){
+            if(s[i] == '1')  one[i]++;
+            else zero[i]++;
+        }
+
+        for(int i = 1; i < n; i++)  one[i] += one[i-1];
+        for(int i = n-2; i >= 0; i--)  zero[i] += zero[i+1];
+
+        int res = n;
+        for(int i = 0; i < n; i++){  
+            res = min(res, one[i] + zero[i] - 1);
+        }
+
+        return res;
+    }
+};
+
+
+
+Method 2 
+
+class Solution {
+public:
+    int minFlipsMonoIncr(string s) {
+        int flip=0, count1=0;
+        for(auto it:s){
+            if(it=='1'){
+                count1++;
+            }else{
+                if(count1>0){
+                    flip++;
+                }
+            }
+            if(flip>count1){
+                flip=count1;
+            }
+        }
+        return flip;
+    }
+};
+
+
+
+https://leetcode.com/problems/flip-string-to-monotone-increasing/
