@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int rearrangeCharacters(string s, string t) {
+       vector<int>v1(26,0),v2(26,0);
+        for(auto it:s){
+            v1[it-'a']++;
+        }
+        for(auto it:t){
+            v2[it-'a']++;
+        }
+        int ans=INT_MAX;
+        for(int i=0;i<26;i++){
+            if(v2[i]>0){
+                 ans=min(ans,v1[i]/v2[i]);
+            }
+           
+        }
+        return ans;
+    }
+};
+
+
+
+
+https://leetcode.com/problems/rearrange-characters-to-make-target-string/
