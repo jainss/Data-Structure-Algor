@@ -1,0 +1,37 @@
+
+class Solution 
+{
+    public:
+    int ans=-1;
+    void dfs(int src,vector<int> &edges,int count,vector<int> &temp,vector<int> &vis)
+    {
+        vis[src]=1;
+        temp[src]=count;
+        if(edges[src]!=-1 && vis[edges[src]]==0)
+            dfs(edges[src],edges,count+1,temp,vis);
+    }
+    int closestMeetingNode(vector<int>& edges, int node1, int node2) 
+    {
+        int n=edges.size();    
+        vector<int> fromnode2(n,INT_MAX),fromnode1(n,INT_MAX);
+        vector<int> vis(n,0);
+        dfs(node2,edges,0,fromnode2,vis);
+        for(int i=0;i<n;i++)
+            vis[i]=0;
+        dfs(node1,edges,0,fromnode1,vis);
+        int mindis=INT_MAX;
+        for(int i=0;i<n;i++)
+        {
+            if(mindis>max(fromnode1[i],fromnode2[i]))
+            {
+                ans=i;
+                mindis=max(fromnode1[i],fromnode2[i]);
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/find-closest-node-to-given-two-nodes/
