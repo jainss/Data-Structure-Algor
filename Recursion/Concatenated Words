@@ -1,0 +1,31 @@
+class Solution {
+public:
+    unordered_set<string>st;
+    bool iscontain(string stri){
+        for(int i=1;i<stri.size();i++){
+            string str=stri.substr(i);
+            if(st.find(stri.substr(0,i))!=st.end() and ( st.find(str)!=st.end() or iscontain(str))){
+                return true;
+            }
+        }
+        return false;
+    }
+    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {       
+        vector<string>ans;
+        if(words.size()==0){
+            return ans;
+        }
+        for(auto it:words){
+            st.insert(it);
+        }
+        for(int i=0;i<words.size();i++){
+            if(iscontain(words[i])){
+                ans.push_back(words[i]);
+            }
+        }
+        return ans;;
+    }
+};
+
+
+https://leetcode.com/problems/concatenated-words/
