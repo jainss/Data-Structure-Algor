@@ -1,0 +1,44 @@
+class SummaryRanges {
+public:
+    set<int>str;
+    SummaryRanges() {
+        
+    }
+    
+    void addNum(int value) {
+        str.insert(value);
+    }
+    
+    vector<vector<int>> getIntervals() {
+        int st=-1,en=-1;
+        vector<vector<int>>ans;
+        for(auto it:str){
+            if(st==-1){
+                st=it;
+                en=it;
+            }else if(en+1==it){
+                en=it;
+            }else{
+                ans.push_back({st,en});
+                st=it;
+                en=it;
+            }
+        }
+        if(st!=-1){
+            ans.push_back({st,en});
+        }
+        return ans;
+    }
+};
+
+/**
+ * Your SummaryRanges object will be instantiated and called as such:
+ * SummaryRanges* obj = new SummaryRanges();
+ * obj->addNum(value);
+ * vector<vector<int>> param_2 = obj->getIntervals();
+ */
+ 
+ 
+ 
+ 
+ https://leetcode.com/problems/data-stream-as-disjoint-intervals/
