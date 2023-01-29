@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        vector<pair<int,int>>vp;
+        for(int i=0;i<score.size();i++){
+            vp.push_back({score[i][k],i});
+        }
+        sort(vp.rbegin(),vp.rend());
+        int n=score.size();
+        vector<vector<int>>ans;
+        for(auto it:vp){
+            ans.push_back(score[it.second]);
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/sort-the-students-by-their-kth-score/
