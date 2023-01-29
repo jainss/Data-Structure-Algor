@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int alternateDigitSum(int n) {
+        vector<int>vec;
+        while(n!=0){
+            vec.push_back(n%10);
+            n/=10;
+        }
+        reverse(vec.begin(),vec.end());
+        int sum=0,f=1;
+        for(auto it:vec){
+            if(f){
+                sum+=it;
+                f=0;
+            }else{
+                sum-=it;
+                f=1;
+            }
+        }
+        return sum;
+    }
+};
+
+
+
+https://leetcode.com/problems/alternating-digit-sum/
