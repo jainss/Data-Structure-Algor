@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long int mod=1e9+7;
+    
+    long long int solve(int n){
+        if(n==1){
+            return 2;
+        }
+        if(n%2==0){
+            long long int val=solve(n/2);
+            return (val*val)%mod;
+        }else{
+            return (solve(n-1)*2)%mod;
+        }
+    }
+    int monkeyMove(int n) {
+        int val=solve(n)-2;
+        return (val+mod)%mod;
+    }
+};
+
+
+https://leetcode.com/problems/count-collisions-of-monkeys-on-a-polygon/
