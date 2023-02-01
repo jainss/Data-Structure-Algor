@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int countSubarrays(vector<int>& nums, int k) {
+        int ind = -1;
+        for(int i =0;i<nums.size();i++){
+            if(nums[i]==k){
+                ind = i;   
+                break;
+            }
+        }
+        if(ind==-1){
+            return -1;
+        }
+        int sum=0,ans=0;
+        map<int,int>mp;
+        for(int i=ind;i>=0;i--){
+            if(nums[i]<k){
+                sum-=1;
+            }
+            if(nums[i]>k){
+                sum+=1;
+            }
+            mp[sum]++;
+        }
+        sum=0;
+        
+        for(int i=ind;i<nums.size();i++){
+            if(nums[i]<k){
+                sum-=1;
+            }
+            if(nums[i]>k){
+                sum+=1;
+            }
+            int val=-1*sum;
+            if(mp.find(val)!=mp.end()){
+                ans+=mp[val];
+            }
+            if(mp.find(val+1)!=mp.end()){
+                ans+=mp[val+1];
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/count-subarrays-with-median-k/
