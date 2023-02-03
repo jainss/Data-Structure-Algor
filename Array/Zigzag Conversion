@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string convert(string s, int nr) {
+        int n=s.size();
+        if(n<=nr or nr==1){
+            return s;
+        }
+        
+       vector<char>vp[n];
+        int i=0,k=0;
+        
+        for(int z=0;z<nr;z++){
+           vp[z].push_back(s[k]);
+            k++;
+        }
+        
+        while(k<n){
+            for(int j=nr-2;k<n and j>=0;j--){
+                // cout<<s[k];
+                vp[j].push_back(s[k]);
+                k++;
+            } 
+            for(int j=1;k<n and j<nr;j++){
+                 // cout<<s[k];
+                vp[j].push_back(s[k]);
+                k++;
+            }
+        }
+        string ans="";
+        for(int i=0;i<nr;i++){
+            for(auto it:vp[i]){
+                // cout<<it;
+                ans+=it;
+            }
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/zigzag-conversion/
