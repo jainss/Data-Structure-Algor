@@ -1,0 +1,43 @@
+class Solution {
+public:
+    long long ans=0;
+    long long solvedfs(long long root,vector<vector<int>>&adj,int seat,vector<int>&vis){
+        vis[root]=1;
+        long long p=1;
+        for(auto it:adj[root]){
+            if(vis[it]){
+               continue; 
+            }
+            p+=solvedfs(it,adj,seat,vis);
+        }
+        if(p>seat){
+            ans+=(p/seat);
+            if(p%seat>0){
+                ans++;
+            }
+        }else{
+            ans++;
+        }
+        return p;
+    }
+    
+    long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+        long long n=roads.size();
+        vector<vector<int>>adj(n+1);
+        
+        for(auto it:roads){
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        
+        vector<int>vis(n+1,0);
+        vis[0]=1;
+        for(auto it:adj[0]){
+            solvedfs(it,adj,seats,vis);
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/minimum-fuel-cost-to-report-to-the-capital/
