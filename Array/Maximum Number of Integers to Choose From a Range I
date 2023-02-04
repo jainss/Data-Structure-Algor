@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maxCount(vector<int>& vec, int n, int maxSum) {
+        set<int> s;
+        for(int i=0; i<vec.size(); i++) {
+             s.insert(vec[i]);
+        }
+        int sum = 0,ans=0;
+        for(int i=1; i<=n; i++){
+            if(s.find(i)!=s.end()) {
+                  continue;
+            }
+            sum+=i;
+            if(sum>maxSum) {
+                 break;
+            }
+               
+            ans++;
+        }
+        return ans;
+    }
+};
+
+
+
+https://leetcode.com/problems/maximum-number-of-integers-to-choose-from-a-range-i/
