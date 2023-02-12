@@ -1,0 +1,58 @@
+#define RED 1
+#define BLUE 0
+class Solution {
+public:
+    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& redEdges, vector<vector<int>>& blueEdges) {
+        
+        vector<pair<int,int>> adj[n];
+        
+        for(auto edge: redEdges){
+            adj[edge[0]].push_back({edge[1], RED});
+        }
+        
+        for(auto edge: blueEdges){
+            adj[edge[0]].push_back({edge[1],BLUE});
+        }
+        
+        queue<pair<int,int>> q;
+        q.push({0,-1});  
+        vector<int> ans(n,INT_MAX); 
+        vector<vector<bool>> vis(n,vector<bool>(2,false)); 
+        
+        vis[0][0] = true;
+        vis[0][1] = true;
+        int dist = 0;
+        
+        while(!q.empty()){
+            int size = q.size();
+         
+            while(size--){
+                int node = q.front().first;
+                int color = q.front().second;
+                q.pop();
+                
+                ans[node] = min(ans[node],dist); 
+                
+                for(auto val: adj[node]){
+                    
+                    if(!vis[val.first][val.second] && val.second != color){
+                        q.push(val);
+                        vis[val.first][val.second] = true;
+                    }
+                }
+            }
+            dist++;
+        }
+        
+        for(auto &val: ans){
+            if(val == INT_MAX){
+                val = -1;
+            }
+        }
+        
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/shortest-path-with-alternating-colors/
