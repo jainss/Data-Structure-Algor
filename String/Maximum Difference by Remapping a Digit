@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int minMaxDifference(int num) {
+        string st=to_string(num);
+        string ans="";
+        int i=0;
+      
+        while(st[i]=='9'){
+            i++;
+        }
+        if(i<st.size()){
+           char ch=st[i];
+           for(int j=i;j<st.size();j++){
+               if(st[j]==ch){
+                   st[j]='9';
+               }
+           }
+        }
+         string st2=to_string(num);
+        int z=0;
+      
+        while(st2[z]=='0'){
+            z++;
+        }
+        if(z<st2.size()){
+           char ch2=st2[z];
+           for(int j=z;j<st2.size();j++){
+               if(st2[j]==ch2){
+                   st2[j]='0';
+               }
+           }
+        }
+          
+        int num1=stoi(st);
+        int num2=stoi(st2);
+        return num1-num2;
+        
+    }
+};
+
+https://leetcode.com/problems/maximum-difference-by-remapping-a-digit/
