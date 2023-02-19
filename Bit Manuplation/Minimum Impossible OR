@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minImpossibleOR(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        if(nums[0]!=1){
+            return 1;
+        }
+        long long int val=1;
+        for(auto it:nums){
+            if(it < val){
+                continue;
+            }
+            if(it != val){
+                 return val;
+            }
+               
+            val += val;
+        }
+        return val;
+    }
+};
+
+
+https://leetcode.com/problems/minimum-impossible-or/
