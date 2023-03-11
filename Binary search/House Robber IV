@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool solve(int mid, vector<int>nums, int k){
+        int i=0;
+        while(i<nums.size()){
+            if(nums[i]<=mid){
+                k--;
+                i+=2;
+            }else{
+                i++;
+            }
+            if(k==0){
+                return true;
+            }
+        }
+        return k==0;
+    }
+    int minCapability(vector<int>& nums, int k) {
+        int l=0,r=1e9;
+        while(l<r){
+            int mid=(l+r)/2;
+            if(solve(mid,nums,k)){
+                r=mid;
+            }else{
+                l=mid+1;
+            }
+        }
+        return l;
+    }
+};
+
+
+https://leetcode.com/problems/house-robber-iv/
