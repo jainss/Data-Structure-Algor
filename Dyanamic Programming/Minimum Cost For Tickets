@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int solve(vector<int>& days, vector<int>& costs, int i,int val, vector<vector<int>>&dp){
+        if(i>=days.size()){
+            return 0;
+        }
+        if(dp[i][val]!=-1){
+            return dp[i][val];
+        }
+        
+        if(days[i]<=val){
+            return dp[i][val]=solve(days,costs,i+1,val,dp);
+        }else{
+            int ct1=costs[0]+solve(days,costs,i+1,days[i],dp);
+            int ct2=costs[1]+solve(days,costs,i+1,days[i]+6,dp);
+            int ct3=costs[2]+solve(days,costs,i+1,days[i]+29,dp);
+            return dp[i][val]=min({ct1,ct2,ct3});
+        }
+    }
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        int n=days.size();
+        int min_validity=days[n-1]+30;
+        vector<vector<int>>dp(n,vector<int>(min_validity,-1));
+        return solve(days,costs,0,0,dp);
+    }
+};
+
+https://leetcode.com/problems/minimum-cost-for-tickets/
