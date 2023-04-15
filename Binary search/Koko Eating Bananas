@@ -1,0 +1,28 @@
+class Solution {
+public:
+     int minEatingSpeed(vector<int>& piles, int h) {
+        int n = piles.size();
+        int lo = 1;
+        int hi = 1e9;
+        while(lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if(canEatAll(piles, h, mid)) {
+                hi = mid;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return lo;
+    }
+    
+    bool canEatAll(vector<int>& piles, int h, int k) {
+        int totalHours = 0;
+        for(int i = 0; i < piles.size(); i++) {
+            totalHours += ceil((double)piles[i] / k);
+        }
+        return totalHours <= h;
+    }
+};
+
+
+https://leetcode.com/problems/koko-eating-bananas/
