@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int Max=0;
+    void Rec(TreeNode* root,int dir,int len){
+        if(root==NULL)
+           return;
+        
+        Max=max(Max,len);
+        
+        if(dir==0){
+            Rec(root->left,dir,1);
+            Rec(root->right,1,len+1);
+        }
+        else{
+            Rec(root->left,0,len+1);
+            Rec(root->right,dir,1);
+        }
+        return;
+    }
+    int longestZigZag(TreeNode* root,int v=0) {
+        Rec(root->left,0,1);
+        Rec(root->right,1,1);
+        return Max;
+    }
+};
+
+
+https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/
