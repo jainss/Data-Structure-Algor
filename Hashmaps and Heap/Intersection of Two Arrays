@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        map<int,int>mp;
+        vector<int>vec;
+        for(auto it:nums2){
+            mp[it]++;
+        }
+        for(auto it:nums1){
+            if(mp.find(it)!=mp.end() and mp[it]>=1){
+                vec.push_back(it);
+                mp[it]=0;
+            }
+        }
+        return vec;
+    }
+};
