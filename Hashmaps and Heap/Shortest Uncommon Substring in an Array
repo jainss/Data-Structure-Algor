@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<string> shortestSubstrings(vector<string>& arr) {
+        unordered_map<string, int> subFeq;
+        vector<string> result;
+        
+        for (const auto& str : arr) {
+            unordered_set<string> seenSubstrings;
+            for (int i = 0; i < str.size(); ++i) {
+                for (int j = 1; j <= str.size() - i; ++j) {
+                    string sub = str.substr(i, j);
+                    seenSubstrings.insert(sub);
+                }
+            }
+            for (const auto& sub : seenSubstrings) {
+                subFeq[sub]++;
+            }
+        }
+
+        for (int idx = 0; idx < arr.size(); ++idx) {
+            string str = arr[idx];
+            string uniqueStr = "";
+            
+            for (int i = 0; i < str.size(); ++i) {
+                for (int j = 1; j <= str.size() - i; ++j) {
+                    string sub = str.substr(i, j);
+                    if (subFeq[sub] == 1) {
+                        if (uniqueStr.empty() || sub.size() < uniqueStr.size() || (sub.size() == uniqueStr.size() && sub < uniqueStr)) {
+                            uniqueStr = sub; 
+                        }
+                    }
+                }
+            }
+            result.push_back(uniqueStr);
+        }
+        
+        return result;
+    }
+};
