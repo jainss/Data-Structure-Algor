@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+        int curr_sum = 0;
+        int total_subarrays = 0;
+
+        for (int num : nums) {
+            curr_sum += num;
+            if (mp.find(curr_sum - goal) != mp.end()) {
+                total_subarrays += mp[curr_sum - goal];
+            }
+            mp[curr_sum]++;
+        }
+
+        return total_subarrays;
+    }
+};
