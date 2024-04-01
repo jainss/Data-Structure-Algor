@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        reverse(s.begin(),s.end());
+        cout<<s<<endl;
+        int i=0;
+        while(i<s.size()){
+            if(s[i]==' '){
+                i++;
+            }else{
+                break;
+            }
+        }
+        int c=0;
+        while(i<s.size()){
+            if(s[i]==' '){
+                break;
+            }else{
+                i++;
+                c++;
+            }
+        }
+        return c;
+    }
+};
+
+
+
+https://leetcode.com/problems/length-of-last-word/
