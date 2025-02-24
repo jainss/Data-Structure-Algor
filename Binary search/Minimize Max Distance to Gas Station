@@ -1,0 +1,38 @@
+TC : O(nlogn)
+SC : (1)
+
+
+int countOfStation(vector<int> &arr, long double diff){
+	int cnt =0;
+	for(int i =1;i<arr.size();i++){
+		int numberofgasS= ((arr[i]-arr[i-1])/diff);
+		if((arr[i]-arr[i-1]/diff) == diff* numberofgasS){
+			numberofgasS--;
+		}
+		cnt += numberofgasS;
+	}
+	return cnt;
+}
+
+double minimiseMaxDistance(vector<int> &arr, int k){
+	long double i = 0, j =0;
+	int n = arr.size();
+	for(int i =0;i<n-1;i++){
+      j = max(j, (long double)(arr[i+1]-arr[i]));
+	}	
+	long double diff = 1e-6;
+	while(j-i>diff){
+       long double mid = i +(j-i)/(2.0);
+	   int cnt = countOfStation(arr, mid);
+	   if(cnt>k){
+		   i = mid;
+	   }else{
+		   j = mid;
+	   }
+	}
+    return j;
+}
+
+
+
+https://www.geeksforgeeks.org/problems/minimize-max-distance-to-gas-station/0
