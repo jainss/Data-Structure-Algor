@@ -1,0 +1,34 @@
+TC : 0(nlogn)
+SC : O(1)
+
+class Solution {
+public:
+    bool isValid(vector<int>nums, int mid ,int lim){
+        int sum =0;
+        for(int i =0;i<nums.size();i++){
+            int rem = (nums[i]%mid == 0)? 0:1;
+            sum = sum +  nums[i]/mid + rem;
+        }
+        if(sum>lim){
+            return false;
+        }
+        return true;
+
+    }
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        int i =1, j=0, res =-1;
+        for(auto it: nums){
+            j = max(j , it);
+        }
+        while(i<=j){
+            int mid = i+(j-i)/2;
+            if(isValid(nums, mid, threshold)){
+               res = mid;
+               j = mid-1;
+            }else{
+               i = mid+1;
+            }
+        }
+        return i;
+    }
+};
