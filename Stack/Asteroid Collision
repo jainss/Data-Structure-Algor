@@ -1,0 +1,37 @@
+TC : O(N)
+SC : O(N)
+
+
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int>st;
+        for(auto it:asteroids){
+            if(it>0){
+                st.push(it);
+            }else{
+               while(!st.empty() and st.top()<abs(it) and st.top()>0){
+                st.pop();
+               }
+               if(!st.empty() and st.top()==abs(it)){
+                st.pop();
+               }else if(!st.empty() and st.top()<0){
+                st.push(it);
+               }else if(st.size()==0){
+                st.push(it);
+               }
+            }
+        }
+        vector<int>ans;
+        while(!st.empty()){
+            ans.push_back(st.top());
+            st.pop();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/asteroid-collision/description/
