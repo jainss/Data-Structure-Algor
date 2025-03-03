@@ -1,0 +1,34 @@
+TC : O(N)
+SC : O(N)
+
+
+class Solution {
+public:
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        vector<int>a,b;
+        int c =0;
+        for(auto it:nums){
+            if(it>pivot){
+                a.push_back(it);
+            }else if(it == pivot){
+                c++;
+            }else{
+                b.push_back(it);
+            }
+        }
+        int i =0;
+        for(auto it:b){
+            nums[i++]=it;
+        }
+        for(int j =0;j<c;j++){
+            nums[i++]=pivot;
+        }
+        for(auto it:a){
+            nums[i++]=it;
+        }
+        return nums;
+    }
+};
+
+
+https://leetcode.com/problems/partition-array-according-to-given-pivot/description/?envType=daily-question&envId=2025-03-03
