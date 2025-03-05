@@ -1,0 +1,14 @@
+TC : O(1)
+SC : O(1)
+
+
+class Solution {
+public:
+    long long coloredCells(int n) {
+        long long sum = ((long long)(n-1)*(n))/2;
+        return 4*sum+1;
+    }
+};
+
+
+https://leetcode.com/problems/count-total-number-of-colored-cells/
