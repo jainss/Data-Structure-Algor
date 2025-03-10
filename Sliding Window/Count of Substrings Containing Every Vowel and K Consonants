@@ -1,0 +1,47 @@
+TC : O(N)
+SC : O(1)
+
+
+class Solution {
+public:
+    bool isvowel(char c){
+        if(c=='a' || c=='e' ||c=='i'|| c=='o' ||c=='u'){
+            return true;
+        }
+        return false;
+    }
+    int allSubstr(string word, int k){
+        int i =0, j =0, c =0, ans=0;
+        int n = word.size();
+        unordered_map<int,int>mp;
+        while(j<n){
+            if(isvowel(word[j])){
+                mp[word[j]]++;
+            }else{
+                c++;
+            }
+            while(mp.size()==5 and c>k){
+                if(isvowel(word[i])){
+                    mp[word[i]]--;
+                    if(mp[word[i]]==0){
+                        mp.erase(word[i]);
+                    }
+                }else{
+                    c--;
+                }
+                i++;
+            }
+            ans += j-i+1;
+            j++;
+        }
+        return ans;
+    }
+    int countOfSubstrings(string word, int k) {
+        return allSubstr(word, k)- allSubstr(word, k-1);
+    }
+};
+
+
+https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-i/
+
+https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii/?envType=daily-question&envId=2025-03-10
