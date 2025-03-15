@@ -1,0 +1,35 @@
+TC : (Onlogn)
+SC : O(N)
+
+class MyCalendar {
+public:
+    map<int,int>mp;
+    int parllelBook =1;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int startTime, int endTime) {
+        mp[startTime]+=1;
+        mp[endTime]-=1;
+        int meet=0;
+        for(auto it:mp){
+            meet+=it.second;
+            if(meet>1){
+              mp[startTime]-=1;
+              mp[endTime]+=1;
+              return false;
+            }
+        }
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(startTime,endTime);
+ */
+
+
+https://leetcode.com/problems/my-calendar-i/description/
