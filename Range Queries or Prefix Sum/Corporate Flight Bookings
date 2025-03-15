@@ -1,0 +1,23 @@
+TC : O(nlogn)
+SC : O(N)
+
+
+class Solution {
+public:
+    vector<int> corpFlightBookings(vector<vector<int>>& bookings, int n) {
+        vector<int>diff(n+1,0), ans;
+        for(auto it:bookings){
+            diff[it[0]-1]+=it[2];
+            diff[it[1]]-=it[2];
+        }
+        int sum =0;
+        for(int i =0;i<n;i++){
+            sum += diff[i];
+            ans.push_back(sum);
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/corporate-flight-bookings/description/
