@@ -1,0 +1,31 @@
+TC : O(nlogn)
+SC : O(n)
+
+
+class MyCalendarThree {
+public:
+    map<int,int>mp;
+    MyCalendarThree() {
+        
+    }
+    int book(int startTime, int endTime) {
+        mp[startTime]+=1;
+        mp[endTime]-=1;
+        int meet=INT_MIN;
+        int sum =0;
+        for(auto it:mp){
+           sum+= it.second;
+           meet= max(meet, sum);
+        }
+        return meet;
+    }
+};
+
+/**
+ * Your MyCalendarThree object will be instantiated and called as such:
+ * MyCalendarThree* obj = new MyCalendarThree();
+ * int param_1 = obj->book(startTime,endTime);
+ */
+
+
+https://leetcode.com/problems/my-calendar-iii/
