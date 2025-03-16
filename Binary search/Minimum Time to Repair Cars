@@ -1,0 +1,23 @@
+TC : O(nlogn)
+SC : O(1)
+
+class Solution {
+public:
+    long long repairCars(vector<int>& ranks, int cars) {
+        long long left =0,right = (long)1e14;
+        while(left<right){
+            long long mid = left+(right-left)/2, car=0;
+            for(auto it:ranks){
+                car += sqrt(mid/it);
+            }
+            if(car<cars){
+                left = mid+1;
+            }else{
+                right = mid;
+            }
+        }
+        return right;
+    }
+};
+
+https://leetcode.com/problems/minimum-time-to-repair-cars/description/
