@@ -1,0 +1,27 @@
+TC : O(logn*m) + O(n*m) 
+SC : O(n*m)
+
+class Solution {
+public:
+    int minOperations(vector<vector<int>>& grid, int x) {
+        int rem = grid[0][0]%x;
+        vector<int>vec;
+        for(int i =0;i<grid.size();i++){
+            for(int j =0;j<grid[0].size();j++){
+                if(rem != grid[i][j]%x){
+                    return -1;
+                }
+                vec.push_back(grid[i][j]);
+            }
+        }
+        sort(vec.begin(), vec.end());
+        int step =0, mid = vec.size()/2;
+        for(int i =0;i<vec.size();i++){
+            step += abs(vec[i]-vec[mid])/x;
+        }
+        return step;
+    }
+};
+
+
+https://leetcode.com/problems/minimum-operations-to-make-a-uni-value-grid/description/?envType=daily-question&envId=2025-03-26
