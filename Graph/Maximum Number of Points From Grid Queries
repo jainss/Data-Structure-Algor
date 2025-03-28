@@ -1,0 +1,42 @@
+TC : O(k*log(k) + O(n*m*log(k));
+SC : O(n*m)
+
+class Solution {
+public:
+    vector<int> maxPoints(vector<vector<int>>& grid, vector<int>& queries) {
+        vector<pair<int,int>>vp;
+        int n =grid.size(), m = grid[0].size();
+        for(int i =0;i<queries.size();i++){
+            vp.push_back({queries[i], i});
+        }
+        sort(vp.begin(), vp.end()); // O(nlogn)
+        priority_queue<pair<int, pair<int,int>>, vector<pair<int, pair<int,int>>>, greater<pair<int, pair<int,int>>>>pq;
+        vector<pair<int,int>>dir = {{-1,0}, {1,0}, {0,1}, {0,-1}};
+        int points =0;
+        pq.push({grid[0][0], {0,0}});
+        vector<int>res(queries.size(),0);
+        vector<vector<bool>>vis(n, vector<bool>(m, false));
+        vis[0][0]=true;
+        for(auto it: vp){ // k* log(n*m)
+            while(!pq.empty() and it.first > pq.top().first){
+                points++;
+                auto its = pq.top();
+                pq.pop();
+                int x = its.second.first, y = its.second.second;
+                for(auto d: dir){ 
+                   int x2 = x+d.first;
+                   int y2 = y+d.second;
+                   if(x2>=0 and x2<n and y2>=0 and y2< m and !vis[x2][y2]){
+                     vis[x2][y2]=true;
+                     pq.push({grid[x2][y2], {x2, y2}});
+                   }
+                }
+            }
+            res[it.second]= points;
+        }
+        return res;
+    }
+};
+
+
+https://leetcode.com/problems/maximum-number-of-points-from-grid-queries/description/?envType=daily-question&envId=2025-03-28
