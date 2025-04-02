@@ -1,0 +1,19 @@
+TC : O(N)
+SC : O(1)
+
+class Solution {
+public:
+    long long maximumTripletValue(vector<int>& nums) {
+        long long res=0;
+        int maxab=0, maxa=0;
+        for(auto it: nums){
+            res = max(res, 1LL * maxab* it);
+            maxab = max(maxab, maxa-it);
+            maxa = max(maxa, it);
+        }
+        return res;
+    }
+};
+
+
+https://leetcode.com/problems/maximum-value-of-an-ordered-triplet-i/description/?envType=daily-question&envId=2025-04-02
