@@ -1,0 +1,24 @@
+TC : O(nlogn)
+SC : O(1)
+
+class Solution {
+public:
+    int countDays(int days, vector<vector<int>>& meetings) {
+        sort(meetings.begin(), meetings.end());
+        pair<int,int> val ={meetings[0][0], meetings[0][1]};
+        int count=0;
+        for(int i=1;i<meetings.size();i++){
+            if(val.second>=meetings[i][0]){
+                val.second= max(val.second,meetings[i][1]);
+            }else{
+                count += val.second-val.first+1;
+                cout<<val.second<<" "<<val.first<<endl;
+                val = {meetings[i][0], meetings[i][1]};
+            }
+        }
+        count += val.second-val.first+1;
+        return days-count;
+    }
+};
+
+https://leetcode.com/problems/count-days-without-meetings/description/?envType=daily-question&envId=2025-03-24
