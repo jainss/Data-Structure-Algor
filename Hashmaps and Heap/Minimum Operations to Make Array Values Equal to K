@@ -1,0 +1,23 @@
+TC : O(N)
+SC : O(N)
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        unordered_map<int,int>mp;
+        int ans=0;
+        for(auto it: nums){
+            if(it<k){
+                return -1;
+            }
+            mp[it]++;
+            if(it!=k and mp[it]==1){
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/minimum-operations-to-make-array-values-equal-to-k/description/?envType=daily-question&envId=2025-04-09
