@@ -1,0 +1,20 @@
+TC : O(N)
+SC : O(1)
+
+
+class Solution {
+public:
+    int numberOfArrays(vector<int>& differences, int lower, int upper) {
+        long long int minval =0, maxval=0, curr =0;
+        for(auto it: differences){
+            curr += it;
+            minval = min(curr, minval);
+            maxval = max(curr, maxval);
+        }
+        long long int count = (upper-lower+1) - (maxval - minval);
+        return count>0? count: 0;
+    }
+};
+
+
+https://leetcode.com/problems/count-the-hidden-sequences/description/?envType=daily-question&envId=2025-04-21
