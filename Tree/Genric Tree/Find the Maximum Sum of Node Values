@@ -1,0 +1,35 @@
+TC : O(N) 
+SC : O(1)
+
+
+class Solution {
+public:
+    long long maximumValueSum(vector<int>& nums, int k, vector<vector<int>>& edges) {
+        // First we have to take sum of all the value in tot_sum 
+        long long tot_sum = accumulate(nums.begin(), nums.end(), 0ll);
+        long long cnt =0;
+        long long diff = 0, min_diff = INT_MAX;
+        for(auto it: nums){
+            // now we have to calculate the diff
+            diff = (it^k)-it;
+            // if diff is positive that mean we applied our operation to that pair only other wise no
+            if(diff>0){
+                cnt++;
+                tot_sum += diff;
+            }
+            // now we have two things one is -ve diff and +ve diff we have both but we have to add less negative one 
+            min_diff = min(min_diff, abs(diff));
+        }
+        // if all the +ve is even that mean we only take node which diff is +ve eg: 1 2 1 we choose 1 and 1 and not take 1 and 2
+        // if our cnt is odd so we take atlest one -ve one and rest is our +ve diff
+        if(cnt%2==1){
+           tot_sum -= min_diff;
+        }
+        // at the end we check and based on that subtract that from value.
+        return tot_sum;
+    }
+};
+
+
+
+https://leetcode.com/problems/find-the-maximum-sum-of-node-values/description/?envType=daily-question&envId=2025-05-23
