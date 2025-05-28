@@ -1,0 +1,42 @@
+TC: O(N^2)
+SC: O(N)
+
+
+class Solution {
+public:
+    int dfs(vector<vector<int>>&adj, int i, int p, int k){
+        if(k<0){
+            return 0;
+        }
+        int cnt =1;
+        for(auto it: adj[i]){
+            if(it!=p){
+                cnt += dfs(adj, it, i, k-1);
+            }
+        }
+        return cnt;
+    }
+    vector<int> maxTargetNodes(vector<vector<int>>& edges1, vector<vector<int>>& edges2, int k) {
+        vector<vector<int>>adj1(edges1.size()+1), adj2(edges2.size()+1);
+        for(auto it: edges1){
+            adj1[it[0]].push_back(it[1]);
+            adj1[it[1]].push_back(it[0]);
+        }
+        for(auto it: edges2){
+            adj2[it[0]].push_back(it[1]);
+            adj2[it[1]].push_back(it[0]);
+        }
+        int n = adj1.size(), m = adj2.size(), maxB =0;
+        for(int i =0;i<m;i++){
+           maxB = max(maxB, dfs(adj2, i , -1, k-1));
+        }
+        vector<int>vec(n, 0);
+        for(int i =0;i<n;i++){
+            vec[i] = dfs(adj1, i, -1, k) + maxB;
+        }
+        return vec;
+    }
+};
+
+
+https://leetcode.com/problems/maximize-the-number-of-target-nodes-after-connecting-trees-i/?envType=daily-question&envId=2025-05-28
