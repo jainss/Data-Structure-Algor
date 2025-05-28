@@ -1,0 +1,34 @@
+TC : O(N)
+SC : O(N)
+
+
+class Solution {
+public:
+    int lengthAfterTransformations(string s, int t) {
+        vector<long long int>cnt(26,0);
+        long long int MOD = 1e9+7;
+        for(auto it:s){
+            cnt[it-'a']++;
+        }
+        for(int i =0;i<t;i++){
+            vector<long long>temp(26,0);
+            for(int j =0;j<26;j++){
+                if(j==25){
+                    temp[0] = (temp[0]+cnt[j])%MOD;
+                    temp[1] = (temp[1] +cnt[j])%MOD;
+                }else{
+                    temp[j+1] =  (temp[j+1]+cnt[j])%MOD;
+                }
+            }
+            cnt = temp;
+        }
+        long long len =0;
+        for(auto it: cnt){
+           len = (len + it)%MOD;
+        }
+        return len;
+    }
+};
+
+
+https://leetcode.com/problems/total-characters-in-string-after-transformations-i/description/?envType=daily-question&envId=2025-05-13
