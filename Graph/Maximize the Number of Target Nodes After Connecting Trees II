@@ -1,0 +1,46 @@
+TC : O(N + V)
+SC : O(N)
+
+
+
+class Solution {
+public:
+    void dfsBipartile(vector<vector<int>>&adj, int u,int p, vector<int>&color, int &evencnt, int &oddcnt){
+        if(color[u]==0){
+            evencnt++;
+        }else{
+            oddcnt++;
+        }
+        for(auto it: adj[u]){
+            if(it!=p){
+                color[it]=!color[u];
+                dfsBipartile(adj, it, u, color, evencnt, oddcnt);
+            }
+        }
+    }
+    vector<int> maxTargetNodes(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
+        vector<vector<int>>adj1(edges1.size()+1), adj2(edges2.size()+1);
+        for(auto it: edges1){
+            adj1[it[0]].push_back(it[1]);
+            adj1[it[1]].push_back(it[0]);
+        }
+        for(auto it: edges2){
+            adj2[it[0]].push_back(it[1]);
+            adj2[it[1]].push_back(it[0]);
+        }
+        int n = adj1.size(), m = adj2.size(), maxB =0;
+        vector<int>colorA(n, -1), colorB(m,-1);
+        int evencntA =0, evencntB =0, oddcntA =0, oddcntB =0;
+        dfsBipartile(adj2, 0, -1, colorB, evencntB, oddcntB);
+        dfsBipartile(adj1, 0, -1, colorA, evencntA, oddcntA);
+        maxB = max(evencntB, oddcntB);
+        vector<int>ans(n);
+        for(int i =0;i<n;i++){
+            ans[i] = (colorA[i]==0?evencntA:oddcntA)+ maxB;
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/maximize-the-number-of-target-nodes-after-connecting-trees-ii/description/?envType=daily-question&envId=2025-05-29
