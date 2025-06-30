@@ -1,0 +1,31 @@
+Time complexity: O(nlogn) in Best case
+Space complexity: O(N) Because we are using ordered map
+
+class Solution {
+public:
+    int findLHS(vector<int>& nums) {
+        map<int,int>mp;
+        for(auto it: nums){
+            mp[it]++;
+        }
+        auto mp1 = mp.begin();
+        int ans =0;
+        int val = mp1->first;
+        int valCount = mp1->second, flag =1;
+        for(auto it:mp){
+            if(flag){
+                flag=0;
+                continue;
+            }
+        if(abs(it.first-val) ==1){
+          ans = max(ans, it.second+valCount);
+        }
+        val = it.first;
+        valCount = it.second;
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/longest-harmonious-subsequence/description/
