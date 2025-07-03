@@ -1,0 +1,13 @@
+TC : O(logK)
+SC : O(N)
+
+
+class Solution {
+public:
+    char kthCharacter(int k) {
+        return 'a'+ __builtin_popcount(k-1);
+    }
+};
+
+
+https://leetcode.com/problems/find-the-k-th-character-in-string-game-i/description/?envType=daily-question&envId=2025-07-03
