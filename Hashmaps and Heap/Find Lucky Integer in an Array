@@ -1,0 +1,22 @@
+TC: O(N)
+SC: O(1)
+
+class Solution {
+public:
+    int findLucky(vector<int>& arr) {
+        map<int,int>mp;
+        int ans =-1;
+        for(auto it: arr){
+            mp[it]++;
+        }
+        for(auto it:mp){
+            if(it.first == it.second){
+                ans = it.first;
+            }
+        }
+        return ans;
+    }
+};
+
+
+https://leetcode.com/problems/find-lucky-integer-in-an-array/description/?envType=daily-question&envId=2025-07-05
