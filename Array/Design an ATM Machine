@@ -1,0 +1,43 @@
+TC : O(5)
+SC : O(5)
+
+class ATM {
+public:
+    vector<int>notes={0,0,0,0,0};
+    map<int,int>mp={{4,500}, {3,200}, {2, 100}, {1,50}, {0,20}};
+    ATM() {
+        
+    }
+    
+    void deposit(vector<int> banknotesCount) {
+        for(int i=0;i<5;i++){
+            notes[i]+=banknotesCount[i];
+        }
+    }
+    
+    vector<int> withdraw(int amount) {
+        vector<int>reqNotes(5,0);
+        for(int i=4;i>=0;i--){
+            long long div = min(amount/mp[i], notes[i]);
+            amount-=div*mp[i];
+            reqNotes[i]+=div; 
+        }
+        if(amount){
+            return {-1};
+        }
+        for(int i=0;i<5;i++){
+           notes[i]-=reqNotes[i];
+        }
+        return reqNotes;
+    }
+};
+
+/**
+ * Your ATM object will be instantiated and called as such:
+ * ATM* obj = new ATM();
+ * obj->deposit(banknotesCount);
+ * vector<int> param_2 = obj->withdraw(amount);
+ */
+
+
+https://leetcode.com/problems/design-an-atm-machine/description/
