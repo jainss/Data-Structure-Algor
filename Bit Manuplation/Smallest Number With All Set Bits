@@ -1,0 +1,15 @@
+TC : O(logn)
+SC : O(1)
+
+class Solution {
+public:
+    int smallestNumber(int n) {
+        int res =1;
+        while(res<n){
+            res = res*2+1;
+        }
+        return res;
+    }
+};
+
+https://leetcode.com/problems/smallest-number-with-all-set-bits/description/?envType=daily-question&envId=2025-10-29
