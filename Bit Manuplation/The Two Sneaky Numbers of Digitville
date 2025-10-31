@@ -1,0 +1,30 @@
+TC : O(N)
+SC : O(1)
+
+class Solution {
+public:
+    vector<int> getSneakyNumbers(vector<int>& nums) {
+        int XOR = 0;
+        int n = nums.size() - 2;
+
+        for (int num : nums) XOR ^= num;            
+        for (int i = 0; i < n; i++) XOR ^= i;
+
+        int diffBit = XOR & ~(XOR-1);
+
+        int a = 0, b = 0;
+        for (int num : nums) {
+            if ((num & diffBit) == 0) a ^= num;
+            else b ^= num;
+        }
+        for (int i = 0; i < n; i++) {
+            if ((i & diffBit) == 0) a ^= i;
+            else b ^= i;
+        }
+
+        return {a, b};
+    }
+};
+
+
+https://leetcode.com/problems/the-two-sneaky-numbers-of-digitville/description/?envType=daily-question&envId=2025-10-31
