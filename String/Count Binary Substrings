@@ -1,0 +1,26 @@
+TC : O(N)
+SC : O(1)
+
+class Solution {
+public:
+    int countBinarySubstrings(string s) {
+        int a=0, b=0, res =0, f=0, i=0;
+        while(i<s.size()){
+            while(s[i]=='0' and i<s.size()){
+                a++;
+                i++;
+            }
+            res += min(a, b);
+            b =0;
+            while(s[i]=='1' and i<s.size()){
+                b++;
+                i++;
+            }
+            res += min(a, b);
+            a=0;
+        }
+        return res;
+    }
+};
+
+https://leetcode.com/problems/count-binary-substrings/description/
