@@ -1,0 +1,22 @@
+TC : O(N)
+SC : O(1)
+
+class Solution {
+public:
+    bool kLengthApart(vector<int>& nums, int k) {
+        int j =-1;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==1 and j ==-1){
+               j=i;
+            }else if(nums[i]==1){
+                if(i-j<=k){
+                   return false;
+                }
+                j=i;
+            }
+        }
+        return true;
+    }
+};
+
+https://leetcode.com/problems/check-if-all-1s-are-at-least-length-k-places-away/description/?envType=daily-question&envId=2025-11-17
