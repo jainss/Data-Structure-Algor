@@ -1,0 +1,24 @@
+TC: O(N)
+SC : O(N)
+
+class Solution {
+public:
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        vector<int>vec(101, 0);
+        for(auto it:nums){
+            vec[it]++;
+        }
+        for(int i=1;i<101;i++){
+           vec[i]+=vec[i-1];
+        }
+        for(int i=0;i<nums.size();i++){
+            int num = nums[i];
+            if(num !=0){
+                nums[i]=vec[num-1];
+            }
+        }
+        return nums;
+    }
+};
+
+https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/description/
