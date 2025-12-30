@@ -1,0 +1,50 @@
+TC : O(3N)
+SC : O(3N)
+
+/*
+    Following is Binary Tree Node structure:
+    class TreeNode
+    {
+    public:
+        int data;
+        TreeNode *left, *right;
+        TreeNode() : data(0), left(NULL), right(NULL) {}
+        TreeNode(int x) : data(x), left(NULL), right(NULL) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : data(x), left(left), right(right) {}
+    };
+*/
+vector<vector<int>> getTreeTraversal(TreeNode *root){
+   vector<int>inr, pre, post;
+   vector<vector<int>> ans;
+   stack<pair<TreeNode*, int>>st;
+   st.push({root, 1});
+   while(st.size()!=0){
+       auto val = st.top();
+       st.pop();
+       if(val.second==1){
+           pre.push_back(val.first->data);
+           val.second++;
+           st.push(val);
+           if(val.first->left!=NULL){
+               st.push({val.first->left, 1});
+           }
+       }else if(val.second == 2){
+            inr.push_back(val.first->data);
+            val.second++;
+            st.push(val);
+
+            if(val.first->right != NULL){
+                st.push({val.first->right, 1});
+            }
+       }else{
+           post.push_back(val.first->data);
+       }
+   }
+   ans.push_back(inr);
+   ans.push_back(pre);
+   ans.push_back(post);
+   return ans;
+}
+
+
+https://www.naukri.com/code360/problems/981269?leftPanelTabValue=PROBLEM
