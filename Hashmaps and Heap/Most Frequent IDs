@@ -1,0 +1,22 @@
+TC: O(nlogn)
+SC: O(N)
+
+class Solution {
+public:
+    vector<long long> mostFrequentIDs(vector<int>& nums, vector<int>& freq) {
+        vector<long long> ans;
+        priority_queue<pair<long long, long long>>pq;
+        unordered_map<long long,long long>mp;
+        for(int i =0;i<nums.size();i++){
+            mp[nums[i]]+=freq[i];
+            pq.push({mp[nums[i]], nums[i]});
+            while(pq.size()>0 && mp[pq.top().second]!=pq.top().first){
+                pq.pop();
+            }
+            ans.push_back(pq.top().first);
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/most-frequent-ids/description/
