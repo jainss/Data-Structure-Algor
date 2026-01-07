@@ -1,0 +1,41 @@
+TC : O(n)
+SC: O(N)
+
+
+class Solution {
+public:
+    long long MOD = 1e9 + 7;
+    long long ans = 0;
+
+    long long dfs(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+        root->val += dfs(root->left)+dfs(root->right);
+        return root->val; 
+    }
+    int maxProduct(TreeNode* root) {
+        long long totsum = dfs(root);
+
+        queue<TreeNode*>qu;
+        qu.push(root);
+
+        while(qu.size()>0){
+            TreeNode* val = qu.front();
+            qu.pop();
+
+            long long cal = (totsum-val->val)*val->val;
+            ans = max(ans, cal);
+
+            if(val->left){
+                qu.push(val->left);
+            }
+            if(val->right){
+                qu.push(val->right);
+            }
+        }
+        return ans%MOD;
+    }
+};
+
+https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/description/?envType=daily-question&envId=2026-01-07
