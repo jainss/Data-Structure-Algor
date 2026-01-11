@@ -1,0 +1,20 @@
+TC: O(N)
+SC: O(1)
+
+
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& arrays) {
+        int minVal = arrays[0][0];
+        int maxVal = arrays[0].back();
+        int ans = 0;
+        for(int i=1;i<arrays.size();i++){
+            ans = max(ans, max(abs(maxVal - arrays[i][0]), abs(minVal-arrays[i].back())));
+            minVal = min(minVal, arrays[i][0]);
+            maxVal = max(maxVal, arrays[i].back());
+        }
+        return ans;
+    }
+};
+
+https://leetcode.com/problems/maximum-distance-in-arrays/
