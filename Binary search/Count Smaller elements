@@ -1,0 +1,43 @@
+// User function Template for C++
+//  User function template for C++
+
+TC : O(nLogN)
+SC : O(N)
+
+class Solution {
+public:
+    vector<int> constructLowerArray(vector<int>& arr) {
+        int n = arr.size();
+        vector<int> ans(n);
+
+        ans[n - 1] = 0;
+
+        vector<int> sorted;
+        sorted.push_back(arr[n - 1]);
+
+        for (int i = n - 2; i >= 0; i--) {
+            int idx = getIdx(sorted, arr[i], 0, sorted.size() - 1);
+            ans[i] = idx;
+            sorted.insert(sorted.begin() + idx, arr[i]);
+        }
+
+        return ans;
+    }
+
+private:
+    int getIdx(vector<int>& sorted, int key, int start, int end) {
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (key <= sorted[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+};
+
+
+https://www.geeksforgeeks.org/problems/count-smaller-elements2214/1?utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day&utm_source=youtube
